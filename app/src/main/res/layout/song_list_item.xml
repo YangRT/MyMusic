@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout
+    android:id="@+id/song_list_view"
+    android:padding="5dp"
+    android:orientation="vertical"
+    android:layout_width="110dp"
+    android:layout_height="140dp">
+
+    <ImageView
+        android:src="@drawable/gift"
+        android:id="@+id/song_list_image"
+        android:layout_width="110dp"
+        android:layout_height="100dp"/>
+
+    <TextView
+        android:id="@+id/song_list_name"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:text="外界的程序访问ContentProvider所提供数据 可以通过ContentResolver接口"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+</layout>

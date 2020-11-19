@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginTop="5dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.zhpan.bannerview.BannerViewPager
+            app:bvp_reveal_width="10dp"
+            android:id="@+id/find_banner"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"/>
+    </LinearLayout>
+</layout>

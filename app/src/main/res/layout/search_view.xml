@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/search_block"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.example.mymusic.customview.search.SearchEditText
+            android:background="@color/colorMain"
+            android:id="@+id/edit_search"
+            android:paddingStart="12dp"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="45dp" />
+        <ImageView
+            android:background="@color/colorMain"
+            android:id="@+id/image_search"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/find_search"
+            android:scaleType="center"
+            android:layout_height="45dp" />
+    </LinearLayout>
+    <fragment
+        android:id="@+id/search_hot_word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.example.mymusic.customview.search.SearchHistoryView
+                android:id="@+id/history_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_clear"
+                android:text="清除历史"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
