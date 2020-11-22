@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymusic.R
@@ -31,12 +32,12 @@ class FindFragment: MutiBaseFragment<FindViewModel,FragmentListBinding>() {
 
     private lateinit var bannerView: LinearLayout
     private var bannerList :ArrayList<BannerData> = ArrayList()
-    private val bannerViewModel: BannerViewModel = BannerViewModel()
+    private lateinit var bannerViewModel: BannerViewModel
     private lateinit var bannerViewPager:BannerViewPager<BannerData,BannerAdapter>
 
     private lateinit var songListView: LinearLayout
     private var songList:ArrayList<SongList> = ArrayList()
-    private val songListViewModel = SongListViewModel()
+    private lateinit var songListViewModel : SongListViewModel
     private lateinit var songListRecyclerView: RecyclerView
 
 
@@ -46,6 +47,9 @@ class FindFragment: MutiBaseFragment<FindViewModel,FragmentListBinding>() {
         }
         adapter = BaseItemAdapter(list)
         binding.listRecyclerView.adapter = adapter
+
+        bannerViewModel = ViewModelProvider(this).get(BannerViewModel::class.java)
+        songListViewModel = ViewModelProvider(this).get(SongListViewModel::class.java)
         initBanner()
         initSongList()
         adapter.addHeaderView(bannerView)

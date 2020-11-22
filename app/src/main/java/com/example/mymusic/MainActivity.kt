@@ -8,10 +8,13 @@ import android.view.View.SYSTEM_UI_FLAG_VISIBLE
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.mymusic.databinding.ActivityMainBinding
+import com.example.mymusic.find.ui.FindFragment
+import com.example.mymusic.mine.MineFragment
 
 
 class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
@@ -21,6 +24,10 @@ class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
     private lateinit var binding:ActivityMainBinding
 
     private lateinit var viewModel: MainViewModel
+
+    private val findFragment = FindFragment()
+    private val mineFragment = MineFragment()
+    private lateinit var from :Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +52,7 @@ class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
 
     //
     override fun onClick(v: View?) {
+        var fragment:Fragment? = null
         when(v?.id){
             R.id.main_menu -> {
 
@@ -53,15 +61,22 @@ class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
 
             }
             R.id.main_tv_find -> {
-                if (binding.fragmentFind.visibility == View.INVISIBLE) {
-                    viewModel.selectedFirst.postValue(true)
-                }
+                fragment = findFragment
+                viewModel.selectedFirst.postValue(true)
+
             }
             R.id.main_tv_me -> {
-                if (binding.fragmentMine.visibility == View.INVISIBLE) {
-                    viewModel.selectedFirst.postValue(false)
-                }
+                fragment = mineFragment
+                viewModel.selectedFirst.postValue(false)
+
             }
+        }
+        fragment?.let { i ->
+            if(i == from){
+                return
+            }
+            switchFragment(from, i)
+            from = i
         }
     }
 
@@ -70,8 +85,23 @@ class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
         binding.mainTvMe.setOnClickListener(this)
         binding.mainMenu.setOnClickListener(this)
         binding.mainMusic.setOnClickListener(this)
+
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.main_fragment_container, findFragment).commit()
+        from = findFragment
     }
 
+    private fun switchFragment(from: Fragment, to:Fragment){
+        if(from != to){
+            val transaction = supportFragmentManager.beginTransaction()
+            if(!to.isAdded){
+                transaction.hide(from).add(R.id.main_fragment_container,to).commit()
+            }else{
+                transaction.hide(from)
+                transaction.show(to).commit()
+            }
+        }
+    }
 
     // 改变状态栏字体颜色
     private fun setAndroidNativeLightStatusBar() {
