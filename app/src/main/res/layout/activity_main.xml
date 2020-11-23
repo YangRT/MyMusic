@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:textColor="@{viewModel.selectedFirst == true ?  @color/colorMain : @color/text_color }"
                 android:textStyle="bold"
-                android:text="发现"
+                android:text="@string/find"
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"/>
@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:textColor="@{viewModel.selectedFirst == true ?  @color/text_color : @color/colorMain }"
                 android:textStyle="bold"
-                android:text="我的"
+                android:text="@string/mine"
                 android:layout_weight="2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"/>

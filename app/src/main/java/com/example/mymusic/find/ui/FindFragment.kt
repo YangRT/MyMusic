@@ -40,6 +40,8 @@ class FindFragment: MutiBaseFragment<FindViewModel,FragmentListBinding>() {
     private lateinit var songListViewModel : SongListViewModel
     private lateinit var songListRecyclerView: RecyclerView
 
+    private lateinit var tabListView: LinearLayout
+
 
     override fun initView() {
         binding.listRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -52,7 +54,11 @@ class FindFragment: MutiBaseFragment<FindViewModel,FragmentListBinding>() {
         songListViewModel = ViewModelProvider(this).get(SongListViewModel::class.java)
         initBanner()
         initSongList()
+
+        tabListView = LayoutInflater.from(context).inflate(R.layout.find_tab_list,null) as LinearLayout
+
         adapter.addHeaderView(bannerView)
+        adapter.addHeaderView(tabListView)
         adapter.addHeaderView(songListView)
 
         bannerViewModel.getCacheData()

@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">MyMusic</string>
+    <string name="find">发现</string>
+    <string name="mine">我的</string>
+    <string name="singer">歌手</string>
+    <string name="music_list">歌单</string>
+    <string name="rank">排行榜</string>
+    <string name="radio">电台</string>
+    <string name="search">搜索</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="go_to_register">点击注册</string>
+    <string name="hint_phone_num">输入手机号</string>
+    <string name="hint_password">输入密码</string>
+    <string name="hint_code">输入验证码</string>
+    <string name="hint_name">输入昵称</string>
+    <string name="get_code">获取验证码</string>
 </resources>

@@ -28,7 +28,7 @@
                 android:layout_marginLeft="3dp"
                 android:textColor="#DEDFD9"
                 android:textSize="16sp"
-                android:text="搜索"
+                android:text="@string/search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
