@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.mymusic.databinding.ActivityMainBinding
 import com.example.mymusic.find.ui.FindFragment
 import com.example.mymusic.mine.MineFragment

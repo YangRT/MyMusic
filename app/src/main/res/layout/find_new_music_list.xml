@@ -13,14 +13,14 @@
         <TextView
             android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:text="@string/recommend_song_list"
+            android:text="@string/new_music"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
         <TextView
-            android:text="@string/look_more"
+            android:text="@string/play_all"
             android:background="@drawable/more_background"
             android:padding="4dp"
             android:textColor="@color/black"
@@ -34,8 +34,9 @@
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/song_list_recycler_view"
+        android:id="@+id/new_music_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
 
 </LinearLayout>
