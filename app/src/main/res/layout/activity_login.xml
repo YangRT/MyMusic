@@ -1,97 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
+<layout>
 
-
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:background="@drawable/background_login"
+        tools:context=".MainActivity">
 
         <ImageView
-            android:id="@+id/login_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background_login"
-            />
-        <ImageView
-            android:id="@+id/phone"
+            android:id="@+id/image_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/phone_number"
             android:layout_marginTop="300dp"
-            android:layout_marginLeft="70dp"
-            />
+            android:src="@drawable/phone_number"
+            app:layout_constraintEnd_toStartOf="@+id/input_phone"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/input_phone"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:hint="@string/hint_phone_num"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/image_phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_phone" />
+
         <ImageView
-            android:id="@+id/enter_password"
+            android:id="@+id/image_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:src="@drawable/password"
-            android:layout_marginTop="360dp"
-            android:layout_marginLeft="70dp"
-            />
-        <Button
-            android:id="@+id/login"
-            android:layout_width="260dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="430dp"
-            android:background="@drawable/shape"
-            android:text="登录"
-            android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-
+            app:layout_constraintEnd_toStartOf="@id/input_password"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_phone" />
 
         <EditText
-            android:id="@+id/input"
-            android:layout_width="match_parent"
+            android:id="@+id/input_password"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="290dp"
-            android:layout_marginRight="80dp"
-
-            android:hint="输入手机号"
-
-            android:textSize="14sp" />
-        <!--android:background="null"-->
-
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="350dp"
-            android:layout_marginRight="80dp"
-
-            android:hint="输入密码"
-            android:textSize="14sp" />
+            android:layout_marginStart="5dp"
+            android:hint="@string/hint_password"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/image_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_password" />
 
         <TextView
             android:id="@+id/forget_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="266dp"
-            android:layout_marginTop="390dp"
-            android:layout_marginRight="70dp"
-            android:text="忘记密码?"
-            android:textSize="14sp" />
+            android:layout_marginTop="10dp"
+            android:text="@string/forget_password"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/image_password"
+            app:layout_constraintTop_toBottomOf="@id/image_password" />
 
         <TextView
             android:id="@+id/no_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="390dp"
-            android:layout_marginRight="240dp"
-            android:text="点击注册"
-            android:textSize="14sp" />
-    </RelativeLayout>
-</LinearLayout>
+            android:layout_marginTop="10dp"
+            android:text="@string/go_to_register"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/input_password"
+            app:layout_constraintTop_toBottomOf="@id/image_password" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="260dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape"
+            android:text="@string/login"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/forget_password" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

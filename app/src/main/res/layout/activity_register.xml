@@ -1,97 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
-    <RelativeLayout
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:background="@drawable/background_register"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-        <ImageView
-            android:id="@+id/register_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background_register"
-            />
         <EditText
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
+            android:id="@+id/input_phone"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="250dp"
+            android:hint="@string/hint_phone_num"
+            android:textSize="14sp" />
 
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:hint="输入手机号"
-
-            android:textSize="14sp"
-            />
         <EditText
-            android:id="@+id/nickname"
-            android:layout_width="match_parent"
+            android:id="@+id/input_nickname"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:hint="@string/hint_name"
+            android:textSize="14sp" />
 
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-
-            android:hint="输入昵称"
-            android:textSize="14sp"
-            />
         <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
+            android:id="@+id/input_password"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="350dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:hint="@string/hint_password"
+            android:textSize="14sp" />
 
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-
-            android:hint="输入密码"
-            android:textSize="14sp"
-            />
-        <EditText
-            android:id="@+id/captcha"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="160dp"
+            <EditText
+                android:id="@+id/input_captcha"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/get_code"
+                android:textSize="14sp" />
 
-            android:hint="输入验证码"
-            android:textSize="14sp"
-            />
-        <Button
-            android:id="@+id/get_captcha"
-            android:layout_width="80dp"
-            android:layout_height="20dp"
-            android:background="@drawable/shape"
-            android:text="获取验证码"
-            android:layout_marginTop="410dp"
-            android:layout_marginLeft="250dp"
-            android:textSize="12sp"
-            android:textColor="#ffffff"
-            />
+            <Button
+                android:id="@+id/get_captcha"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape"
+                android:text="@string/get_code"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/register"
             android:layout_width="250dp"
             android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:background="@drawable/shape"
-            android:text="注册"
+            android:text="@string/register"
             android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:layout_marginTop="450dp"
-            android:layout_centerHorizontal="true"
-            />
+            android:textSize="16sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-
-
-
-
-</LinearLayout>
+</layout>

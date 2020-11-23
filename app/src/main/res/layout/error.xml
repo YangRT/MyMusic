@@ -5,6 +5,7 @@
     android:background="#ffffff"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/iv_status_error"
         android:layout_width="180dp"
@@ -16,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.45" />
+
     <TextView
         android:id="@+id/tv_status_error"
         android:text="加载数据错误"
@@ -26,6 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/msg"
         android:text="点击重试"

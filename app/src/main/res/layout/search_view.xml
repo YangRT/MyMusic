@@ -4,11 +4,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/search_block"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.example.mymusic.customview.search.SearchEditText
             android:background="@color/colorMain"
             android:id="@+id/edit_search"
@@ -24,14 +26,18 @@
             android:src="@drawable/find_search"
             android:scaleType="center"
             android:layout_height="45dp" />
+
     </LinearLayout>
+
     <fragment
         android:id="@+id/search_hot_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -47,5 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp" />
         </LinearLayout>
+
     </ScrollView>
+
 </LinearLayout>
