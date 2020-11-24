@@ -10,7 +10,7 @@ import com.zhpan.bannerview.holder.ViewHolder
 class BannerAdapter : ViewHolder<BannerData> {
 
     override fun getLayoutId(): Int {
-        return R.layout.find_banner_item
+        return R.layout.item_find_banner
     }
 
     override fun onBind(itemView: View?, data: BannerData?, position: Int, size: Int) {

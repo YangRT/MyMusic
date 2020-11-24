@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mymusic.MyApplication.Companion.context
 import com.example.mymusic.R
-import com.example.mymusic.databinding.SongListItemBinding
+import com.example.mymusic.databinding.ItemSongListBinding
 import com.example.mymusic.find.model.SongList
 
 class SongListAdapter(val list:MutableList<SongList>): RecyclerView.Adapter<SongListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = DataBindingUtil.inflate<SongListItemBinding>(
+        val binding = DataBindingUtil.inflate<ItemSongListBinding>(
                 LayoutInflater.from(parent.context),
-                R.layout.song_list_item,parent,
+                R.layout.item_song_list,parent,
                 false)
         return ViewHolder(binding)
     }
@@ -37,7 +37,7 @@ class SongListAdapter(val list:MutableList<SongList>): RecyclerView.Adapter<Song
         }
     }
 
-    inner class ViewHolder(val binding:SongListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemSongListBinding): RecyclerView.ViewHolder(binding.root) {
 
     }
 }
