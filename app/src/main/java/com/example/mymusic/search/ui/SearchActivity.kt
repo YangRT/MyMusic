@@ -1,4 +1,4 @@
-package com.example.mymusic.search
+package com.example.mymusic.search.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

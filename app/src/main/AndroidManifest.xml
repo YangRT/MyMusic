@@ -16,7 +16,7 @@
         <activity android:name=".login.RegisterActivity"></activity>
         <activity android:name=".login.LoginActivity">
         </activity>
-        <activity android:name=".search.SearchActivity" />
+        <activity android:name=".search.ui.SearchActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

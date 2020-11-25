@@ -1,12 +1,12 @@
 package com.example.mymusic.search.model
 
-data class SearchWordInfo(var code: Int, var result: HotWords? = null)
+data class SearchWordInfo(var code: Int, var result: HotWords)
 
-data class HotWords(val hotWords: List<HotWord>? = null)
+data class HotWords(val hotWords: List<HotWord>)
 
 data class HotWord(
-        val first: String? = null,
-        val second :Int,
-        val third: String? = null,
+        val first: String,
+        val second: Int,
+        val third: String,
         val iconType: Int
 )

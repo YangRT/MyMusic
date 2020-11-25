@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface GetHotWordsService {
 
     @GET("/search/hot")
-    fun getBannerInfo(): Call<SearchWordInfo>
+    fun getHotWordsInfo(): Call<SearchWordInfo>
 }

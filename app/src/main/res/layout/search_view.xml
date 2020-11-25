@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <com.example.mymusic.customview.search.SearchEditText
-            android:background="@color/colorMain"
+            android:background="@color/white"
             android:id="@+id/edit_search"
             android:paddingStart="12dp"
             android:layout_width="0dp"
