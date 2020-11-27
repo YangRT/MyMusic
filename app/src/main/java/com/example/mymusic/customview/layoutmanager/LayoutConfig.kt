@@ -25,5 +25,5 @@ class LayoutConfig {
      */
     @FloatRange(from = 1.0, to = 2.0)
     var parallex = 1f
-    var align: Align? = null
+    var align: Align = Align.LEFT
 }
