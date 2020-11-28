@@ -11,7 +11,7 @@
     <string name="recommend_song_list">推荐歌单</string>
     <string name="new_music">新歌推送</string>
     <string name="search">搜索</string>
-    
+
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="forget_password">忘记密码?</string>
@@ -21,5 +21,5 @@
     <string name="hint_code">输入验证码</string>
     <string name="hint_name">输入昵称</string>
     <string name="get_code">获取验证码</string>
-    
+
 </resources>
