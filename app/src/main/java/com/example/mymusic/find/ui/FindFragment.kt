@@ -10,16 +10,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
-import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_SETTLING
 import com.example.mymusic.R
 import com.example.mymusic.base.MutiBaseFragment
+import com.example.mymusic.customview.layoutmanager.LayoutConfig
+import com.example.mymusic.customview.layoutmanager.StackLayoutManager
 import com.example.mymusic.databinding.FragmentListBinding
 import com.example.mymusic.find.model.BannerData
+import com.example.mymusic.find.model.HotRadio
 import com.example.mymusic.find.model.NewMusicData
 import com.example.mymusic.find.model.SongList
 import com.example.mymusic.find.ui.banner.BannerAdapter
 import com.example.mymusic.find.ui.banner.BannerViewModel
+import com.example.mymusic.find.ui.hotradio.HotRadioAdapter
+import com.example.mymusic.find.ui.hotradio.HotRadioViewModel
 import com.example.mymusic.find.ui.newmusic.NewMusicAdapter
 import com.example.mymusic.find.ui.newmusic.NewMusicModel
 import com.example.mymusic.find.ui.songlist.SongListAdapter
@@ -54,6 +57,12 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
     private lateinit var newMusicViewModel: NewMusicModel
     private lateinit var newMusicListRecyclerView: RecyclerView
 
+    private lateinit var hotRadioLisView: LinearLayout
+    private var hotRadioList: ArrayList<HotRadio> = ArrayList()
+    private lateinit var hotRadioViewModel: HotRadioViewModel
+    private lateinit var hotRadioRecyclerView: RecyclerView
+
+    private lateinit var bottomView: LinearLayout
 
     override fun initView() {
         binding.listRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -65,21 +74,28 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
         bannerViewModel = ViewModelProvider(this).get(BannerViewModel::class.java)
         songListViewModel = ViewModelProvider(this).get(SongListViewModel::class.java)
         newMusicViewModel = ViewModelProvider(this).get(NewMusicModel::class.java)
+        hotRadioViewModel = ViewModelProvider(this).get(HotRadioViewModel::class.java)
         initBanner()
         initSongList()
         initNewMusicList()
+        initHotRadioList()
 
         tabListView =
             LayoutInflater.from(context).inflate(R.layout.find_tab_list, null) as LinearLayout
+
+        bottomView = LayoutInflater.from(context).inflate(R.layout.find_bottom_view,null) as LinearLayout
 
         adapter.addHeaderView(bannerView)
         adapter.addHeaderView(tabListView)
         adapter.addHeaderView(songListView)
         adapter.addHeaderView(newMusicListView)
+        adapter.addHeaderView(hotRadioLisView)
+        adapter.addHeaderView(bottomView)
 
         bannerViewModel.getCacheData()
         songListViewModel.getCacheData()
         newMusicViewModel.getCacheData()
+        hotRadioViewModel.getCacheData()
     }
 
     override fun getLayoutId(): Int {
@@ -151,6 +167,25 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
         {
             Log.e("Main", "${it.size}")
             (newMusicListRecyclerView.adapter as NewMusicAdapter).updateData(it)
+        })
+    }
+
+    private fun initHotRadioList() {
+        hotRadioLisView = LayoutInflater.from(context).inflate(R.layout.find_hot_radio,null) as LinearLayout
+        hotRadioRecyclerView = hotRadioLisView.findViewById(R.id.hot_radio_list_recycler_view)
+        hotRadioRecyclerView.adapter = HotRadioAdapter(hotRadioList)
+        val config = LayoutConfig()
+        config.secondaryScale = 0.8f
+        config.scaleRatio = 0.4f
+        config.maxStackCount = 4
+        config.initialStackCount = 2
+        config.space = 45
+        val manager = StackLayoutManager(config)
+        hotRadioRecyclerView.layoutManager = manager
+        hotRadioViewModel.data.observe(this, Observer
+        {
+            Log.e("Main", "${it.size}")
+            (hotRadioRecyclerView.adapter as HotRadioAdapter).updateData(it)
         })
     }
 }
