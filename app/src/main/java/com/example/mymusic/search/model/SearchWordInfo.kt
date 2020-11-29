@@ -2,7 +2,7 @@ package com.example.mymusic.search.model
 
 data class SearchWordInfo(var code: Int, var result: HotWords)
 
-data class HotWords(val hotWords: List<HotWord>)
+data class HotWords(val hots: List<HotWord>)
 
 data class HotWord(
         val first: String,

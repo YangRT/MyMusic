@@ -1,5 +1,6 @@
 package com.example.mymusic
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mymusic.databinding.ActivityMainBinding
 import com.example.mymusic.find.ui.FindFragment
 import com.example.mymusic.mine.MineFragment
+import com.example.mymusic.search.ui.SearchActivity
 
 
 class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
@@ -56,8 +58,9 @@ class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
             R.id.main_menu -> {
 
             }
-            R.id.main_music -> {
-
+            R.id.main_search -> {
+                val intent = Intent(this,SearchActivity::class.java)
+                startActivity(intent)
             }
             R.id.main_tv_find -> {
                 fragment = findFragment
@@ -83,7 +86,7 @@ class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
         binding.mainTvFind.setOnClickListener(this)
         binding.mainTvMe.setOnClickListener(this)
         binding.mainMenu.setOnClickListener(this)
-        binding.mainMusic.setOnClickListener(this)
+        binding.mainSearch.setOnClickListener(this)
 
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.main_fragment_container, findFragment).commit()

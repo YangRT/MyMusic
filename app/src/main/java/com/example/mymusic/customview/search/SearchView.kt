@@ -10,8 +10,11 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import androidx.databinding.ObservableArrayList
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide.init
 import com.example.mymusic.R
+import com.example.mymusic.search.model.HotWord
 import kotlinx.android.synthetic.main.search_view.view.*
 
 
@@ -19,6 +22,8 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
     LinearLayout(context,attributeSet,defStyleAttr) {
 
     private lateinit var baseAdapter: BaseAdapter
+    private lateinit var hotWordAdapter: HotWordAdapter
+    private val hotWordList = ArrayList<HotWord>()
 
     private var recordSQLHelper: RecordSQLHelper = RecordSQLHelper(context)
     private lateinit var db: SQLiteDatabase
@@ -33,14 +38,6 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
     private fun init(){
         initView()
         queryData("")
-
-        /**
-         * "清空搜索历史"按钮
-         */
-        tv_clear.setOnClickListener {
-            deleteData()
-            queryData("")
-        }
 
         /**
          * 监听输入键盘更换后的搜索按键
@@ -93,12 +90,12 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
          * 搜索记录列表（ListView）监听
          * 即当用户点击搜索历史里的字段后,会直接将结果当作搜索字段进行搜索
          */
-        history_listview.setOnItemClickListener { parent, view, position, id ->
-            val textView =  view.findViewById<TextView>(android.R.id.text1)
-            val name = textView.text.toString()
-            edit_search.setText(name)
-            Toast.makeText(context, name, Toast.LENGTH_SHORT).show()
-        }
+//        history_listview.setOnItemClickListener { parent, view, position, id ->
+//            val textView =  view.findViewById<TextView>(android.R.id.text1)
+//            val name = textView.text.toString()
+//            edit_search.setText(name)
+//            Toast.makeText(context, name, Toast.LENGTH_SHORT).show()
+//        }
 
         image_search.setOnClickListener {
             if(edit_search.text.toString() == ""){
@@ -126,7 +123,10 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
         edit_search.setTextColor(Color.WHITE)
         edit_search.textSize = 16f
         edit_search.hint = "点击搜索"
-        tv_clear.visibility = View.INVISIBLE
+        hotWordAdapter = HotWordAdapter(hotWordList)
+        val manager = GridLayoutManager(context, 2)
+        search_hot_word_recycler_view.layoutManager = manager
+        search_hot_word_recycler_view.adapter = hotWordAdapter
     }
 
     private fun queryData(str:String){
@@ -134,21 +134,20 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
 
         baseAdapter = SimpleCursorAdapter(context, android.R.layout.simple_list_item_1, cursor,
             arrayOf("name"), intArrayOf(android.R.id.text1 ), CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER)
-        history_listview.adapter = baseAdapter
-        baseAdapter.notifyDataSetChanged()
-        if (str == "" && cursor.count != 0){
-            tv_clear.visibility = VISIBLE
-        }
-        else {
-            tv_clear.visibility = INVISIBLE
-        }
+//        history_listview.adapter = baseAdapter
+//        baseAdapter.notifyDataSetChanged()
+//        if (str == "" && cursor.count != 0){
+//            tv_clear.visibility = VISIBLE
+//        }
+//        else {
+//            tv_clear.visibility = INVISIBLE
+//        }
     }
 
     private fun deleteData(){
         db = recordSQLHelper.writableDatabase
         db.execSQL("delete from records")
         db.close()
-        tv_clear.visibility = INVISIBLE
     }
 
     private fun hasData(str:String):Boolean{
@@ -166,6 +165,9 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
         db.close()
     }
 
+    fun updateHotWordData(data: ObservableArrayList<HotWord>){
+        hotWordAdapter.updateData(data)
+    }
 
 
 }

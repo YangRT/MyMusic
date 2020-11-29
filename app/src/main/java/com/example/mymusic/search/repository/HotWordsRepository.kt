@@ -20,12 +20,12 @@ import java.lang.reflect.Type
  * @create: 2020-11-25 22:47
  **/
 
-class HotWordsRepository: BaseMvvmRepository<List<HotWord>>(false,"banner",null) {
+class HotWordsRepository: BaseMvvmRepository<List<HotWord>>(false,"hotword",null) {
     override suspend fun load(): BaseResult<List<HotWord>> {
         val searchWordInfo = SearchApiImpl.getInstance().getHotWordsInfo()
         val result:BaseResult<List<HotWord>> = BaseResult()
         if(searchWordInfo.code == 200){
-            val resultList = searchWordInfo.result.hotWords
+            val resultList = searchWordInfo.result.hots
             result.isEmpty = resultList.size == 0
             result.isFirst = true
             result.isFromCache = false
