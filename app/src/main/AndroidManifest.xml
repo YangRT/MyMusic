@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
+        <activity android:name=".FlashActivity"></activity>
         <activity android:name=".login.RegisterActivity"></activity>
-        <activity android:name=".login.LoginActivity">
-        </activity>
+        <activity android:name=".login.LoginActivity"></activity>
         <activity android:name=".search.ui.SearchActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface GetNewMusicListInfoService {
 
     @GET("/personalized/newsong?limit=9")
-    fun gettNewMusicListInfo(): Call<NewMusicInfo>
+    fun getNewMusicListInfo(): Call<NewMusicInfo>
 }

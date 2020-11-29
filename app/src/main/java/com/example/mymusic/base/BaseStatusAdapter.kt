@@ -26,11 +26,11 @@ class BaseStatusAdapter :StatusAdapter{
     ): View? {
         var view : View? = null
         if(status == StatusLayout.STATUS_LAYOUT_STATUS_EMPTY){
-            view = LayoutInflater.from(statusHelper.context!!).inflate(R.layout.empty,null)
+            view = LayoutInflater.from(statusHelper.context!!).inflate(R.layout.status_empty,null)
         }else if (status == StatusLayout.STATUS_LAYOUT_STATUS_FAIL){
-            view = LayoutInflater.from(statusHelper.context!!).inflate(R.layout.error,null)
+            view = LayoutInflater.from(statusHelper.context!!).inflate(R.layout.status_error,null)
         }else if(status == StatusLayout.STATUS_LAYOUT_STATUS_LOADING){
-            view = LayoutInflater.from(statusHelper.context!!).inflate(R.layout.loading,null)
+            view = LayoutInflater.from(statusHelper.context!!).inflate(R.layout.status_loading,null)
         }else{
             view  = DefaultLoadingView(statusHelper.context!!, statusHelper.click)
             view.setStatus(status)

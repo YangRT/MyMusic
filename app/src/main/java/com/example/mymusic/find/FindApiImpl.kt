@@ -2,6 +2,7 @@ package com.example.mymusic.find
 
 import com.example.mymusic.find.api.GetBannerService
 import com.example.mymusic.find.api.GetNewMusicListInfoService
+import com.example.mymusic.find.api.GetHotRadioService
 import com.example.mymusic.find.api.GetRecommendSongListService
 import com.example.mymusic.network.ServiceCreator
 import com.example.mymusic.network.await
@@ -14,23 +15,31 @@ class FindApiImpl {
         ServiceCreator.create(GetBannerService::class.java)
 
     private val getRecommendSongListService: GetRecommendSongListService =
-            ServiceCreator.create(GetRecommendSongListService::class.java)
+        ServiceCreator.create(GetRecommendSongListService::class.java)
 
     private val getNewMusicListService: GetNewMusicListInfoService =
-            ServiceCreator.create(GetNewMusicListInfoService::class.java)
+        ServiceCreator.create(GetNewMusicListInfoService::class.java)
+
+    private val getHotRadioService: GetHotRadioService =
+        ServiceCreator.create(GetHotRadioService::class.java)
 
     suspend fun getBanner() =
         withContext(Dispatchers.IO) { getBannerService.getBannerInfo().await() }
 
     suspend fun getRecommendSongList() =
-            withContext(Dispatchers.IO) {
-                getRecommendSongListService.geRecommendSongListInfo().await()
-            }
+        withContext(Dispatchers.IO) {
+            getRecommendSongListService.geRecommendSongListInfo().await()
+        }
 
     suspend fun getNewMusicList() =
-            withContext(Dispatchers.IO) {
-                getNewMusicListService.gettNewMusicListInfo().await()
-            }
+        withContext(Dispatchers.IO) {
+            getNewMusicListService.getNewMusicListInfo().await()
+        }
+
+    suspend fun getHotRadioInfo() =
+        withContext(Dispatchers.IO) {
+            getHotRadioService.getHotRadioInfo().await()
+        }
 
     companion object {
         private var network: FindApiImpl? = null
