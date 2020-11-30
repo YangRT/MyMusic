@@ -9,6 +9,7 @@
         tools:context=".search.ui.SearchActivity">
         <com.example.mymusic.customview.search.SearchView
             android:id="@+id/search_view"
+            app:textHintSearch="@string/search"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

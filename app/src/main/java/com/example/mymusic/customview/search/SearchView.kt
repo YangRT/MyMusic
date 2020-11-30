@@ -66,11 +66,7 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
             return@setOnKeyListener false
         }
 
-        edit_search.backListener = object :SearchEditText.BackListener{
-            override fun back() {
-                bCallBack?.backAction()
-            }
-        }
+        edit_search.setBackListener { bCallBack?.backAction() }
 
         edit_search.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
