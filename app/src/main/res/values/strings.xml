@@ -12,6 +12,8 @@
     <string name="new_music">新歌推送</string>
     <string name="hot_radio">热门播单</string>
     <string name="search">搜索</string>
+    <string name="search_history">搜索历史</string>
+    <string name="search_hot_word">热搜榜</string>
     <string name="bottom_view">滑到底部了～</string>
 
     <string name="login">登录</string>

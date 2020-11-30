@@ -3,35 +3,29 @@ package com.example.mymusic.customview.search
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.ObservableArrayList
-import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.Glide.init
 import com.example.mymusic.R
 import com.example.mymusic.search.model.HotWord
+import com.example.mymusic.search.ui.HotWordAdapter
+import com.example.mymusic.search.ui.RecordSQLHelper
 import kotlinx.android.synthetic.main.search_view.view.*
 
 
 class SearchView@JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr:Int = 0):
     LinearLayout(context,attributeSet,defStyleAttr) {
 
-    private lateinit var baseAdapter: BaseAdapter
     private lateinit var hotWordAdapter: HotWordAdapter
-    private val hotWordList = ArrayList<HotWord>()
 
-    private var recordSQLHelper: RecordSQLHelper = RecordSQLHelper(context)
+    private var recordSQLHelper: RecordSQLHelper =
+        RecordSQLHelper(context)
     private lateinit var db: SQLiteDatabase
 
     private var bCallBack:BCallBack? = null
     private var sCallBack:SCallBack? = null
-    private val historyList: ArrayList<String> = ArrayList()
 
     init {
         init()
@@ -70,30 +64,7 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
 
         edit_search.setBackListener { bCallBack?.backAction() }
 
-        edit_search.addTextChangedListener(object :TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
-                // 每次输入后，模糊查询数据库 & 显示
-                queryData(edit_search.text.toString())
-            }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-        })
-
-        /**
-         * 搜索记录列表（ListView）监听
-         * 即当用户点击搜索历史里的字段后,会直接将结果当作搜索字段进行搜索
-         */
-//        history_listview.setOnItemClickListener { parent, view, position, id ->
-//            val textView =  view.findViewById<TextView>(android.R.id.text1)
-//            val name = textView.text.toString()
-//            edit_search.setText(name)
-//            Toast.makeText(context, name, Toast.LENGTH_SHORT).show()
-//        }
 
         image_search.setOnClickListener {
             if(edit_search.text.toString() == ""){
@@ -116,46 +87,14 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
 
     private fun initView(){
         LayoutInflater.from(context).inflate(R.layout.search_view,this)
-        search_block.setBackgroundColor(Color.parseColor("#03A9F4"))
-        edit_search.setHintTextColor(Color.WHITE)
-        edit_search.setTextColor(Color.WHITE)
+        edit_search.setHintTextColor(resources.getColor(R.color.colorMain))
+        edit_search.setTextColor(resources.getColor(R.color.colorMain))
         edit_search.textSize = 16f
         edit_search.hint = "点击搜索"
-        hotWordAdapter = HotWordAdapter(hotWordList)
-        val manager = GridLayoutManager(context, 2)
-        search_hot_word_recycler_view.layoutManager = manager
-        search_hot_word_recycler_view.adapter = hotWordAdapter
     }
 
     private fun queryData(str:String){
         val cursor = recordSQLHelper.readableDatabase.rawQuery("select id as _id,name from records where name like '%$str%' order by id desc ", null)
-        historyList.clear()
-        if (cursor.moveToLast()){
-            do {
-                historyList.add(cursor.getString(cursor.getColumnIndex("name")))
-            }while (cursor.moveToPrevious())
-        }
-        if (historyList.isEmpty()) return
-        for (i in 0 until historyList.size){
-            val textView = TextView(context)
-            textView.text = historyList[i]
-            textView.setTextColor(Color.BLACK)
-            textView.setBackgroundColor(Color.BLUE)
-            val lp = MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            textView.layoutParams = lp
-            search_history.addView(textView)
-            textView.requestLayout()
-        }
-        baseAdapter = SimpleCursorAdapter(context, android.R.layout.simple_list_item_1, cursor,
-            arrayOf("name"), intArrayOf(android.R.id.text1 ), CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER)
-//        history_listview.adapter = baseAdapter
-//        baseAdapter.notifyDataSetChanged()
-//        if (str == "" && cursor.count != 0){
-//            tv_clear.visibility = VISIBLE
-//        }
-//        else {
-//            tv_clear.visibility = INVISIBLE
-//        }
     }
 
     private fun deleteData(){

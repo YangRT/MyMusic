@@ -8,14 +8,18 @@ import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mymusic.R
 import com.example.mymusic.databinding.ActivitySearchBinding
+import com.example.mymusic.search.model.HotWord
+import com.google.android.flexbox.FlexboxLayoutManager
 
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
     private lateinit var viewModel: SearchViewModel
-    private val list = ArrayList<String>()
+    private val hotWordList = ArrayList<HotWord>()
+    private val historyList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +35,26 @@ class SearchActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         viewModel.data.observe(this, Observer {
-            binding.searchView.updateHotWordData(it)
+            (binding.searchHotWords.adapter as HotWordAdapter).updateData(it)
         })
+        initView()
         viewModel.getCacheData()
     }
+
+    private fun initView() {
+        val historyLayoutManager =  FlexboxLayoutManager(this)
+        binding.searchHistory.layoutManager = historyLayoutManager
+        binding.searchHistory.adapter = SearchWordAdapter(historyList)
+        val temp = viewModel.queryData("")
+        historyList.clear()
+        historyList.addAll(temp)
+        binding.searchHistory.adapter?.notifyDataSetChanged()
+
+        val hotWordLayoutManager = GridLayoutManager(this,2)
+        binding.searchHotWords.layoutManager = hotWordLayoutManager
+        binding.searchHotWords.adapter = HotWordAdapter(hotWordList)
+    }
+
 
     // 改变状态栏字体颜色
     private fun setAndroidNativeLightStatusBar() {

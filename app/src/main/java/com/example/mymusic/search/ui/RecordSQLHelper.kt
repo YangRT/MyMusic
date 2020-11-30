@@ -1,4 +1,4 @@
-package com.example.mymusic.customview.search
+package com.example.mymusic.search.ui
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

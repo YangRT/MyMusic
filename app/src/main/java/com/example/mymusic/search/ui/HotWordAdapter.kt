@@ -1,14 +1,11 @@
-package com.example.mymusic.customview.search
+package com.example.mymusic.search.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mymusic.R
-import com.example.mymusic.databinding.ItemNewMusicBinding
 import com.example.mymusic.databinding.ItemSearchHotWordBinding
-import com.example.mymusic.find.model.NewMusicData
-import com.example.mymusic.find.ui.newmusic.NewMusicAdapter
 import com.example.mymusic.search.model.HotWord
 
 
@@ -22,7 +19,7 @@ import com.example.mymusic.search.model.HotWord
  * @create: 2020-11-29 21:54
  **/
 
-class HotWordAdapter(val list:MutableList<HotWord>): RecyclerView.Adapter<HotWordAdapter.ViewHolder>() {
+class HotWordAdapter(val list:ArrayList<HotWord>): RecyclerView.Adapter<HotWordAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<ItemSearchHotWordBinding>(
