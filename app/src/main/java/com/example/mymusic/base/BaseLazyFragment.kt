@@ -25,8 +25,8 @@ abstract class BaseLazyFragment<D,M:BaseMvvmRepository<List<D>>,VM:BaseViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifecycle.addObserver(viewModel())
-        viewModel().status.observe(this,this)
-        viewModel().data.observe(this,
+        viewModel().status.observe(viewLifecycleOwner,this)
+        viewModel().data.observe(viewLifecycleOwner,
             Observer<ObservableArrayList<D>> { dataInsert(it)})
         viewIsCreated = true
     }
