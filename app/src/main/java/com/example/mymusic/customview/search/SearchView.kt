@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.GridLayoutManager
@@ -30,6 +31,7 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
 
     private var bCallBack:BCallBack? = null
     private var sCallBack:SCallBack? = null
+    private val historyList: ArrayList<String> = ArrayList()
 
     init {
         init()
@@ -127,7 +129,23 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
 
     private fun queryData(str:String){
         val cursor = recordSQLHelper.readableDatabase.rawQuery("select id as _id,name from records where name like '%$str%' order by id desc ", null)
-
+        historyList.clear()
+        if (cursor.moveToLast()){
+            do {
+                historyList.add(cursor.getString(cursor.getColumnIndex("name")))
+            }while (cursor.moveToPrevious())
+        }
+        if (historyList.isEmpty()) return
+        for (i in 0 until historyList.size){
+            val textView = TextView(context)
+            textView.text = historyList[i]
+            textView.setTextColor(Color.BLACK)
+            textView.setBackgroundColor(Color.BLUE)
+            val lp = MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            textView.layoutParams = lp
+            search_history.addView(textView)
+            textView.requestLayout()
+        }
         baseAdapter = SimpleCursorAdapter(context, android.R.layout.simple_list_item_1, cursor,
             arrayOf("name"), intArrayOf(android.R.id.text1 ), CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER)
 //        history_listview.adapter = baseAdapter

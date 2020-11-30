@@ -3,6 +3,7 @@ package com.example.mymusic.customview.flowLayout
 import android.R.attr
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 
@@ -95,7 +96,7 @@ class FlowLayout@JvmOverloads constructor(context: Context, attributeSet: Attrib
     //保存各view的位置参数
     private fun setLocation(v: View, lp: MarginLayoutParams) {
         val mLocation = ViewLocation()
-        mLocation.setLeft(attr.left + lp.leftMargin)
+        mLocation.setLeft(childrenLeft + lp.leftMargin)
         //getWidth() layout后才能获取到值，getMeasuredWidth()测量后就获取到值
         mLocation.setRight(mLocation.getLeft() + v.measuredWidth)
         mLocation.setTop(totalHeight + lp.topMargin)
@@ -114,6 +115,8 @@ class FlowLayout@JvmOverloads constructor(context: Context, attributeSet: Attrib
         val childCount = childCount
         for (i in 0 until childCount) {
             val v = getChildAt(i)
+            Log.e("TAG","$i : ${viewLocationList[i].getLeft()}")
+
             v.layout(
                 viewLocationList[i].getLeft(),
                 viewLocationList[i].getTop(),

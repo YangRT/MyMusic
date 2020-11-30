@@ -29,7 +29,8 @@
 
     </LinearLayout>
 
-    <androidx.fragment.app.FragmentContainerView
+    <com.example.mymusic.customview.flowLayout.FlowLayout
+        android:paddingTop="20dp"
         android:id="@+id/search_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
