@@ -1,11 +1,9 @@
 package com.example.mymusic.search.repository
 
-import com.example.mymusic.find.FindApiImpl
-import com.example.mymusic.find.model.BannerData
 import com.example.mymusic.search.SearchApiImpl
 import com.example.mymusic.search.model.HotWord
-import com.example.wanandroid.base.BaseMvvmRepository
-import com.example.wanandroid.base.BaseResult
+import com.example.mymusic.base.BaseMvvmRepository
+import com.example.mymusic.base.BaseResult
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
@@ -23,7 +21,7 @@ import java.lang.reflect.Type
 class HotWordsRepository: BaseMvvmRepository<List<HotWord>>(false,"hotword",null) {
     override suspend fun load(): BaseResult<List<HotWord>> {
         val searchWordInfo = SearchApiImpl.getInstance().getHotWordsInfo()
-        val result:BaseResult<List<HotWord>> = BaseResult()
+        val result: BaseResult<List<HotWord>> = BaseResult()
         if(searchWordInfo.code == 200){
             val resultList = searchWordInfo.result.hots
             result.isEmpty = resultList.size == 0

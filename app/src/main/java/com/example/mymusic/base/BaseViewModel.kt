@@ -1,4 +1,4 @@
-package com.example.wanandroid.base
+package com.example.mymusic.base
 
 import android.util.Log
 import android.widget.Toast
@@ -9,8 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymusic.MyApplication
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.processNextEventInCurrentThread
-
 
 /**
  * @program: WanAndroid
@@ -22,7 +20,7 @@ import kotlinx.coroutines.processNextEventInCurrentThread
  * @create: 2020-02-15 11:32
  **/
 
-open class BaseViewModel<D,M:BaseMvvmRepository<List<D>>>:ViewModel(), LifecycleObserver {
+open class BaseViewModel<D,M: BaseMvvmRepository<List<D>>>:ViewModel(), LifecycleObserver {
 
     var data = MutableLiveData<ObservableArrayList<D>>()
 

@@ -2,9 +2,8 @@ package com.example.mymusic.find.repository
 
 import com.example.mymusic.find.FindApiImpl
 import com.example.mymusic.find.model.BannerData
-import com.example.mymusic.find.model.BannerInfo
-import com.example.wanandroid.base.BaseMvvmRepository
-import com.example.wanandroid.base.BaseResult
+import com.example.mymusic.base.BaseMvvmRepository
+import com.example.mymusic.base.BaseResult
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
@@ -12,7 +11,7 @@ class BannerRepository: BaseMvvmRepository<List<BannerData>>(false,"banner",null
 
     override suspend fun load(): BaseResult<List<BannerData>> {
         val bannerInfo = FindApiImpl.getInstance().getBanner()
-        val result:BaseResult<List<BannerData>> = BaseResult()
+        val result: BaseResult<List<BannerData>> = BaseResult()
         if(bannerInfo.code == 200){
             val resultList = bannerInfo.banners
             result.isEmpty = resultList.size == 0

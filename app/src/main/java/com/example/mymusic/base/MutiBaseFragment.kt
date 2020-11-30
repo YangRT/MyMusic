@@ -12,8 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.alguojian.mylibrary.StatusLayout
-import com.example.wanandroid.base.BaseStatusAdapter
-import com.example.wanandroid.base.PageStatus
 
 abstract class MutiBaseFragment<VM:ViewModel,T: ViewDataBinding>: Fragment(), Observer<Any> {
 

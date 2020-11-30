@@ -1,4 +1,4 @@
-package com.example.wanandroid.base
+package com.example.mymusic.base
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,6 @@ import com.alguojian.mylibrary.DefaultLoadingView
 import com.alguojian.mylibrary.StatusAdapter
 import com.alguojian.mylibrary.StatusLayout
 import com.example.mymusic.R
-
 
 /**
  * @program: WanAndroid

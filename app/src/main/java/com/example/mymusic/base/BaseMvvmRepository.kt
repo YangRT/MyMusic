@@ -1,21 +1,11 @@
-package com.example.wanandroid.base
+package com.example.mymusic.base
 
 import android.util.Log
-import androidx.lifecycle.viewModelScope
 import com.example.mymusic.utils.getDataFromJson
 import com.example.mymusic.utils.saveData
 import com.example.mymusic.utils.saveTime
 import com.example.mymusic.utils.toJson
-import com.google.gson.Gson
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.reflect.Type
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
-
 
 /**
  * @program: WanAndroid
@@ -51,9 +41,9 @@ import kotlin.coroutines.suspendCoroutine
 
     }
 
-    suspend fun getCacheData():BaseResult<T>{
+    suspend fun getCacheData(): BaseResult<T> {
         Log.e("BaseMvvmRepository","getCacheData")
-        var result:BaseResult<T> = BaseResult()
+        var result: BaseResult<T> = BaseResult()
         if(mCachedPreferenceKey != null){
             //获取缓存数据
             Log.e("BaseMvvmRepository", mCachedPreferenceKey!!)
@@ -75,15 +65,15 @@ import kotlin.coroutines.suspendCoroutine
         return result
     }
 
-    suspend fun requestData():BaseResult<T>{
+    suspend fun requestData(): BaseResult<T> {
         Log.e("requestData",Thread.currentThread().name)
         return load()
     }
 
-    abstract suspend fun load():BaseResult<T>
+    abstract suspend fun load(): BaseResult<T>
 
 
-    abstract suspend fun refresh():BaseResult<T>
+    abstract suspend fun refresh(): BaseResult<T>
 
     open fun isNeedToUpdate():Boolean{
         return true

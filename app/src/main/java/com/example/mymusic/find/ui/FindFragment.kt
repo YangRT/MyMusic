@@ -27,8 +27,8 @@ import com.example.mymusic.find.ui.newmusic.NewMusicAdapter
 import com.example.mymusic.find.ui.newmusic.NewMusicModel
 import com.example.mymusic.find.ui.songlist.SongListAdapter
 import com.example.mymusic.find.ui.songlist.SongListViewModel
-import com.example.wanandroid.base.BaseItemAdapter
-import com.example.wanandroid.base.BaseItemModel
+import com.example.mymusic.base.BaseItemAdapter
+import com.example.mymusic.base.BaseItemModel
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.IndicatorSlideMode

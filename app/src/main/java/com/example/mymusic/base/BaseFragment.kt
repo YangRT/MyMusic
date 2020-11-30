@@ -1,4 +1,4 @@
-package com.example.wanandroid.base
+package com.example.mymusic.base
 
 import android.os.Bundle
 import android.util.Log
@@ -23,7 +23,7 @@ import com.alguojian.mylibrary.StatusLayout
  * @create: 2020-02-15 22:50
  **/
 
-abstract class BaseFragment<D,M:BaseMvvmRepository<List<D>>,VM:BaseViewModel<D,M>,T: ViewDataBinding>:Fragment(),
+abstract class BaseFragment<D,M: BaseMvvmRepository<List<D>>,VM: BaseViewModel<D, M>,T: ViewDataBinding>:Fragment(),
     Observer<Any> {
 
     protected var viewModel:VM? = null

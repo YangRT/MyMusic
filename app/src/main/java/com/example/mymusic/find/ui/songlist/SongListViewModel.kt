@@ -2,7 +2,7 @@ package com.example.mymusic.find.ui.songlist
 
 import com.example.mymusic.find.model.SongList
 import com.example.mymusic.find.repository.SongListRepository
-import com.example.wanandroid.base.BaseViewModel
+import com.example.mymusic.base.BaseViewModel
 
 class SongListViewModel: BaseViewModel<SongList, SongListRepository>() {
 
