@@ -1,11 +1,8 @@
 package com.example.mymusic.search.ui
 
-import androidx.lifecycle.ViewModel
-import com.example.mymusic.find.model.BannerData
-import com.example.mymusic.find.repository.BannerRepository
 import com.example.mymusic.search.model.HotWord
 import com.example.mymusic.search.repository.HotWordsRepository
-import com.example.wanandroid.base.BaseViewModel
+import com.example.mymusic.base.BaseViewModel
 
 
 /**

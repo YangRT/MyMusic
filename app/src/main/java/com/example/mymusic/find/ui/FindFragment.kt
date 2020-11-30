@@ -27,8 +27,8 @@ import com.example.mymusic.find.ui.newmusic.NewMusicAdapter
 import com.example.mymusic.find.ui.newmusic.NewMusicModel
 import com.example.mymusic.find.ui.songlist.SongListAdapter
 import com.example.mymusic.find.ui.songlist.SongListViewModel
-import com.example.wanandroid.base.BaseItemAdapter
-import com.example.wanandroid.base.BaseItemModel
+import com.example.mymusic.base.BaseItemAdapter
+import com.example.mymusic.base.BaseItemModel
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.IndicatorSlideMode
@@ -70,6 +70,9 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
         }
         adapter = BaseItemAdapter(list)
         binding.listRecyclerView.adapter = adapter
+        binding.mainPageRefreshLayout.setOnRefreshListener {
+            refresh()
+        }
 
         bannerViewModel = ViewModelProvider(this).get(BannerViewModel::class.java)
         songListViewModel = ViewModelProvider(this).get(SongListViewModel::class.java)
@@ -96,6 +99,8 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
         songListViewModel.getCacheData()
         newMusicViewModel.getCacheData()
         hotRadioViewModel.getCacheData()
+
+        bannerViewModel.status.observe(viewLifecycleOwner,this)
     }
 
     override fun getLayoutId(): Int {
@@ -107,10 +112,20 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
     }
 
     override fun refreshCancel() {
+        if (binding.mainPageRefreshLayout.isRefreshing){
+            binding.mainPageRefreshLayout.isRefreshing = false
+        }
+    }
+
+    override fun refresh() {
+        bannerViewModel.getCacheData()
+        songListViewModel.getCacheData()
+        newMusicViewModel.getCacheData()
+        hotRadioViewModel.getCacheData()
     }
 
     override fun isRefreshing(): Boolean {
-        return false
+        return binding.mainPageRefreshLayout.isRefreshing
     }
 
 

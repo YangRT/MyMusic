@@ -1,11 +1,9 @@
 package com.example.mymusic.find.repository
 
 import com.example.mymusic.find.FindApiImpl
-import com.example.mymusic.find.model.BannerData
 import com.example.mymusic.find.model.HotRadio
-import com.example.mymusic.find.model.HotRadioInfo
-import com.example.wanandroid.base.BaseMvvmRepository
-import com.example.wanandroid.base.BaseResult
+import com.example.mymusic.base.BaseMvvmRepository
+import com.example.mymusic.base.BaseResult
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
@@ -13,7 +11,7 @@ class HotRadioRepository: BaseMvvmRepository<List<HotRadio>>(false,"HotRadio",nu
 
     override suspend fun load(): BaseResult<List<HotRadio>> {
         val hotRadioInfo = FindApiImpl.getInstance().getHotRadioInfo()
-        val result:BaseResult<List<HotRadio>> = BaseResult()
+        val result: BaseResult<List<HotRadio>> = BaseResult()
         if(hotRadioInfo.code == 200){
             val resultList = hotRadioInfo.djRadios
             result.isEmpty = resultList.isEmpty()

@@ -1,11 +1,10 @@
-package com.example.wanandroid.base
+package com.example.mymusic.base
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Observer
-
 
 /**
  * @program: WanAndroid
@@ -17,7 +16,8 @@ import androidx.lifecycle.Observer
  * @create: 2020-02-21 21:42
  **/
 
-abstract class BaseLazyFragment<D,M:BaseMvvmRepository<List<D>>,VM:BaseViewModel<D,M>>:BaseListFragment<D,M,VM>(){
+abstract class BaseLazyFragment<D,M: BaseMvvmRepository<List<D>>,VM: BaseViewModel<D, M>>:
+    BaseListFragment<D, M, VM>(){
 
     private var isFirstVisible:Boolean = true
     private var viewIsCreated :Boolean = false
@@ -25,8 +25,8 @@ abstract class BaseLazyFragment<D,M:BaseMvvmRepository<List<D>>,VM:BaseViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lifecycle.addObserver(viewModel())
-        viewModel().status.observe(this,this)
-        viewModel().data.observe(this,
+        viewModel().status.observe(viewLifecycleOwner,this)
+        viewModel().data.observe(viewLifecycleOwner,
             Observer<ObservableArrayList<D>> { dataInsert(it)})
         viewIsCreated = true
     }

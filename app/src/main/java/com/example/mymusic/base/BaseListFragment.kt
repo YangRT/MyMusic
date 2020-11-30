@@ -1,5 +1,4 @@
-package com.example.wanandroid.base
-
+package com.example.mymusic.base
 
 import com.example.mymusic.R
 import com.example.mymusic.databinding.FragmentListBinding
@@ -15,10 +14,11 @@ import com.example.mymusic.databinding.FragmentListBinding
  * @create: 2020-02-19 11:06
  **/
 
-abstract class BaseListFragment<D,M:BaseMvvmRepository<List<D>>,VM:BaseViewModel<D,M>>:BaseFragment<D,M,VM,FragmentListBinding>() {
+abstract class BaseListFragment<D,M: BaseMvvmRepository<List<D>>,VM: BaseViewModel<D, M>>:
+    BaseFragment<D, M, VM, FragmentListBinding>() {
 
 
-    protected lateinit var adapter:BaseItemAdapter
+    protected lateinit var adapter: BaseItemAdapter
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_list

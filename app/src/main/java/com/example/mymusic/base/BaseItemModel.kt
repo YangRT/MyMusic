@@ -1,4 +1,4 @@
-package com.example.wanandroid.base
+package com.example.mymusic.base
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
 

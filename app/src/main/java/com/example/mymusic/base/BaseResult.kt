@@ -1,5 +1,4 @@
-package com.example.wanandroid.base
-
+package com.example.mymusic.base
 
 /**
  * @program: WanAndroid

@@ -19,9 +19,14 @@ class MineFragment(): MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
     }
 
     override fun refreshCancel() {
+
     }
 
     override fun isRefreshing(): Boolean {
         return false
+    }
+
+    override fun refresh() {
+
     }
 }

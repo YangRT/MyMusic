@@ -3,8 +3,8 @@ package com.example.mymusic.find.repository
 import android.util.Log
 import com.example.mymusic.find.FindApiImpl
 import com.example.mymusic.find.model.NewMusicData
-import com.example.wanandroid.base.BaseMvvmRepository
-import com.example.wanandroid.base.BaseResult
+import com.example.mymusic.base.BaseMvvmRepository
+import com.example.mymusic.base.BaseResult
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
@@ -13,7 +13,7 @@ class NewMusicListRepository: BaseMvvmRepository<List<NewMusicData>>(false,"newM
     override suspend fun load(): BaseResult<List<NewMusicData>> {
         val newMusicInfo = FindApiImpl.getInstance().getNewMusicList()
         Log.e("Main","$newMusicInfo")
-        val result:BaseResult<List<NewMusicData>> = BaseResult()
+        val result: BaseResult<List<NewMusicData>> = BaseResult()
         if(newMusicInfo.code == 200){
             val resultList = newMusicInfo.result
             result.isEmpty = resultList.isEmpty()
