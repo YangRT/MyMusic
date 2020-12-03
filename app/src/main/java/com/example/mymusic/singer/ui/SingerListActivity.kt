@@ -3,7 +3,6 @@ package com.example.mymusic.singer.ui
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
@@ -91,9 +90,10 @@ class SingerListActivity : AppCompatActivity() {
         adapter.setOnItemChildClickListener { adapter, view, position ->
 
         }
+        adapter.animationEnable = true
+        adapter.setEmptyView(R.layout.status_empty)
         viewModel.data.observe(this, Observer {
             adapter.setList(it)
-            Log.e("TTTT","${adapter.data.size}")
         })
         viewModel.getCacheData()
     }

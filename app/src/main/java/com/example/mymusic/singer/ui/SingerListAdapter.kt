@@ -13,7 +13,7 @@ class SingerListAdapter(data: MutableList<Artist>) :
 
     override fun convert(holder: BaseViewHolder, item: Artist) {
         holder.setText(R.id.singer_name,item.name)
-        Glide.with(context).load(item.picUrl).into(holder.itemView.findViewById(R.id.singer_pic))
+        Glide.with(context).load(item.picUrl).placeholder(R.drawable.pic_loading).into(holder.itemView.findViewById(R.id.singer_pic))
     }
 
 
