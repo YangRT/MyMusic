@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/singer_pic"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.circle"
+        android:src="@drawable/test"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+
+    <TextView
+        android:text="陈奕迅"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:id="@+id/singer_name"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

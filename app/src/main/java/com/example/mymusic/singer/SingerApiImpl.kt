@@ -12,5 +12,5 @@ object SingerApiImpl {
         ServiceCreator.create(GetSingerListInfoService::class.java)
 
     suspend fun getSingerListInfo(page: Int, type: Int, area: Int) =
-        withContext(Dispatchers.IO) { getSingerListInfoService.getSingerListInfo().await() }
+        withContext(Dispatchers.IO) { getSingerListInfoService.getSingerListInfo(page,type,area,-1).await() }
 }

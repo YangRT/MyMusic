@@ -1,5 +1,6 @@
 package com.example.mymusic.singer.repository
 
+import android.util.Log
 import com.example.mymusic.base.BaseMvvmRepository
 import com.example.mymusic.base.BaseResult
 import com.example.mymusic.base.model.Artist
@@ -13,9 +14,10 @@ class SingerListRepository : BaseMvvmRepository<List<Artist>>(true, "singerList"
     private var area: Int = -1
 
     override suspend fun load(): BaseResult<List<Artist>> {
-        val info = SingerApiImpl.getSingerListInfo(pageNum, pageNum, pageNum)
+        val info = SingerApiImpl.getSingerListInfo(pageNum, type, area)
         val result: BaseResult<List<Artist>> = BaseResult()
         if (info.code == 200) {
+            Log.e("getCa",info.artists.toString())
             pageNum = if (isRefreshing) {
                 1
             } else {
