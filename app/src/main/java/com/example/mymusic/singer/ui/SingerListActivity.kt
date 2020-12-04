@@ -2,14 +2,9 @@ package com.example.mymusic.singer.ui
 
 import android.content.Intent
 import android.graphics.PorterDuff
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -17,12 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymusic.R
+import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.base.model.Artist
 import com.example.mymusic.databinding.ActivitySingerListBinding
 import com.example.mymusic.search.ui.SearchActivity
 import com.example.mymusic.singer.model.SingerCategory
 
-class SingerListActivity : AppCompatActivity() {
+class SingerListActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySingerListBinding
     private lateinit var viewModel: SingerListViewModel
@@ -42,13 +38,6 @@ class SingerListActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         viewModel =  ViewModelProvider(this).get(SingerListViewModel::class.java)
 
-        // 改变状态栏颜色
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = this.resources.getColor(android.R.color.transparent)
-        }
-        setAndroidNativeLightStatusBar()
         initCategory()
         initView()
     }
@@ -146,9 +135,4 @@ class SingerListActivity : AppCompatActivity() {
         categoryList.add(SingerCategory(AREA,0,"其他", false))
     }
 
-    // 改变状态栏字体颜色
-    private fun setAndroidNativeLightStatusBar() {
-        val decor = this.window.decorView
-        decor.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    }
 }
