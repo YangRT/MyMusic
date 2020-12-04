@@ -1,10 +1,16 @@
 package com.example.mymusic.singer.ui
 
+import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymusic.R
 import com.example.mymusic.base.model.Artist
 import com.example.mymusic.databinding.ActivitySingerListBinding
+import com.example.mymusic.search.ui.SearchActivity
 import com.example.mymusic.singer.model.SingerCategory
 
 class SingerListActivity : AppCompatActivity() {
@@ -92,16 +99,44 @@ class SingerListActivity : AppCompatActivity() {
         }
         adapter.animationEnable = true
         adapter.setEmptyView(R.layout.status_empty)
+        adapter.loadMoreModule.setOnLoadMoreListener {
+            viewModel.loadNextPage()
+        }
         viewModel.data.observe(this, Observer {
             adapter.setList(it)
         })
         viewModel.getCacheData()
+
+        binding.toolbarSingerList.setNavigationIcon(R.drawable.find_search)
+        setSupportActionBar(binding.toolbarSingerList)
+        val upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material)
+        upArrow?.setColorFilter(ContextCompat.getColor(this, R.color.colorMain), PorterDuff.Mode.SRC_ATOP)
+        supportActionBar?.setHomeAsUpIndicator(upArrow)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
+        binding.toolbarTitle.text = "歌手分类"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.singer_list_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.singer_list_search -> {
+                val intent = Intent(this, SearchActivity::class.java)
+                startActivity(intent)
+            }
+            android.R.id.home -> { finish() }
+        }
+        return true
     }
 
     private fun initCategory() {
         categoryList.add(SingerCategory(TYPE,-1,"全部", true))
-        categoryList.add(SingerCategory(TYPE,1,"男歌手", false))
-        categoryList.add(SingerCategory(TYPE,2,"女歌手", false))
+        categoryList.add(SingerCategory(TYPE,1,"男生", false))
+        categoryList.add(SingerCategory(TYPE,2,"女生", false))
         categoryList.add(SingerCategory(TYPE,3,"组合", false))
         categoryList.add(SingerCategory(AREA,-1,"全部", true))
         categoryList.add(SingerCategory(AREA,7,"华语",false))

@@ -14,7 +14,7 @@ class SingerListRepository : BaseMvvmRepository<List<Artist>>(true, "singerList"
     private var area: Int = -1
 
     override suspend fun load(): BaseResult<List<Artist>> {
-        val info = SingerApiImpl.getSingerListInfo(pageNum, type, area)
+        val info = SingerApiImpl.getSingerListInfo(pageNum*30, type, area)
         val result: BaseResult<List<Artist>> = BaseResult()
         if (info.code == 200) {
             Log.e("getCa",info.artists.toString())
