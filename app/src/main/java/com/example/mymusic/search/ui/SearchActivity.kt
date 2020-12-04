@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mymusic.R
+import com.example.mymusic.customview.search.BCallBack
+import com.example.mymusic.customview.search.SCallBack
 import com.example.mymusic.databinding.ActivitySearchBinding
 import com.example.mymusic.search.model.HotWord
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -35,7 +37,7 @@ class SearchActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         viewModel.data.observe(this, Observer {
-            (binding.searchHotWords.adapter as HotWordAdapter).updateData(it)
+            (binding.searchHotWords.adapter as HotWordAdapter).setList(it)
         })
         initView()
         viewModel.getCacheData()
@@ -45,14 +47,60 @@ class SearchActivity : AppCompatActivity() {
         val historyLayoutManager =  FlexboxLayoutManager(this)
         binding.searchHistory.layoutManager = historyLayoutManager
         binding.searchHistory.adapter = SearchWordAdapter(historyList)
-        val temp = viewModel.queryData("")
-        historyList.clear()
-        historyList.addAll(temp)
-        binding.searchHistory.adapter?.notifyDataSetChanged()
+        historyDataChange()
 
         val hotWordLayoutManager = GridLayoutManager(this,2)
         binding.searchHotWords.layoutManager = hotWordLayoutManager
         binding.searchHotWords.adapter = HotWordAdapter(hotWordList)
+        binding.tvHistoryTitle.paint.isFakeBoldText = true
+        binding.tvHotWordTitle.paint.isFakeBoldText = true
+        binding.searchView.setBack(object : BCallBack{
+            override fun backAction() {
+                finish()
+            }
+        })
+        binding.searchView.setSearchCallBack(object : SCallBack{
+            override fun searchAction(text: String) {
+                historyDataChange()
+                // 搜索
+                search(text)
+            }
+        })
+        binding.imageDeleteHistory.setOnClickListener {
+            val result = binding.searchView.deleteData()
+            if (result){
+                historyDataChange()
+            }
+        }
+        (binding.searchHotWords.adapter as HotWordAdapter).setOnItemClickListener { adapter, view, position ->
+            val word = (adapter.getItem(position) as HotWord).first
+            search(word)
+            if (viewModel.hasData(word)){
+                viewModel.deleteItemData(word)
+            }
+            viewModel.insertData(word)
+            historyDataChange()
+        }
+        (binding.searchHistory.adapter as SearchWordAdapter).setOnItemClickListener { adapter, view, position ->
+            val historyWord = (adapter.getItem(position) as String)
+            search(historyWord)
+            if (viewModel.hasData(historyWord)){
+                viewModel.deleteItemData(historyWord)
+            }
+            viewModel.insertData(historyWord)
+            historyDataChange()
+        }
+    }
+
+    private fun search(word: String) {
+
+    }
+
+    private fun historyDataChange() {
+        val t = viewModel.queryData("")
+        historyList.clear()
+        historyList.addAll(t)
+        binding.searchHistory.adapter?.notifyDataSetChanged()
     }
 
 

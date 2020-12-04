@@ -42,7 +42,7 @@ public class SearchEditText extends AppCompatEditText {
 
     private void init(){
         setBackground(null);
-        drawableBack = ResourcesCompat.getDrawable(getResources(), R.drawable.arrow_back,null);
+        drawableBack = ResourcesCompat.getDrawable(getResources(), R.drawable.arrow_left,null);
         drawableClear = ResourcesCompat.getDrawable(getResources(),R.drawable.clear,null);
         setCompoundDrawablesWithIntrinsicBounds(drawableBack, null,
                 null, null);

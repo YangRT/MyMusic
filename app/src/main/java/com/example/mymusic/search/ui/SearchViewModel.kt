@@ -30,22 +30,22 @@ class SearchViewModel: BaseViewModel<HotWord, HotWordsRepository>() {
     fun queryData(str:String): List<String> {
         val list = ArrayList<String>()
         val cursor = recordSQLHelper.readableDatabase.rawQuery("select id as _id,name from records where name like '%$str%' order by id desc ", null)
-        if (cursor.moveToLast()) {
+        if (cursor.moveToFirst()) {
             do {
                 val str = cursor.getString(cursor.getColumnIndex("name"))
                 list.add(str)
-            }while (cursor.moveToPrevious())
+            }while (cursor.moveToNext())
         }
         return list
     }
 
-    private fun deleteData(){
+    fun deleteData(){
         db = recordSQLHelper.writableDatabase
         db.execSQL("delete from records")
         db.close()
     }
 
-    private fun hasData(str:String):Boolean{
+    fun hasData(str:String):Boolean{
         val cursor = recordSQLHelper.readableDatabase.rawQuery(
             "select id as _id,name from records where name =?", arrayOf(str))
         //  判断是否有下一个
@@ -58,6 +58,11 @@ class SearchViewModel: BaseViewModel<HotWord, HotWordsRepository>() {
         db = recordSQLHelper.writableDatabase
         db.execSQL("insert into records(name) values('$str')")
         db.close()
+    }
+
+    fun deleteItemData(str: String) {
+        db = recordSQLHelper.writableDatabase
+        db.execSQL("delete from records where name='${str}'")
     }
 
 }

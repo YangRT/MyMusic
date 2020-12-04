@@ -10,6 +10,8 @@
         android:layout_height="45dp"
         android:layout_weight="7"
         android:background="@color/white"
+        android:drawableBottom="@drawable/shape_edit_line"
+        android:textCursorDrawable="@drawable/shape_search_edit"
         android:gravity="center_vertical"
         android:paddingStart="12dp" />
 

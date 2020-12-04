@@ -13,6 +13,7 @@ import com.example.mymusic.search.model.HotWord
 import com.example.mymusic.search.ui.HotWordAdapter
 import com.example.mymusic.search.ui.RecordSQLHelper
 import kotlinx.android.synthetic.main.search_view.view.*
+import java.sql.SQLException
 
 
 class SearchView@JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr:Int = 0):
@@ -71,7 +72,6 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
                 Toast.makeText(context, "搜索不能为空", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            sCallBack?.searchAction(edit_search.text.toString())
             Toast.makeText(context, "需要搜索的是" + edit_search.text, Toast.LENGTH_SHORT).show()
 
             // 2. 点击搜索键后，对该搜索字段在数据库是否存在进行检查（查询）->> 关注1
@@ -79,28 +79,36 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
             // 3. 若存在，则不保存；若不存在，则将该搜索字段保存（插入）到数据库，并作为历史搜索记录
             if (!hasData) {
                 insertData(edit_search.text.toString().trim())
-                queryData("")
+            }else {
+                deleteItemData(edit_search.text.toString().trim())
+                insertData(edit_search.text.toString().trim())
             }
+            sCallBack?.searchAction(edit_search.text.toString())
             edit_search.setText("")
         }
     }
 
     private fun initView(){
         LayoutInflater.from(context).inflate(R.layout.search_view,this)
-        edit_search.setHintTextColor(resources.getColor(R.color.colorMain))
-        edit_search.setTextColor(resources.getColor(R.color.colorMain))
+        edit_search.setTextColor(resources.getColor(R.color.black))
         edit_search.textSize = 16f
-        edit_search.hint = "点击搜索"
+        edit_search.hint = "搜索"
     }
 
     private fun queryData(str:String){
         val cursor = recordSQLHelper.readableDatabase.rawQuery("select id as _id,name from records where name like '%$str%' order by id desc ", null)
     }
 
-    private fun deleteData(){
+    fun deleteData(): Boolean{
         db = recordSQLHelper.writableDatabase
-        db.execSQL("delete from records")
-        db.close()
+        try {
+            db.execSQL("delete from records")
+        }catch (e : SQLException){
+            return false
+        }finally {
+            db.close()
+        }
+        return true
     }
 
     private fun hasData(str:String):Boolean{
@@ -112,15 +120,29 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
         return result
     }
 
-    private fun insertData(str:String){
+    private fun insertData(str:String): Boolean{
         db = recordSQLHelper.writableDatabase
-        db.execSQL("insert into records(name) values('$str')")
-        db.close()
+        try {
+            db.execSQL("insert into records(name) values('$str')")
+        }catch (e : SQLException){
+            return false
+        }finally {
+            db.close()
+        }
+        return true
     }
 
-    fun updateHotWordData(data: ObservableArrayList<HotWord>){
-        hotWordAdapter.updateData(data)
+    private fun deleteItemData(str: String) {
+        db = recordSQLHelper.writableDatabase
+        db.execSQL("delete from records where name='${str}'")
     }
 
+    fun setBack(back: BCallBack){
+        this.bCallBack = back
+    }
+
+    fun setSearchCallBack(callback: SCallBack) {
+        this.sCallBack = callback
+    }
 
 }
