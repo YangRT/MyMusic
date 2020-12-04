@@ -2,8 +2,8 @@ package com.example.mymusic.base.model
 
 data class Artist(var name: String,
                   var id: Long,
-                  var picId: Int,
-                  var img1v1Id: Int,
+                  var picId: Long,
+                  var img1v1Id: Long,
                   var briefDesc: String,
                   var picUrl: String,
                   var img1v1Url: String,

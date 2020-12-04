@@ -1,24 +1,20 @@
 package com.example.mymusic
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-import android.view.View.SYSTEM_UI_FLAG_VISIBLE
-import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivityMainBinding
 import com.example.mymusic.find.ui.FindFragment
 import com.example.mymusic.mine.MineFragment
 import com.example.mymusic.search.ui.SearchActivity
 
 
-class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
+class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
 
     private val TAG = "HomeActivity"
 
@@ -35,13 +31,6 @@ class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
         binding.lifecycleOwner = this
 
-        // 改变状态栏颜色
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = this.resources.getColor(android.R.color.transparent)
-        }
-        setAndroidNativeLightStatusBar()
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.viewModel = viewModel
         initView()
@@ -105,9 +94,4 @@ class MainActivity : AppCompatActivity(),Observer<Int>, View.OnClickListener {
         }
     }
 
-    // 改变状态栏字体颜色
-    private fun setAndroidNativeLightStatusBar() {
-        val decor = this.window.decorView
-        decor.systemUiVisibility = SYSTEM_UI_FLAG_VISIBLE or SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    }
 }
