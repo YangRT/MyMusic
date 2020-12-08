@@ -1,22 +1,20 @@
-package com.example.mymusic.rank.repository
+package com.example.mymusic.radio.repository
 
 import com.example.mymusic.base.BaseMvvmRepository
 import com.example.mymusic.base.BaseResult
-import com.example.mymusic.base.model.Artist
-import com.example.mymusic.find.FindApiImpl
-import com.example.mymusic.find.model.BannerData
-import com.example.mymusic.rank.RankApiImpl
-import com.example.mymusic.rank.model.RankInfo
+import com.example.mymusic.radio.RadioApiImpl
+import com.example.mymusic.radio.model.RadioCategory
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-class AllRankRepository: BaseMvvmRepository<List<RankInfo>>(false, "allRank", null) {
+class RadioCategoryRepository: BaseMvvmRepository<List<RadioCategory>>(false, "RadioCategory", null) {
 
-    override suspend fun load(): BaseResult<List<RankInfo>> {
-        val allRankInfo = RankApiImpl.getAllRankInfo()
-        val result: BaseResult<List<RankInfo>> = BaseResult()
-        if(allRankInfo.code == 200){
-            val resultList = allRankInfo.list
+    override suspend fun load(): BaseResult<List<RadioCategory>> {
+        val radioCategoryInfo =
+            RadioApiImpl.getRadioCategoryInfo()
+        val result: BaseResult<List<RadioCategory>> = BaseResult()
+        if(radioCategoryInfo.code == 200){
+            val resultList = radioCategoryInfo.categories
             result.isEmpty = resultList.isEmpty()
             result.isFirst = true
             result.isFromCache = false
@@ -37,11 +35,11 @@ class AllRankRepository: BaseMvvmRepository<List<RankInfo>>(false, "allRank", nu
         return result
     }
 
-    override suspend fun refresh(): BaseResult<List<RankInfo>> {
+    override suspend fun refresh(): BaseResult<List<RadioCategory>> {
         return load()
     }
 
     override fun getTClass(): Type? {
-        return object : TypeToken<List<RankInfo>>() {}.type
+        return object : TypeToken<List<RadioCategory>>() {}.type
     }
 }
