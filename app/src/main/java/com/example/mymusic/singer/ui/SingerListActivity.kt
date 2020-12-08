@@ -96,7 +96,6 @@ class SingerListActivity : BaseActivity() {
         })
         viewModel.getCacheData()
 
-        binding.toolbarSingerList.setNavigationIcon(R.drawable.find_search)
         setSupportActionBar(binding.toolbarSingerList)
         val upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material)
         upArrow?.setColorFilter(ContextCompat.getColor(this, R.color.colorMain), PorterDuff.Mode.SRC_ATOP)

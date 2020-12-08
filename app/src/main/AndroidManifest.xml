@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".singer.ui.SingerListActivity"></activity>
+        <activity android:name=".songlist.ui.SongListCategoryActivity"></activity>
+        <activity android:name=".singer.ui.SingerListActivity" />
         <activity android:name=".FlashActivity" />
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".login.LoginActivity" />
