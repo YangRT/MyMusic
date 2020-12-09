@@ -7,16 +7,20 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivityAllRankBinding
+import com.example.mymusic.rank.model.RankInfo
 import com.example.mymusic.search.ui.SearchActivity
 
 class AllRankActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAllRankBinding
     private lateinit var viewModel: AllRankViewModel
+    private val list = ArrayList<RankInfo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +28,11 @@ class AllRankActivity : BaseActivity() {
         binding.lifecycleOwner = this
         viewModel =  ViewModelProvider(this).get(AllRankViewModel::class.java)
         initView()
+
+        viewModel.data.observe(this, Observer {
+            (binding.allRankRecyclerView.adapter as AllRankAdapter).setList(it)
+        })
+        viewModel.getCacheData()
     }
 
     private fun initView() {
@@ -33,7 +42,11 @@ class AllRankActivity : BaseActivity() {
         supportActionBar?.setHomeAsUpIndicator(upArrow)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
-        binding.toolbarTitle.text = "播单"
+        binding.toolbarTitle.text = "排行榜"
+
+        binding.allRankRecyclerView.adapter = AllRankAdapter(list)
+        val manager = LinearLayoutManager(this)
+        binding.allRankRecyclerView.layoutManager = manager
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

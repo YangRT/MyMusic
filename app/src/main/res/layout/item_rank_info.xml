@@ -1,21 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
+        android:src="@drawable/rank"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/image_rank_info"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:scaleType="centerCrop"
+        android:layout_width="110dp"
+        android:layout_height="120dp" />
 
     <TextView
+        android:id="@+id/tv_update_frequency"
+        android:text="每日更新"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/shape_rank_info"
+        app:layout_constraintStart_toStartOf="@id/image_rank_info"
+        app:layout_constraintBottom_toBottomOf="@id/image_rank_info"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:text="云音乐新歌榜"
+        android:layout_marginStart="10dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="@id/image_rank_info"
+        app:layout_constraintStart_toEndOf="@id/image_rank_info"
         android:id="@+id/tv_rank_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/tv_rank_description"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_rank_name"
+        app:layout_constraintStart_toStartOf="@id/tv_rank_name"
+        android:layout_width="0dp"
+        android:ellipsize="end"
+        android:maxLines="4"
+        app:layout_constraintWidth_percent="0.6"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.6"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
