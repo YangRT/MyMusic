@@ -1,9 +1,12 @@
 package com.example.mymusic.find.ui
 
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,13 +32,17 @@ import com.example.mymusic.find.ui.songlist.SongListAdapter
 import com.example.mymusic.find.ui.songlist.SongListViewModel
 import com.example.mymusic.base.BaseItemAdapter
 import com.example.mymusic.base.BaseItemModel
+import com.example.mymusic.radio.ui.RadioActivity
+import com.example.mymusic.rank.ui.AllRankActivity
+import com.example.mymusic.singer.ui.SingerListActivity
+import com.example.mymusic.songlist.ui.SongListCategoryActivity
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.IndicatorSlideMode
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.bannerview.transform.AccordionTransformer
 
-class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
+class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), View.OnClickListener {
 
     private var list: MutableList<BaseItemModel> = ArrayList()
     private lateinit var adapter: BaseItemAdapter
@@ -85,6 +92,11 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
 
         tabListView =
             LayoutInflater.from(context).inflate(R.layout.find_tab_list, null) as LinearLayout
+        tabListView.findViewById<LinearLayout>(R.id.tab_singer_layout).setOnClickListener(this)
+        tabListView.findViewById<LinearLayout>(R.id.tab_song_layout).setOnClickListener(this)
+        tabListView.findViewById<LinearLayout>(R.id.tab_rank_layout).setOnClickListener(this)
+        tabListView.findViewById<LinearLayout>(R.id.tab_radio_layout).setOnClickListener(this)
+
 
         bottomView = LayoutInflater.from(context).inflate(R.layout.find_bottom_view,null) as LinearLayout
 
@@ -109,6 +121,35 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
 
     override fun viewModel(): FindViewModel {
         return FindViewModel()
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.tab_singer_layout -> {
+                val intent = Intent(context, SingerListActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.tab_song_layout -> {
+                val intent = Intent(context, SongListCategoryActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.tab_rank_layout -> {
+                val intent = Intent(context, AllRankActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.tab_radio_layout -> {
+                val intent = Intent(context, RadioActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.song_list_look_more -> {
+                val intent = Intent(context, SongListCategoryActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.hot_radio_look_more -> {
+                val intent = Intent(context, RadioActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     override fun refreshCancel() {
@@ -157,6 +198,7 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
     private fun initSongList() {
         songListView =
             LayoutInflater.from(context).inflate(R.layout.find_song_list, null) as LinearLayout
+        songListView.findViewById<TextView>(R.id.song_list_look_more).setOnClickListener(this)
         songListRecyclerView = songListView.findViewById(R.id.song_list_recycler_view)
         songListRecyclerView.adapter = SongListAdapter(songList)
         val manager = LinearLayoutManager(context)
@@ -187,6 +229,7 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>() {
 
     private fun initHotRadioList() {
         hotRadioLisView = LayoutInflater.from(context).inflate(R.layout.find_hot_radio,null) as LinearLayout
+        hotRadioLisView.findViewById<TextView>(R.id.hot_radio_look_more).setOnClickListener(this)
         hotRadioRecyclerView = hotRadioLisView.findViewById(R.id.hot_radio_list_recycler_view)
         hotRadioRecyclerView.adapter = HotRadioAdapter(hotRadioList)
         val config = LayoutConfig()

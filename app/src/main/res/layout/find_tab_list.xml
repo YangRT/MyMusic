@@ -6,6 +6,7 @@
     android:layout_height="95dp">
 
     <LinearLayout
+        android:id="@+id/tab_singer_layout"
         android:orientation="vertical"
         android:paddingTop="8dp"
         android:layout_weight="1"
@@ -28,6 +29,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/tab_song_layout"
         android:orientation="vertical"
         android:paddingTop="8dp"
         android:layout_weight="1"
@@ -50,6 +52,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/tab_rank_layout"
         android:orientation="vertical"
         android:paddingTop="8dp"
         android:layout_weight="1"
@@ -72,6 +75,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/tab_radio_layout"
         android:orientation="vertical"
         android:paddingTop="8dp"
         android:layout_weight="1"

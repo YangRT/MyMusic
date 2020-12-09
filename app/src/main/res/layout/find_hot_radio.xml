@@ -18,6 +18,7 @@
             android:layout_height="match_parent"/>
 
         <TextView
+            android:id="@+id/hot_radio_look_more"
             android:text="@string/look_more"
             android:background="@drawable/more_background"
             android:padding="4dp"
