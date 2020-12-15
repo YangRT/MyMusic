@@ -1,3 +1,5 @@
 package com.example.mymusic.singer.model
 
-data class SingerDetailInfo(val code: Int)
+import com.example.mymusic.base.model.Artist
+
+data class SingerDetailInfo(val code: Int, val more: Boolean, val artist: Artist)
