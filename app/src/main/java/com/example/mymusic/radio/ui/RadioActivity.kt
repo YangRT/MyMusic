@@ -16,8 +16,10 @@ import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivityRadioBinding
 import com.example.mymusic.radio.model.RadioBanner
 import com.example.mymusic.radio.model.RadioCategory
+import com.example.mymusic.radio.model.Rank
 import com.example.mymusic.radio.ui.adapter.RadioBannerAdapter
 import com.example.mymusic.radio.ui.adapter.RadioCategoryAdapter
+import com.example.mymusic.radio.ui.adapter.RankAdapter
 import com.example.mymusic.radio.ui.viewmodel.RadioBannerViewModel
 import com.example.mymusic.radio.ui.viewmodel.RadioCategoryViewModel
 import com.example.mymusic.search.ui.SearchActivity
@@ -33,6 +35,7 @@ class RadioActivity : BaseActivity() {
     private lateinit var categoryViewModel: RadioCategoryViewModel
     private lateinit var bannerViewModel: RadioBannerViewModel
     private lateinit var bannerViewPager: BannerViewPager<RadioBanner, RadioBannerAdapter>
+    private val rankList = ArrayList<Rank>()
 
 
     private val list = ArrayList<RadioCategory>()
@@ -60,6 +63,7 @@ class RadioActivity : BaseActivity() {
     }
 
     private fun initView() {
+        initRank()
         setSupportActionBar(binding.toolbarRadioList)
         val upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material)
         upArrow?.setColorFilter(ContextCompat.getColor(this, R.color.colorMain), PorterDuff.Mode.SRC_ATOP)
@@ -87,6 +91,10 @@ class RadioActivity : BaseActivity() {
             .setIndicatorColor(Color.GRAY, Color.BLUE)
             .setHolderCreator { RadioBannerAdapter() }
         bannerViewPager.setPageTransformer(object : AccordionTransformer() {})
+
+        binding.radioRankRecyclerView.adapter = RankAdapter(rankList)
+        val manager = GridLayoutManager(this, 2)
+        binding.radioRankRecyclerView.layoutManager = manager
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -103,5 +111,11 @@ class RadioActivity : BaseActivity() {
             android.R.id.home -> { finish() }
         }
         return true
+    }
+
+    private fun initRank() {
+        rankList.add(Rank("节目榜", R.drawable.radio_rank_background))
+        rankList.add(Rank("主播榜", R.drawable.radio_rank_background_two))
+        rankList.add(Rank("新人榜", R.drawable.radio_rank_background_three))
     }
 }
