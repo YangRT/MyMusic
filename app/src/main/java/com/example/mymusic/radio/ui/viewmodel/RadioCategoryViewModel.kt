@@ -1,4 +1,4 @@
-package com.example.mymusic.radio.ui
+package com.example.mymusic.radio.ui.viewmodel
 
 import com.example.mymusic.base.BaseViewModel
 import com.example.mymusic.radio.model.RadioCategory

@@ -1,6 +1,7 @@
 package com.example.mymusic.radio.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.Menu
@@ -13,26 +14,49 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivityRadioBinding
+import com.example.mymusic.radio.model.RadioBanner
 import com.example.mymusic.radio.model.RadioCategory
+import com.example.mymusic.radio.ui.adapter.RadioBannerAdapter
+import com.example.mymusic.radio.ui.adapter.RadioCategoryAdapter
+import com.example.mymusic.radio.ui.viewmodel.RadioBannerViewModel
+import com.example.mymusic.radio.ui.viewmodel.RadioCategoryViewModel
 import com.example.mymusic.search.ui.SearchActivity
+import com.zhpan.bannerview.BannerViewPager
+import com.zhpan.bannerview.constants.IndicatorGravity
+import com.zhpan.bannerview.constants.IndicatorSlideMode
+import com.zhpan.bannerview.constants.PageStyle
+import com.zhpan.bannerview.transform.AccordionTransformer
 
 class RadioActivity : BaseActivity() {
 
     private lateinit var binding: ActivityRadioBinding
     private lateinit var categoryViewModel: RadioCategoryViewModel
+    private lateinit var bannerViewModel: RadioBannerViewModel
+    private lateinit var bannerViewPager: BannerViewPager<RadioBanner, RadioBannerAdapter>
+
+
     private val list = ArrayList<RadioCategory>()
+    private var bannerList: ArrayList<RadioBanner> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_radio)
         binding.lifecycleOwner = this
         categoryViewModel =  ViewModelProvider(this).get(RadioCategoryViewModel::class.java)
+        bannerViewModel = ViewModelProvider(this).get(RadioBannerViewModel::class.java)
         initView()
 
         categoryViewModel.data.observe(this , Observer {
             (binding.radioCategoryRecyclerView.adapter as RadioCategoryAdapter).setList(it)
         })
+        bannerViewModel.data.observe(this, Observer {
+            bannerList.clear()
+            bannerList.addAll(it)
+            bannerViewPager.create(bannerList)
+        })
         categoryViewModel.getCacheData()
+        bannerViewModel.getCacheData()
     }
 
     private fun initView() {
@@ -46,7 +70,23 @@ class RadioActivity : BaseActivity() {
 
         val gridLayoutManager = GridLayoutManager(this, 4)
         binding.radioCategoryRecyclerView.layoutManager = gridLayoutManager
-        binding.radioCategoryRecyclerView.adapter = RadioCategoryAdapter(list)
+        binding.radioCategoryRecyclerView.adapter =
+            RadioCategoryAdapter(list)
+
+        bannerViewPager = binding.root.findViewById(R.id.radio_banner)
+        bannerViewPager
+            .setCanLoop(false)
+            .setIndicatorGravity(IndicatorGravity.CENTER)
+            .setAutoPlay(true)
+            .setPageStyle(PageStyle.MULTI_PAGE_SCALE)
+            .setIndicatorSlideMode(IndicatorSlideMode.SMOOTH)
+            .setIndicatorWidth(14)
+            .setIndicatorMargin(0, 0, 52, 12)
+            .setScrollDuration(800)
+            .setPageMargin(28)
+            .setIndicatorColor(Color.GRAY, Color.BLUE)
+            .setHolderCreator { RadioBannerAdapter() }
+        bannerViewPager.setPageTransformer(object : AccordionTransformer() {})
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

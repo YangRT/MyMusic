@@ -1,4 +1,4 @@
-package com.example.mymusic.radio.ui
+package com.example.mymusic.radio.ui.adapter
 
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
