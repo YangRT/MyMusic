@@ -27,7 +27,6 @@ class SongListCategoryActivity : BaseActivity() {
     private lateinit var binding: ActivitySongListCategoryBinding
     private lateinit var viewModel: CategoryViewModel
     private val list = ArrayList<SongListSubCategory>()
-    private val titleList = ArrayList<SongListSubCategory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +36,6 @@ class SongListCategoryActivity : BaseActivity() {
 
         initView()
         viewModel.data.observe(this, Observer { arrayList ->
-            if (arrayList != null && arrayList.size > 0) {
-                arrayList.addAll(titleList)
-                arrayList.sortWith(compareBy(SongListSubCategory::category,SongListSubCategory::type))
-            }
             (binding.songListCategoryRecyclerView.adapter as CategoryAdapter).updateData(arrayList)
         })
     }
@@ -62,7 +57,6 @@ class SongListCategoryActivity : BaseActivity() {
     }
 
     private fun initView() {
-        addTitle()
         setSupportActionBar(binding.toolbarSongList)
         val upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material)
         upArrow?.setColorFilter(ContextCompat.getColor(this, R.color.colorMain), PorterDuff.Mode.SRC_ATOP)
@@ -86,12 +80,4 @@ class SongListCategoryActivity : BaseActivity() {
         viewModel.getCacheData()
     }
 
-    private fun addTitle() {
-        titleList.clear()
-        titleList.add(SongListSubCategory("语种",-1,"",-1,0,-1, hot = false, activity = false))
-        titleList.add(SongListSubCategory("风格",-1,"",-1,1,-1, hot = false, activity = false))
-        titleList.add(SongListSubCategory("场景",-1,"",-1,2,-1, hot = false, activity = false))
-        titleList.add(SongListSubCategory("情感",-1,"",-1,3,-1, hot = false, activity = false))
-        titleList.add(SongListSubCategory("主题",-1,"",-1,4,-1, hot = false, activity = false))
-    }
 }

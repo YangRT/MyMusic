@@ -35,6 +35,16 @@
             android:layout_width="match_parent"
             android:layout_height="180dp"/>
 
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="5dp"
             android:id="@+id/radio_category_recycler_view"
@@ -50,6 +60,7 @@
             android:text="@string/rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/radio_rank_recycler_view"
             android:layout_width="match_parent"
