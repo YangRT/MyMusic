@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".singer.ui.detail.SingerDetailActivity"></activity>
+        <activity android:name=".rank.ui.RankDetailActivity"></activity>
+        <activity android:name=".singer.ui.detail.SingerDetailActivity" />
         <activity android:name=".radio.ui.RadioActivity" />
         <activity android:name=".rank.ui.AllRankActivity" />
         <activity android:name=".songlist.ui.SongListCategoryActivity" />
