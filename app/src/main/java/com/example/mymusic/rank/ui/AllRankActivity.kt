@@ -14,6 +14,7 @@ import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivityAllRankBinding
 import com.example.mymusic.rank.model.RankInfo
+import com.example.mymusic.rank.ui.adapter.AllRankAdapter
 import com.example.mymusic.search.ui.SearchActivity
 
 class AllRankActivity : BaseActivity() {
@@ -44,9 +45,16 @@ class AllRankActivity : BaseActivity() {
         supportActionBar?.title = ""
         binding.toolbarTitle.text = "排行榜"
 
-        binding.allRankRecyclerView.adapter = AllRankAdapter(list)
+        binding.allRankRecyclerView.adapter =
+            AllRankAdapter(list)
         val manager = LinearLayoutManager(this)
         binding.allRankRecyclerView.layoutManager = manager
+        (binding.allRankRecyclerView.adapter as AllRankAdapter).setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(this, RankDetailActivity::class.java)
+            intent.putExtra("id",list[position].id)
+            intent.putExtra("name", list[position].name)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
