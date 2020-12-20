@@ -12,9 +12,9 @@
         android:maxLines="1"
         android:maxWidth="270dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="12dp"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@id/rank_detail_no"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:text="2"
-        android:textColor="#EA1D0E"
-        android:textSize="26sp"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,9 +35,9 @@
         android:id="@+id/rank_detail_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/bottom_view"
-        android:textSize="14sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@id/rank_detail_title"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
