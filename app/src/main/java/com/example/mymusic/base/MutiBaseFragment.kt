@@ -37,7 +37,7 @@ abstract class MutiBaseFragment<VM:ViewModel,T: ViewDataBinding>: Fragment(), Ob
             Log.e("BaseFragment", "change$t")
             when(t){
                 PageStatus.LOADING -> {
-                    statusHelper.showLoading()
+                    // statusHelper.showLoading()
                 }
                 PageStatus.SHOW_CONTENT -> {
                     statusHelper.showSuccess()
@@ -55,7 +55,7 @@ abstract class MutiBaseFragment<VM:ViewModel,T: ViewDataBinding>: Fragment(), Ob
                 PageStatus.REFRESH_ERROR -> Toast.makeText(context,"刷新失败！", Toast.LENGTH_SHORT).show()
                 PageStatus.REQUEST_ERROR -> Toast.makeText(context,"请求失败,请检查网络！", Toast.LENGTH_SHORT).show()
                 PageStatus.NETWORK_ERROR -> {
-                    statusHelper.showFailed()
+                    // statusHelper.showFailed()
                 }
             }
         }

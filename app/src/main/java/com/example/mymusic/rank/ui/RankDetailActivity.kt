@@ -1,12 +1,14 @@
 package com.example.mymusic.rank.ui
 
 import android.content.Intent
+import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -20,6 +22,7 @@ import com.example.mymusic.databinding.ActivityRankDetailBinding
 import com.example.mymusic.rank.ui.adapter.RankDetailAdapter
 import com.example.mymusic.search.ui.SearchActivity
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 class RankDetailActivity : BaseActivity() {
 
@@ -36,8 +39,6 @@ class RankDetailActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_rank_detail)
         binding.lifecycleOwner = this
         val id = intent.getLongExtra("id", -1L)
-        val name = intent.getStringExtra("name")
-        binding.toolbarTitle.text = name
         if (id == -1L) {
             finish()
         } else {
@@ -60,7 +61,24 @@ class RankDetailActivity : BaseActivity() {
     }
 
     private fun initView() {
+        val resourceId: Int = this.resources.getIdentifier("status_bar_height", "dimen", "android")
+        val statusBarHeight: Int = this.resources.getDimensionPixelSize(resourceId)
+
+        val typedValue = TypedValue()
+        this.theme.resolveAttribute(android.R.attr.actionBarSize, typedValue, true)
+        val attribute = intArrayOf(android.R.attr.actionBarSize)
+        val array: TypedArray = this.obtainStyledAttributes(typedValue.resourceId, attribute)
+        val viewTop = array.getDimensionPixelSize(0, -1)
+        array.recycle()
+
+        val lp = CollapsingToolbarLayout.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, viewTop)
+        lp.topMargin = statusBarHeight
+        lp.collapseMode = CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
+        binding.rankDetialToolbar.layoutParams = lp
+
         setSupportActionBar(binding.rankDetialToolbar)
+        val name = intent.getStringExtra("name")
+        binding.toolbarTitle.text = name
         val upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material)
         upArrow?.setColorFilter(ContextCompat.getColor(this, R.color.black), PorterDuff.Mode.SRC_ATOP)
         supportActionBar?.setHomeAsUpIndicator(upArrow)
