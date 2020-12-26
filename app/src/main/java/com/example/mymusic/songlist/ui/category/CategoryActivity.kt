@@ -15,6 +15,7 @@ import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivitySongListCategoryBinding
 import com.example.mymusic.search.ui.SearchActivity
 import com.example.mymusic.songlist.model.SongListSubCategory
+import com.example.mymusic.songlist.ui.list.CategoryListActivity
 
 class CategoryActivity : BaseActivity() {
 
@@ -72,6 +73,14 @@ class CategoryActivity : BaseActivity() {
         binding.songListCategoryRecyclerView.layoutManager = manager
         binding.songListCategoryRecyclerView.adapter =
             CategoryAdapter(list)
+        (binding.songListCategoryRecyclerView.adapter as CategoryAdapter).setItemClickListener(object : CategoryAdapter.CategoryItemClickListener{
+            override fun itemClick(item: SongListSubCategory) {
+                val intent = Intent(this@CategoryActivity, CategoryListActivity::class.java)
+                intent.putExtra("cat", item.name)
+                startActivity(intent)
+            }
+
+        })
         viewModel.getCacheData()
     }
 
