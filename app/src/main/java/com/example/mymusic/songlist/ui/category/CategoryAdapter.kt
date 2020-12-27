@@ -1,4 +1,4 @@
-package com.example.mymusic.songlist.ui
+package com.example.mymusic.songlist.ui.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,6 +13,7 @@ class CategoryAdapter(val list: ArrayList<SongListSubCategory>): RecyclerView.Ad
 
     private val title = 1
     private val normal = 0
+    private var listener: CategoryItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == 1) {
@@ -20,13 +21,17 @@ class CategoryAdapter(val list: ArrayList<SongListSubCategory>): RecyclerView.Ad
                 LayoutInflater.from(parent.context),
                 R.layout.item_song_list_category_title,parent,
                 false)
-            return TitleViewHolder(binding)
+            return TitleViewHolder(
+                binding
+            )
         }else {
             val binding = DataBindingUtil.inflate<ItemSongListCategoryBinding>(
                 LayoutInflater.from(parent.context),
                 R.layout.item_song_list_category,parent,
                 false)
-            return ViewHolder(binding)
+            return ViewHolder(
+                binding
+            )
         }
     }
 
@@ -48,6 +53,9 @@ class CategoryAdapter(val list: ArrayList<SongListSubCategory>): RecyclerView.Ad
             holder.binding.songListCategoryTitleTv.paint.isFakeBoldText = true
         }else if (holder is ViewHolder){
             holder.binding.songListCategoryTv.text = list[position].name
+            holder.binding.root.setOnClickListener {
+                listener?.itemClick(list[position])
+            }
         }
     }
 
@@ -65,5 +73,14 @@ class CategoryAdapter(val list: ArrayList<SongListSubCategory>): RecyclerView.Ad
 
     class TitleViewHolder(val binding: ItemSongListCategoryTitleBinding): RecyclerView.ViewHolder(binding.root) {
 
+    }
+
+    public fun setItemClickListener(listener: CategoryItemClickListener){
+        this.listener = listener
+    }
+
+    interface CategoryItemClickListener{
+
+        fun itemClick(item: SongListSubCategory)
     }
 }

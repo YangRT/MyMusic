@@ -1,4 +1,4 @@
-package com.example.mymusic.songlist.ui
+package com.example.mymusic.songlist.ui.category
 
 import android.content.Intent
 import android.graphics.PorterDuff
@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,13 +15,9 @@ import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivitySongListCategoryBinding
 import com.example.mymusic.search.ui.SearchActivity
 import com.example.mymusic.songlist.model.SongListSubCategory
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.launch
-import java.util.concurrent.Flow
+import com.example.mymusic.songlist.ui.list.CategoryListActivity
 
-class SongListCategoryActivity : BaseActivity() {
+class CategoryActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySongListCategoryBinding
     private lateinit var viewModel: CategoryViewModel
@@ -76,7 +71,16 @@ class SongListCategoryActivity : BaseActivity() {
             }
         }
         binding.songListCategoryRecyclerView.layoutManager = manager
-        binding.songListCategoryRecyclerView.adapter = CategoryAdapter(list)
+        binding.songListCategoryRecyclerView.adapter =
+            CategoryAdapter(list)
+        (binding.songListCategoryRecyclerView.adapter as CategoryAdapter).setItemClickListener(object : CategoryAdapter.CategoryItemClickListener{
+            override fun itemClick(item: SongListSubCategory) {
+                val intent = Intent(this@CategoryActivity, CategoryListActivity::class.java)
+                intent.putExtra("cat", item.name)
+                startActivity(intent)
+            }
+
+        })
         viewModel.getCacheData()
     }
 

@@ -35,7 +35,7 @@ import com.example.mymusic.base.BaseItemModel
 import com.example.mymusic.radio.ui.RadioActivity
 import com.example.mymusic.rank.ui.AllRankActivity
 import com.example.mymusic.singer.ui.SingerListActivity
-import com.example.mymusic.songlist.ui.SongListCategoryActivity
+import com.example.mymusic.songlist.ui.category.CategoryActivity
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.IndicatorSlideMode
@@ -130,7 +130,7 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
                 startActivity(intent)
             }
             R.id.tab_song_layout -> {
-                val intent = Intent(context, SongListCategoryActivity::class.java)
+                val intent = Intent(context, CategoryActivity::class.java)
                 startActivity(intent)
             }
             R.id.tab_rank_layout -> {
@@ -142,7 +142,7 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
                 startActivity(intent)
             }
             R.id.song_list_look_more -> {
-                val intent = Intent(context, SongListCategoryActivity::class.java)
+                val intent = Intent(context, CategoryActivity::class.java)
                 startActivity(intent)
             }
             R.id.hot_radio_look_more -> {

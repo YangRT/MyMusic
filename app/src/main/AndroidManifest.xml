@@ -3,6 +3,8 @@
     package="com.example.mymusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:name=".MyApplication"
@@ -13,17 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".songlist.ui.DetailActivity"
-            android:theme="@style/AppTheme.Image">
-        </activity>
+        <activity android:name=".songlist.ui.list.CategoryListActivity"></activity>
         <activity
             android:name=".rank.ui.RankDetailActivity"
-            android:theme="@style/AppTheme.Image">
-        </activity>
+            android:theme="@style/AppTheme.Image"></activity>
         <activity android:name=".singer.ui.detail.SingerDetailActivity" />
         <activity android:name=".radio.ui.RadioActivity" />
         <activity android:name=".rank.ui.AllRankActivity" />
-        <activity android:name=".songlist.ui.SongListCategoryActivity" />
+        <activity android:name=".songlist.ui.category.CategoryActivity" />
         <activity android:name=".singer.ui.SingerListActivity" />
         <activity android:name=".FlashActivity" />
         <activity android:name=".login.RegisterActivity" />
