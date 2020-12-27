@@ -19,6 +19,8 @@
         <activity
             android:name=".rank.ui.RankDetailActivity"
             android:theme="@style/AppTheme.Image"></activity>
+        <activity android:name=".songlist.ui.DetailActivity"
+            android:theme="@style/AppTheme.Image"></activity>
         <activity android:name=".singer.ui.detail.SingerDetailActivity" />
         <activity android:name=".radio.ui.RadioActivity" />
         <activity android:name=".rank.ui.AllRankActivity" />

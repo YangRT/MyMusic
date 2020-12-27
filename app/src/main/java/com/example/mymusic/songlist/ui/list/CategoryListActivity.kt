@@ -15,6 +15,7 @@ import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivityCategoryListBinding
 import com.example.mymusic.search.ui.SearchActivity
 import com.example.mymusic.songlist.model.CategoryList
+import com.example.mymusic.songlist.ui.DetailActivity
 
 class CategoryListActivity : BaseActivity() {
 
@@ -62,6 +63,10 @@ class CategoryListActivity : BaseActivity() {
         binding.categoryListRecyclerView.adapter = adapter
         adapter.setOnItemClickListener { adapter, view, position ->
             // 点击歌单
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("name", list.get(position).name)
+            intent.putExtra("id", list.get(position).id)
+            startActivity(intent)
         }
         adapter.loadMoreModule.isAutoLoadMore = false
         adapter.loadMoreModule.isEnableLoadMoreIfNotFullPage = false

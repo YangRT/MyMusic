@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymusic.base.BaseViewModel
 import com.example.mymusic.base.model.Playlist
-import com.example.mymusic.rank.repository.RankDetailRepository
+import com.example.mymusic.songlist.repository.DetailRepository
 
-class DetailViewModel(val id: Long) : BaseViewModel<Playlist, RankDetailRepository>() {
+class DetailViewModel(val id: Long) : BaseViewModel<Playlist, DetailRepository>() {
 
     init {
-        repository = RankDetailRepository(id)
+        repository = DetailRepository(id)
     }
 
     class ViewModeFactory(private val id: Long) : ViewModelProvider.Factory {
