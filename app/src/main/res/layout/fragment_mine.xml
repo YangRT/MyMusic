@@ -131,6 +131,12 @@
                 android:layout_height="match_parent"/>
         </LinearLayout>
 
+        <com.example.mymusic.customview.progressbar.PlayingProcessBar
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
     </LinearLayout>
 
 </layout>

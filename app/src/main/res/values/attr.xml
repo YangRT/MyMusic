@@ -10,4 +10,12 @@
         <attr name="searchBlockHeight" format="dimension" />
         <attr name="searchBlockColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="PlayingProcessBar">
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="processBarColor" format="color" />
+        <attr name="processBarWidth" format="dimension"/>
+    </declare-styleable>
 </resources>
