@@ -1,4 +1,4 @@
-package com.example.mymusic.singer.ui
+package com.example.mymusic.singer.ui.list
 
 import android.graphics.Color
 import com.chad.library.adapter.base.BaseQuickAdapter

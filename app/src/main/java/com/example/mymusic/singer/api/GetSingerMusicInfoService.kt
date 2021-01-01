@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 interface GetSingerMusicInfoService {
 
-    @GET("/artists")
-    fun getSingerMusicInfo(@Query("id")id: Long): Call<SingerMusicInfo>
+    @GET("/artist/songs")
+    fun getSingerMusicInfo(@Query("offset")offset: Int, @Query("id")id: Long): Call<SingerMusicInfo>
 }

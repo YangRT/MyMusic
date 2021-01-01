@@ -7,7 +7,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".singer.ui.SingerListActivity">
+        tools:context=".singer.ui.list.SingerListActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:background="@android:color/transparent"

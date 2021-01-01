@@ -1,4 +1,4 @@
-package com.example.mymusic.singer.ui
+package com.example.mymusic.singer.ui.list
 
 import com.example.mymusic.base.BaseViewModel
 import com.example.mymusic.base.PageStatus

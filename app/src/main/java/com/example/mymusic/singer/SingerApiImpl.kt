@@ -22,8 +22,8 @@ object SingerApiImpl {
     suspend fun getSingerListInfo(page: Int, type: Int, area: Int) =
         withContext(Dispatchers.IO) { getSingerListInfoService.getSingerListInfo(page,type,area,-1).await() }
 
-    suspend fun getSingerMusicInfo(id: Long) =
-        withContext(Dispatchers.IO) { getSingerMusicInfoService.getSingerMusicInfo(id).await() }
+    suspend fun getSingerMusicInfo(page: Int, id: Long) =
+        withContext(Dispatchers.IO) { getSingerMusicInfoService.getSingerMusicInfo(page, id).await() }
 
     suspend fun getSingerDetailInfo(id: Long) =
         withContext(Dispatchers.IO) { getSingerDetailInfoService.getSingerDetailInfo(id).await() }

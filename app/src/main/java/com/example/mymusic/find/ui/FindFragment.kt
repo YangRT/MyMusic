@@ -34,7 +34,7 @@ import com.example.mymusic.base.BaseItemAdapter
 import com.example.mymusic.base.BaseItemModel
 import com.example.mymusic.radio.ui.RadioActivity
 import com.example.mymusic.rank.ui.AllRankActivity
-import com.example.mymusic.singer.ui.SingerListActivity
+import com.example.mymusic.singer.ui.list.SingerListActivity
 import com.example.mymusic.songlist.ui.category.CategoryActivity
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity

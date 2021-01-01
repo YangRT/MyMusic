@@ -1,4 +1,4 @@
-package com.example.mymusic.singer.ui
+package com.example.mymusic.singer.ui.list
 
 import android.content.Intent
 import android.graphics.PorterDuff
@@ -17,6 +17,7 @@ import com.example.mymusic.base.model.Artist
 import com.example.mymusic.databinding.ActivitySingerListBinding
 import com.example.mymusic.search.ui.SearchActivity
 import com.example.mymusic.singer.model.SingerCategory
+import com.example.mymusic.singer.ui.detail.SingerDetailActivity
 
 class SingerListActivity : BaseActivity() {
 
@@ -33,7 +34,6 @@ class SingerListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_singer_list)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_singer_list)
         binding.lifecycleOwner = this
         viewModel =  ViewModelProvider(this).get(SingerListViewModel::class.java)
@@ -43,7 +43,8 @@ class SingerListActivity : BaseActivity() {
     }
 
     private fun initView() {
-        categoryAdapter = SingerCategoryAdapter(categoryList)
+        categoryAdapter =
+            SingerCategoryAdapter(categoryList)
         categoryAdapter.setOnItemClickListener { adapter, view, position ->
 
             if (categoryList[position].category == TYPE && categoryList[position].id != type){
@@ -83,8 +84,11 @@ class SingerListActivity : BaseActivity() {
         val manager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         binding.recyclerViewSingerList.layoutManager  = manager
         binding.recyclerViewSingerList.adapter = adapter
-        adapter.setOnItemChildClickListener { adapter, view, position ->
-
+        adapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(this, SingerDetailActivity::class.java)
+            intent.putExtra("name",list[position].name)
+            intent.putExtra("id",list[position].id)
+            startActivity(intent)
         }
         adapter.animationEnable = true
         adapter.setEmptyView(R.layout.status_empty)

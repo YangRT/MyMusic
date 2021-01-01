@@ -1,4 +1,4 @@
-package com.example.mymusic.singer.ui
+package com.example.mymusic.singer.ui.list
 
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
