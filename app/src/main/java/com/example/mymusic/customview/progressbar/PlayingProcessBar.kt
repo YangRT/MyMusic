@@ -26,27 +26,27 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
     private var playingIcon: Drawable? = null
 
     // 进度相关
-    var totalSeconds: Int = 100
-    var currentSecond: Int = 0
-    var currentProcessText: String = "00:00"
-    var totalProcessText: String = "00:00"
+    private var totalSeconds: Int = 100
+    private var currentSecond: Int = 0
+    private var currentProcessText: String = "00:00"
+    private var totalProcessText: String = "00:00"
 
-    var textSize = 0
-    var textColor = Color.BLACK
-    var distance = 0F
-    var textWidth = 0
+    private var textSize = 0
+    private var textColor = Color.BLACK
+    private var distance = 0F
+    private var textWidth = 0
 
-    var processBackgroundColor = Color.LTGRAY
-    var processPlayingColor = Color.parseColor("#3A86F0")
-    var processBarWidth = 10
+    private var processBackgroundColor = Color.LTGRAY
+    private var processPlayingColor = Color.parseColor("#3A86F0")
+    private var processBarWidth = 10
 
-    var textPaint: Paint
-    var processBarBackgroundPaint: Paint
-    var processBarPaint: Paint
+    private var textPaint: Paint
+    private var processBarBackgroundPaint: Paint
+    private var processBarPaint: Paint
 
-    var viewWidth = 0
-    var viewHeight = 0
-    var drawY = 0
+    private var viewWidth = 0
+    private var viewHeight = 0
+    private var drawY = 0
 
     private var textBound = Rect()
 
@@ -94,7 +94,7 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        canvas?.let { canvas ->
+        canvas?.let {
             // 画文字
             textPaint.getTextBounds(totalProcessText,0, totalProcessText.length, textBound)
             textWidth = textBound.width()
@@ -110,7 +110,7 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
             canvas.drawLine(textWidth + dp2px(12).toFloat(), drawY.toFloat(),textWidth + dp2px(12).toFloat() + processLength, drawY.toFloat(), processBarBackgroundPaint)
             var currentLength = 0F
             if (totalSeconds != 0) {
-                currentLength = currentSecond.toFloat() / totalSeconds * processLength;
+                currentLength = currentSecond.toFloat() / totalSeconds * processLength
                 canvas.drawLine(textWidth + dp2px(12).toFloat(), drawY.toFloat(),textWidth + dp2px(12).toFloat() + currentLength, drawY.toFloat(), processBarPaint)
             }
             // 画icon
@@ -125,7 +125,7 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
         if (!canModify || !isInit) {
             return true
         }
-        event?.let {event ->
+        event?.let {
             // 文字区域不响应
             if (event.action == MotionEvent.ACTION_DOWN && (event.x < textWidth + dp2px(10) || event.x > viewWidth - textWidth - dp2px(10))) {
                 return false
