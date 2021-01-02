@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface GetPopularPersonService {
 
-    @GET("dj/toplist/popular?limit=10")
+    @GET("dj/toplist/popular")
     fun getPopularPersonInfo(): Call<PopularPersonInfo>
 }

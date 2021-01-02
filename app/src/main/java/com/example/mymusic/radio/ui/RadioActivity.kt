@@ -95,6 +95,20 @@ class RadioActivity : BaseActivity() {
         binding.radioRankRecyclerView.adapter = RankAdapter(rankList)
         val manager = GridLayoutManager(this, 2)
         binding.radioRankRecyclerView.layoutManager = manager
+        (binding.radioRankRecyclerView.adapter as RankAdapter).setOnItemClickListener { adapter, view, position ->
+            val intent = if (position == 0) {
+                Intent(this, RadioProgramActivity::class.java)
+            }else {
+                Intent(this, RadioPersonActivity::class.java)
+            }
+            startActivity(intent)
+        }
+        (binding.radioCategoryRecyclerView.adapter as RadioCategoryAdapter).setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(this, CategoryListActivity::class.java)
+            intent.putExtra("name", list[position].name)
+            intent.putExtra("id", list[position].id)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -116,6 +130,5 @@ class RadioActivity : BaseActivity() {
     private fun initRank() {
         rankList.add(Rank("节目榜", R.drawable.radio_rank_background))
         rankList.add(Rank("主播榜", R.drawable.radio_rank_background_two))
-        rankList.add(Rank("新人榜", R.drawable.radio_rank_background_three))
     }
 }
