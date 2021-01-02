@@ -34,7 +34,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/hot_radio_list_recycler_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="170dp"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

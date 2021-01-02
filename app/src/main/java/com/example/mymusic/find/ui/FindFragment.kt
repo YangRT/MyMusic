@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -35,6 +36,7 @@ import com.example.mymusic.base.BaseItemModel
 import com.example.mymusic.radio.ui.RadioActivity
 import com.example.mymusic.rank.ui.AllRankActivity
 import com.example.mymusic.singer.ui.list.SingerListActivity
+import com.example.mymusic.songlist.ui.DetailActivity
 import com.example.mymusic.songlist.ui.category.CategoryActivity
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
@@ -113,6 +115,7 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
         hotRadioViewModel.getCacheData()
 
         bannerViewModel.status.observe(viewLifecycleOwner,this)
+        changePageStatus()
     }
 
     override fun getLayoutId(): Int {
@@ -174,7 +177,6 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
         bannerView =
             LayoutInflater.from(context).inflate(R.layout.find_banner, null) as LinearLayout
         bannerViewPager = bannerView.findViewById(R.id.find_banner)
-
         bannerViewPager
             .setCanLoop(false)
             .setIndicatorGravity(IndicatorGravity.CENTER)
@@ -192,6 +194,7 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
             bannerList.clear()
             bannerList.addAll(it)
             bannerViewPager.create(bannerList)
+            changePageStatus()
         })
     }
 
@@ -206,8 +209,16 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
         songListRecyclerView.layoutManager = manager
         songListViewModel.data.observe(this, Observer {
             Log.e("Main", "${it.size}")
-            (songListRecyclerView.adapter as SongListAdapter).updateData(it)
+            (songListRecyclerView.adapter as SongListAdapter).setList(it)
+            changePageStatus()
         })
+        (songListRecyclerView.adapter as SongListAdapter).setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(activity, DetailActivity::class.java)
+            intent.putExtra("id", songList[position].id)
+            intent.putExtra("name", songList[position].name)
+            startActivity(intent)
+        }
+        (songListRecyclerView.adapter as SongListAdapter).setEmptyView(R.layout.item_empty_view)
     }
 
     private fun initNewMusicList() {
@@ -223,8 +234,12 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
         newMusicViewModel.data.observe(this, Observer
         {
             Log.e("Main", "${it.size}")
-            (newMusicListRecyclerView.adapter as NewMusicAdapter).updateData(it)
+            (newMusicListRecyclerView.adapter as NewMusicAdapter).setList(it)
+            changePageStatus()
         })
+        (newMusicListRecyclerView.adapter as NewMusicAdapter).setOnItemClickListener { adapter, view, position ->
+            // 播放
+        }
     }
 
     private fun initHotRadioList() {
@@ -243,7 +258,19 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
         hotRadioViewModel.data.observe(this, Observer
         {
             Log.e("Main", "${it.size}")
-            (hotRadioRecyclerView.adapter as HotRadioAdapter).updateData(it)
+            (hotRadioRecyclerView.adapter as HotRadioAdapter).setList(it)
+            changePageStatus()
         })
+        (hotRadioRecyclerView.adapter as HotRadioAdapter).setOnItemClickListener { adapter, view, position ->
+            // 详情
+        }
+    }
+
+    private fun changePageStatus() {
+        if (bannerList.size == 0 && bannerList.size == 0 && newMusicList.size == 0 && hotRadioList.size == 0) {
+            statusHelper.showEmpty()
+        }else {
+            statusHelper.showSuccess()
+        }
     }
 }

@@ -1,43 +1,17 @@
 package com.example.mymusic.find.ui.songlist
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.mymusic.MyApplication.Companion.context
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.mymusic.R
-import com.example.mymusic.databinding.ItemSongListBinding
 import com.example.mymusic.find.model.SongList
 
-class SongListAdapter(val list:MutableList<SongList>): RecyclerView.Adapter<SongListAdapter.ViewHolder>() {
+class SongListAdapter(data: MutableList<SongList>) :
+    BaseQuickAdapter<SongList, BaseViewHolder>(R.layout.item_song_list , data) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = DataBindingUtil.inflate<ItemSongListBinding>(
-                LayoutInflater.from(parent.context),
-                R.layout.item_song_list,parent,
-                false)
-        return ViewHolder(binding)
-    }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.songListName.text = list[position].name
-        Glide.with(context).load(list[position].picUrl).into(holder.itemView.findViewById(R.id.song_list_image))
-    }
-
-    fun updateData(data: List<SongList>) {
-        list.apply {
-            clear()
-            addAll(data)
-            notifyDataSetChanged()
-        }
-    }
-
-    inner class ViewHolder(val binding: ItemSongListBinding): RecyclerView.ViewHolder(binding.root) {
-
+    override fun convert(holder: BaseViewHolder, item: SongList) {
+        holder.setText(R.id.song_list_name,item.name)
+        Glide.with(context).load(item.picUrl).into(holder.itemView.findViewById(R.id.song_list_image))
     }
 }

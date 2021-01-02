@@ -16,7 +16,7 @@
     <string name="search_hot_word">热搜榜</string>
     <string name="bottom_view">滑到底部了～</string>
     <string name="category">分类</string>
-
+    <string name="empty_view_text">暂无数据，下拉刷新</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="forget_password">忘记密码?</string>
