@@ -74,6 +74,12 @@ class CategoryListActivity : BaseActivity() {
         adapter.loadMoreModule.setOnLoadMoreListener {
             viewModel.loadNextPage()
         }
+        adapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(this, ProgramDetailActivity::class.java)
+            intent.putExtra("id",list[position].id)
+            intent.putExtra("name",list[position].name)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

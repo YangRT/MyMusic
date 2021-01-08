@@ -18,6 +18,8 @@ object RadioApiImpl {
 
     private val getCategoryListService = ServiceCreator.create(GetCategoryListService::class.java)
 
+    private val getProgramDetailService = ServiceCreator.create(GetProgramDetailService::class.java)
+
     suspend fun getRadioCategoryInfo() =
         withContext(Dispatchers.IO) { getRadioCategoryService.getRadioCategoryInfo().await() }
 
@@ -32,4 +34,7 @@ object RadioApiImpl {
 
     suspend fun getCategoryListInfo(id: Int, page: Int) =
         withContext(Dispatchers.IO) { getCategoryListService.getCategoryListInfo(id, page).await() }
+
+    suspend fun getProgramDetailInfo(rid: Long) =
+        withContext(Dispatchers.IO) { getProgramDetailService.getProgramDetailInfo(rid).await()}
 }
