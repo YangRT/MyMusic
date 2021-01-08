@@ -15,7 +15,11 @@ class SingerSongAdapter(data: MutableList<HotSong>) :
         holder.setTextColor(R.id.rank_detail_no, Color.BLACK)
         holder.setText(R.id.rank_detail_no, "${holder.layoutPosition + 1}")
         if (item.ar.isNotEmpty()) {
-            holder.setText(R.id.rank_detail_author, item.ar[0].name)
+            if (item.ar.size > 1) {
+                holder.setText(R.id.rank_detail_author, "${item.ar[0].name} ${item.ar[1].name}")
+            } else {
+                holder.setText(R.id.rank_detail_author, item.ar[0].name)
+            }
         }
     }
 }

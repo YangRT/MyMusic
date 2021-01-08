@@ -33,6 +33,7 @@ import com.example.mymusic.find.ui.songlist.SongListAdapter
 import com.example.mymusic.find.ui.songlist.SongListViewModel
 import com.example.mymusic.base.BaseItemAdapter
 import com.example.mymusic.base.BaseItemModel
+import com.example.mymusic.radio.ui.ProgramDetailActivity
 import com.example.mymusic.radio.ui.RadioActivity
 import com.example.mymusic.rank.ui.AllRankActivity
 import com.example.mymusic.singer.ui.list.SingerListActivity
@@ -263,6 +264,10 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
         })
         (hotRadioRecyclerView.adapter as HotRadioAdapter).setOnItemClickListener { adapter, view, position ->
             // 详情
+            val intent = Intent(activity, ProgramDetailActivity::class.java)
+            intent.putExtra("id",hotRadioList[position].id)
+            intent.putExtra("name",hotRadioList[position].name)
+            startActivity(intent)
         }
     }
 

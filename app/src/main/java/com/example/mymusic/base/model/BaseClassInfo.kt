@@ -130,7 +130,7 @@ data class Ar(val id: Long, val name: String, val alia: List<String>)
 
 data class AI(val id: Long, val name: String, val picUrl: String)
 
-data class HotSong(val rtUrls: List<String>, val noCopyrightRcmd: String, val no: Int, val fee: Int, val alia: List<String>, val name: String, val privilege: Privilege, val id: Long, val ar: List<Ar>, val al: AI)
+data class HotSong(val rtUrls: List<String>, val no: Int, val fee: Int, val alia: List<String>, val name: String, val privilege: Privilege, val id: Long, val ar: List<Ar>, val al: AI)
 
 
 

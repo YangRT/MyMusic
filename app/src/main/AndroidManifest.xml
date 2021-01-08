@@ -15,11 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".radio.ui.ProgramDetailActivity"></activity>
         <activity android:name=".radio.ui.CategoryListActivity" />
         <activity android:name=".radio.ui.RadioPersonActivity" />
         <activity android:name=".radio.ui.RadioProgramActivity" />
         <activity android:name=".songlist.ui.list.CategoryListActivity" />
+        <activity android:name=".radio.ui.ProgramDetailActivity"
+            android:theme="@style/AppTheme.Image"/>
         <activity
             android:name=".rank.ui.RankDetailActivity"
             android:theme="@style/AppTheme.Image" />

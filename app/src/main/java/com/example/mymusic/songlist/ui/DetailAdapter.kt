@@ -17,8 +17,10 @@ class DetailAdapter(data: MutableList<Track>) :
             holder.setTextColor(R.id.rank_detail_no, Color.BLACK)
         }
         holder.setText(R.id.rank_detail_no, "${holder.layoutPosition + 1}")
-        if (item.ar.isNotEmpty()) {
+        if (item.ar.isNotEmpty() && item.ar[0].name.isNotEmpty()) {
             holder.setText(R.id.rank_detail_author, item.ar[0].name)
+        } else {
+            holder.setText(R.id.rank_detail_author, "未知")
         }
     }
 }

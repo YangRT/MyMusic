@@ -28,8 +28,10 @@ class ProgramDetailAdapter (data: MutableList<Program>) :
             holder.setTextColor(R.id.rank_detail_no, Color.BLACK)
         }
         holder.setText(R.id.rank_detail_no, "${holder.layoutPosition + 1}")
-        if (item.mainSong.artists.isNotEmpty()) {
+        if (item.mainSong.artists.isNotEmpty() && item.mainSong.artists[0].name.isNotEmpty()) {
             holder.setText(R.id.rank_detail_author, item.mainSong.artists[0].name)
+        } else {
+            holder.setText(R.id.rank_detail_author, "未知")
         }
     }
 }

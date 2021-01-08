@@ -82,6 +82,7 @@ class ProgramDetailActivity : BaseActivity() {
         val manager = LinearLayoutManager(this)
         binding.detailRecyclerView.layoutManager = manager
         adapter = ProgramDetailAdapter(dataList)
+        adapter.setEmptyView(R.layout.status_empty)
         binding.detailRecyclerView.adapter = adapter
         binding.detailAppLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             binding.detailToolbar.alpha =
