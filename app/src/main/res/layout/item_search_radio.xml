@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/search_radio_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:maxWidth="220dp"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/search_radio_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/search_radio_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:ellipsize="end"
+        android:maxWidth="220dp"
+        android:maxLines="1"
+        android:text="@string/bottom_view"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/search_radio_title" />
+
+    <TextView
+        android:id="@+id/search_radio_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:maxWidth="220dp"
+        android:maxLines="1"
+        android:text="@string/bottom_view"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/search_radio_count" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/search_radio_image"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="14dp"
+        android:src="@drawable/test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.shape" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
