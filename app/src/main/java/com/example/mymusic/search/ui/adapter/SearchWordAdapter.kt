@@ -1,4 +1,4 @@
-package com.example.mymusic.search.ui
+package com.example.mymusic.search.ui.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder

@@ -14,6 +14,9 @@ import com.example.mymusic.customview.search.BCallBack
 import com.example.mymusic.customview.search.SCallBack
 import com.example.mymusic.databinding.ActivitySearchBinding
 import com.example.mymusic.search.model.HotWord
+import com.example.mymusic.search.ui.adapter.HotWordAdapter
+import com.example.mymusic.search.ui.adapter.SearchWordAdapter
+import com.example.mymusic.search.ui.viewmodel.SearchViewModel
 import com.google.android.flexbox.FlexboxLayoutManager
 
 class SearchActivity : AppCompatActivity() {
@@ -46,12 +49,14 @@ class SearchActivity : AppCompatActivity() {
     private fun initView() {
         val historyLayoutManager =  FlexboxLayoutManager(this)
         binding.searchHistory.layoutManager = historyLayoutManager
-        binding.searchHistory.adapter = SearchWordAdapter(historyList)
+        binding.searchHistory.adapter =
+            SearchWordAdapter(historyList)
         historyDataChange()
 
         val hotWordLayoutManager = GridLayoutManager(this,2)
         binding.searchHotWords.layoutManager = hotWordLayoutManager
-        binding.searchHotWords.adapter = HotWordAdapter(hotWordList)
+        binding.searchHotWords.adapter =
+            HotWordAdapter(hotWordList)
         binding.tvHistoryTitle.paint.isFakeBoldText = true
         binding.tvHotWordTitle.paint.isFakeBoldText = true
         binding.searchView.setBack(object : BCallBack{

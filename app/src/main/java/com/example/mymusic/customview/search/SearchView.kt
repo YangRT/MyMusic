@@ -2,15 +2,12 @@ package com.example.mymusic.customview.search
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.widget.*
-import androidx.databinding.ObservableArrayList
 import com.example.mymusic.R
-import com.example.mymusic.search.model.HotWord
-import com.example.mymusic.search.ui.HotWordAdapter
+import com.example.mymusic.search.ui.adapter.HotWordAdapter
 import com.example.mymusic.search.ui.RecordSQLHelper
 import kotlinx.android.synthetic.main.search_view.view.*
 import java.sql.SQLException

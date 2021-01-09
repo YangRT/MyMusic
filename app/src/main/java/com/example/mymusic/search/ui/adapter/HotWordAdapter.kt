@@ -1,4 +1,4 @@
-package com.example.mymusic.search.ui
+package com.example.mymusic.search.ui.adapter
 
 import android.graphics.Color
 import android.text.SpannableString

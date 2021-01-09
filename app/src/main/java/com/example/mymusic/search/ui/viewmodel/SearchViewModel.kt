@@ -1,10 +1,11 @@
-package com.example.mymusic.search.ui
+package com.example.mymusic.search.ui.viewmodel
 
 import android.database.sqlite.SQLiteDatabase
 import com.example.mymusic.MyApplication.Companion.context
 import com.example.mymusic.search.model.HotWord
 import com.example.mymusic.search.repository.HotWordsRepository
 import com.example.mymusic.base.BaseViewModel
+import com.example.mymusic.search.ui.RecordSQLHelper
 
 
 /**
