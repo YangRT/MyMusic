@@ -1,5 +1,6 @@
 package com.example.mymusic.search.ui
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -98,7 +99,10 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun search(word: String) {
-
+        val intent = Intent(this, SearchResultActivity::class.java)
+        intent.putExtra("search_word", word)
+        startActivity(intent)
+        finish()
     }
 
     private fun historyDataChange() {

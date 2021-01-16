@@ -2,6 +2,7 @@ package com.example.mymusic.customview.search
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.text.Editable
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -140,6 +141,10 @@ class SearchView@JvmOverloads constructor(context: Context, attributeSet: Attrib
 
     fun setSearchCallBack(callback: SCallBack) {
         this.sCallBack = callback
+    }
+
+    fun setSearchString(word: String) {
+        edit_search.setText(word)
     }
 
 }
