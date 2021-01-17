@@ -1,5 +1,6 @@
 package com.example.mymusic.search.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymusic.base.PageStatus
 import com.example.mymusic.base.model.BaseListFragment
 import com.example.mymusic.radio.model.DjRadio
+import com.example.mymusic.radio.ui.ProgramDetailActivity
 import com.example.mymusic.search.ui.adapter.SearchRadioAdapter
 import com.example.mymusic.search.ui.viewmodel.SearchRadioViewModel
 
@@ -64,6 +66,13 @@ class SearchRadioFragment: BaseListFragment() {
             refresh()
         }
         viewModel.search()
+
+        adapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(context, ProgramDetailActivity::class.java)
+            intent.putExtra("id", list[position].id)
+            intent.putExtra("name", list[position].name)
+            startActivity(intent)
+        }
     }
 
     override fun search(text: String) {

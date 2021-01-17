@@ -1,5 +1,6 @@
 package com.example.mymusic.search.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -10,6 +11,7 @@ import com.example.mymusic.base.model.BaseListFragment
 import com.example.mymusic.search.model.SearchArtist
 import com.example.mymusic.search.ui.adapter.SearchSingerAdapter
 import com.example.mymusic.search.ui.viewmodel.SearchSingerViewModel
+import com.example.mymusic.singer.ui.detail.SingerDetailActivity
 
 class SearchSingerFragment: BaseListFragment() {
 
@@ -64,6 +66,13 @@ class SearchSingerFragment: BaseListFragment() {
             refresh()
         }
         viewModel.search()
+
+        adapter.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(context, SingerDetailActivity::class.java)
+            intent.putExtra("id", list[position].id)
+            intent.putExtra("name", list[position].name)
+            startActivity(intent)
+        }
     }
 
 
