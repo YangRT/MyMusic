@@ -1,8 +1,10 @@
 package com.example.mymusic.search.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymusic.base.BaseViewModel
+import com.example.mymusic.base.PageStatus
 import com.example.mymusic.search.model.SearchByLyricsSong
 import com.example.mymusic.search.repository.SearchByLyricsRepository
 
@@ -17,7 +19,7 @@ import com.example.mymusic.search.repository.SearchByLyricsRepository
  * @create: 2021-01-09 18:03
  **/
 
-class SearchLyricsViewModel(val word: String): BaseViewModel<SearchByLyricsSong, SearchByLyricsRepository>() {
+class SearchLyricsViewModel(var word: String): BaseViewModel<SearchByLyricsSong, SearchByLyricsRepository>() {
 
     init {
         repository = SearchByLyricsRepository(word)
@@ -28,5 +30,19 @@ class SearchLyricsViewModel(val word: String): BaseViewModel<SearchByLyricsSong,
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return SearchLyricsViewModel(word) as T
         }
+    }
+
+    fun search() {
+        launch(
+            {
+                var result = repository.search(word)
+                isFirst = false
+                dealWithResult(result)
+            },{
+                if (data.value?.size == 0){
+                    status.postValue(PageStatus.NETWORK_ERROR)
+                }
+            }
+        )
     }
 }

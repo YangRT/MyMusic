@@ -18,7 +18,7 @@ import java.lang.reflect.Type
  * @create: 2021-01-09 17:33
  **/
 
-class SearchByLyricsRepository(val word: String): BaseMvvmRepository<List<SearchByLyricsSong>>(false,"SearchByLyrics",null) {
+class SearchByLyricsRepository(var word: String): BaseMvvmRepository<List<SearchByLyricsSong>>(false,"SearchByLyrics",null) {
 
     override suspend fun load(): BaseResult<List<SearchByLyricsSong>> {
         val info = SearchApiImpl.getInstance().getSearchByLyricsInfo(word)
@@ -46,5 +46,10 @@ class SearchByLyricsRepository(val word: String): BaseMvvmRepository<List<Search
 
     override fun getTClass(): Type? {
         return object : TypeToken<List<SearchByLyricsSong>>(){}.type
+    }
+
+    public suspend fun search(word: String): BaseResult<List<SearchByLyricsSong>> {
+        this.word = word
+        return load()
     }
 }
