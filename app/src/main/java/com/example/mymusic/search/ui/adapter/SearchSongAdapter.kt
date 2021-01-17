@@ -22,9 +22,9 @@ class SearchSongAdapter(data: MutableList<SearchSong>) :
     override fun convert(holder: BaseViewHolder, item: SearchSong) {
         holder.setText(R.id.search_song_title, item.name)
         if (item.ar.isNotEmpty()) {
-            holder.setText(R.id.search_lyrics_author, item.ar[0].name)
+            holder.setText(R.id.search_song_author, item.ar[0].name)
         } else {
-            holder.setText(R.id.search_lyrics_author, "未知")
+            holder.setText(R.id.search_song_author, "未知")
         }
     }
 }

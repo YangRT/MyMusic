@@ -1,12 +1,15 @@
 package com.example.mymusic.search.ui
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
+import com.example.mymusic.base.model.BaseListFragment
 import com.example.mymusic.customview.search.BCallBack
 import com.example.mymusic.customview.search.SCallBack
 import com.example.mymusic.databinding.ActivitySearchResultBinding
@@ -20,7 +23,7 @@ class SearchResultActivity : BaseActivity() {
     private lateinit var binding: ActivitySearchResultBinding
     private lateinit var viewModel: SearchResultViewModel
     private lateinit var adapter: TabViewPagerAdapter
-    private var fragments: ArrayList<Fragment> = ArrayList()
+    private var fragments: ArrayList<BaseListFragment> = ArrayList()
     private var category: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +57,14 @@ class SearchResultActivity : BaseActivity() {
             override fun searchAction(text: String) {
                 // 搜索
                 search(text)
+                // 收起键盘
+                currentFocus?.let {
+                    val manager: InputMethodManager = baseContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    manager.hideSoftInputFromWindow(
+                        it.windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
+                }
             }
         })
         initCategory()
@@ -61,15 +72,33 @@ class SearchResultActivity : BaseActivity() {
         adapter = TabViewPagerAdapter(supportFragmentManager, fragments, category)
         binding.searchViewPager.adapter = adapter
         binding.searchTabLayout.setupWithViewPager(binding.searchViewPager)
+        binding.searchViewPager.offscreenPageLimit = 4
     }
 
     private fun initFragment() {
         // category 与 fragment 顺序一致
-        fragments.add(SearchSongFragment())
-        fragments.add(SearchSingerFragment())
-        fragments.add(SearchSongListFragment())
-        fragments.add(SearchRadioFragment())
-        fragments.add(SearchLyricsFragment())
+        val bundle = Bundle()
+        bundle.putString("search_word", viewModel.searchWord.value)
+
+        val songFragment = SearchSongFragment()
+        songFragment.arguments = bundle
+        fragments.add(songFragment)
+
+        val singerFragment = SearchSingerFragment()
+        singerFragment.arguments = bundle
+        fragments.add(singerFragment)
+
+        val songListFragment = SearchSongListFragment()
+        songListFragment.arguments = bundle
+        fragments.add(songListFragment)
+
+        val radioFragment = SearchRadioFragment()
+        radioFragment.arguments = bundle
+        fragments.add(radioFragment)
+
+        val lyricsFragment = SearchLyricsFragment()
+        lyricsFragment.arguments = bundle
+        fragments.add(lyricsFragment)
     }
 
     private fun initCategory() {
@@ -88,7 +117,7 @@ class SearchResultActivity : BaseActivity() {
         viewModel.insertData(text)
         // 重置fragment搜索词
         for(i in 0 until fragments.size) {
-            fragments[i].onResume()
+            fragments[i].search(text)
         }
     }
 }

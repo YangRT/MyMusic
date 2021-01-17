@@ -21,6 +21,8 @@ import com.example.mymusic.search.repository.SearchByLyricsRepository
 
 class SearchLyricsViewModel(var word: String): BaseViewModel<SearchByLyricsSong, SearchByLyricsRepository>() {
 
+    var isInit: Boolean = false
+
     init {
         repository = SearchByLyricsRepository(word)
     }

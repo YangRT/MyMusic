@@ -3,6 +3,7 @@ package com.example.mymusic.search.repository
 import com.example.mymusic.base.BaseMvvmRepository
 import com.example.mymusic.base.BaseResult
 import com.example.mymusic.search.SearchApiImpl
+import com.example.mymusic.search.model.SearchPlaylist
 import com.example.mymusic.search.model.SearchSong
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -18,7 +19,7 @@ import java.lang.reflect.Type
  * @create: 2021-01-09 17:33
  **/
 
-class SearchSongsRepository(val word: String): BaseMvvmRepository<List<SearchSong>>(false,"SearchSongs",null) {
+class SearchSongsRepository(var word: String): BaseMvvmRepository<List<SearchSong>>(false,"SearchSongs",null) {
 
     override suspend fun load(): BaseResult<List<SearchSong>> {
         val info = SearchApiImpl.getInstance().getSearchSongsInfo(word)
@@ -46,5 +47,10 @@ class SearchSongsRepository(val word: String): BaseMvvmRepository<List<SearchSon
 
     override fun getTClass(): Type? {
         return object : TypeToken<List<SearchSong>>(){}.type
+    }
+
+    public suspend fun search(word: String): BaseResult<List<SearchSong>> {
+        this.word = word
+        return load()
     }
 }

@@ -22,6 +22,6 @@ class SearchSingerAdapter(data: MutableList<SearchArtist>) :
 
     override fun convert(holder: BaseViewHolder, item: SearchArtist) {
         Glide.with(context).load(item.picUrl).placeholder(R.drawable.pic_loading).into(holder.itemView.findViewById(R.id.search_singer_pic))
-        holder.setText(R.id.search_singer_name, item.picUrl)
+        holder.setText(R.id.search_singer_name, item.name)
     }
 }

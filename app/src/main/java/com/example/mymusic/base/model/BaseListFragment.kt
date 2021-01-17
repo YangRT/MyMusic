@@ -18,6 +18,7 @@ abstract class BaseListFragment: Fragment() {
 
     abstract fun refresh()
     abstract fun initView()
+    abstract fun search(text: String)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,8 +34,8 @@ abstract class BaseListFragment: Fragment() {
         return StatusLayout.getRootView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
         initView()
     }
 }
