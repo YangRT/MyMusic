@@ -5,7 +5,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
+    <!-- 录音 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--播音-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -15,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".search.ui.SearchResultActivity"></activity>
+        <activity android:name=".search.ui.IdentityMusicActivity" />
+        <activity android:name=".search.ui.SearchResultActivity" />
         <activity android:name=".radio.ui.CategoryListActivity" />
         <activity android:name=".radio.ui.RadioPersonActivity" />
         <activity android:name=".radio.ui.RadioProgramActivity" />
@@ -36,16 +42,17 @@
         <activity android:name=".rank.ui.AllRankActivity" />
         <activity android:name=".songlist.ui.category.CategoryActivity" />
         <activity android:name=".singer.ui.list.SingerListActivity" />
-        <activity android:name=".FlashActivity" />
-        <activity android:name=".login.RegisterActivity" />
-        <activity android:name=".login.LoginActivity" />
-        <activity android:name=".search.ui.SearchActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".FlashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".login.RegisterActivity" />
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".search.ui.SearchActivity" />
+        <activity android:name=".MainActivity">
         </activity>
     </application>
 

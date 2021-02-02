@@ -1,11 +1,16 @@
 package com.example.mymusic.search.ui
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +31,8 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var viewModel: SearchViewModel
     private val hotWordList = ArrayList<HotWord>()
     private val historyList = ArrayList<String>()
+    private var type: Int = 0
+    private val requestPerCode = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +103,16 @@ class SearchActivity : AppCompatActivity() {
             viewModel.insertData(historyWord)
             historyDataChange()
         }
+
+        binding.identityMusicDefault.setOnClickListener {
+            type = 0
+            checkPermission()
+        }
+
+        binding.identityMusicAfs.setOnClickListener {
+            type = 1
+            checkPermission()
+        }
     }
 
     private fun search(word: String) {
@@ -117,5 +134,35 @@ class SearchActivity : AppCompatActivity() {
     private fun setAndroidNativeLightStatusBar() {
         val decor = this.window.decorView
         decor.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
+    val permissions = arrayOf(Manifest.permission.RECORD_AUDIO)
+
+    private fun checkPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            //没有权限，申请权限
+            ActivityCompat.requestPermissions(this, permissions, requestPerCode);
+        }else {
+            //拥有权限
+            val intent = Intent(this, IdentityMusicActivity::class.java)
+            intent.putExtra("type", type)
+            startActivity(intent)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == requestPerCode && grantResults.size == 1
+            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            val intent = Intent(this, IdentityMusicActivity::class.java)
+            intent.putExtra("type", type)
+            startActivity(intent)
+        }else {
+            Toast.makeText(this, "无法使用听歌识曲功能！", Toast.LENGTH_LONG).show()
+        }
     }
 }
