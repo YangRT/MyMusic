@@ -1,5 +1,6 @@
 package com.example.mymusic.search.ui
 
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.MenuItem
@@ -10,12 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivityIdentityMusicBinding
+import com.example.mymusic.search.record.RecordService
 import com.example.mymusic.search.ui.viewmodel.IdentityMusicViewModel
 
 class IdentityMusicActivity : BaseActivity() {
 
     private lateinit var binding: ActivityIdentityMusicBinding
     private lateinit var viewModel: IdentityMusicViewModel
+    private var mRecordPromptCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +83,6 @@ class IdentityMusicActivity : BaseActivity() {
                 binding.lottieAnim.playAnimation()
             }
             RecordStatus.IDENTITY -> {
-                beginRecord()
                 binding.lottieAnim.setAnimation("loading.json")
                 binding.lottieAnim.playAnimation()
             }
@@ -93,12 +95,12 @@ class IdentityMusicActivity : BaseActivity() {
 
     // 开始录音
     private fun beginRecord() {
-
+        startOrStopRecordVoice(true)
     }
 
     // 完成录音
     private fun finishRecord() {
-
+        startOrStopRecordVoice(false)
     }
 
     // 开始识别
@@ -112,5 +114,16 @@ class IdentityMusicActivity : BaseActivity() {
             android.R.id.home -> { finish() }
         }
         return true
+    }
+
+    private fun startOrStopRecordVoice(isStartRecord: Boolean) {
+        val intent = Intent(this, RecordService::class.java)
+        if (isStartRecord) {
+            this.startService(intent)
+            mRecordPromptCount++
+        } else {
+            this.stopService(intent)
+        }
+
     }
 }
