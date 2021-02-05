@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:id="@+id/dialog_header"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorMain"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Icon -->
+        <ImageView
+            android:id="@+id/dialog_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@id/dialog_title"
+            android:src="@drawable/check_circle" />
+
+        <!-- Title（default is gone) -->
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Done"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <!-- Dialog Message -->
+    <TextView
+        android:id="@+id/dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="200dp"
+        android:padding="8dp"
+        android:textColor="@color/colorMain"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_header"
+        tools:text="识别结果为 周杰伦的 阿斯顿发发发" />
+
+
+    <TextView
+        android:paddingBottom="6dp"
+        android:id="@+id/tv_retry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="14dp"
+        android:gravity="center"
+        android:text="@string/btn_identify_retry"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_message"
+        app:layout_constraintWidth_percent="0.5">
+
+    </TextView>
+
+    <TextView
+        android:paddingBottom="6dp"
+        android:id="@+id/tv_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:text="@string/btn_to_search"
+        android:textColor="@color/colorMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_message"
+        app:layout_constraintWidth_percent="0.5">
+
+    </TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

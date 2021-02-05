@@ -1,12 +1,11 @@
 package com.example.mymusic.search.identity
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -14,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
+import com.example.mymusic.customview.IdentityDialog
 import com.example.mymusic.databinding.ActivityIdentityMusicBinding
 import com.example.mymusic.search.ui.RecordStatus
 import com.example.mymusic.search.ui.SearchResultActivity
@@ -66,24 +66,20 @@ class IdentityMusicActivity : BaseActivity() {
                 if (array.length() > 0) {
                     val song = array.getJSONObject(0).getString("song")
                     val singer = array.getJSONObject(0).getString("singer")
-                    val alertdialogbuilder: AlertDialog.Builder = AlertDialog.Builder(this)
-                    alertdialogbuilder.setMessage("识别结果为$singer 的 $song")
-                    alertdialogbuilder.setPositiveButton("前往搜索", DialogInterface.OnClickListener { dialog, which ->
-                        val intent = Intent(this, SearchResultActivity::class.java)
-                        intent.putExtra("search_word", song)
-                        startActivity(intent)
-                        finish()
-                    })
-                    alertdialogbuilder.setNeutralButton("重新识别", null)
-                    val alertdialog1: AlertDialog = alertdialogbuilder.create()
-                    alertdialog1.show()
+                    IdentityDialog.Builder(this).setMessage("识别结果为$singer 的 $song").setSearchOnClickListener(
+                        View.OnClickListener {
+                            val intent = Intent(this, SearchResultActivity::class.java)
+                            intent.putExtra("search_word", song)
+                            startActivity(intent)
+                            finish()
+                        }).create().show()
                 } else {
                     Toast.makeText(this, "找不到匹配歌曲", Toast.LENGTH_LONG).show()
                 }
             } else {
                 Toast.makeText(this, "识别出错，请重试！", Toast.LENGTH_LONG).show()
             }
-            viewModel.status.postValue(RecordStatus.NO_BEGIN)
+            viewModel.status.postValue(RecordStatus.IDENTITY_FINISH)
         })
         initTopBar()
         initView()
@@ -98,18 +94,16 @@ class IdentityMusicActivity : BaseActivity() {
         supportActionBar?.setHomeAsUpIndicator(upArrow)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
-        binding.toolbarTitle.text = "歌曲识别"
+        type = intent.getIntExtra("type", 0)
+        if (type == 0) {
+            binding.toolbarTitle.text = "歌曲识别"
+        } else {
+            binding.toolbarTitle.text = "哼唱识别"
+        }
     }
 
     private fun initView() {
-        type = intent.getIntExtra("type", 0)
-        if (type == 0) {
-            binding.lottieAnim.setAnimation("listen_state.json")
-        } else {
-            binding.lottieAnim.setAnimation("voice.json")
-        }
         viewModel.status.postValue(RecordStatus.NO_BEGIN)
-
         binding.btnControl.setOnClickListener {
             if (viewModel.status.value == RecordStatus.NO_BEGIN) {
                 viewModel.status.postValue(RecordStatus.RECORDING)
@@ -124,11 +118,13 @@ class IdentityMusicActivity : BaseActivity() {
     private fun statusChange(status: RecordStatus) {
         when(status) {
             RecordStatus.NO_BEGIN -> {
-                binding.lottieAnim.pauseAnimation()
+                binding.lottieAnim.clearAnimation()
+                binding.lottieAnim.setAnimation("listen_state.json")
             }
             RecordStatus.RECORD_FINISH -> {
                 finishRecord()
                 binding.lottieAnim.cancelAnimation()
+                binding.lottieAnim.clearAnimation()
             }
             RecordStatus.RECORDING -> {
                 beginRecord()
@@ -140,7 +136,8 @@ class IdentityMusicActivity : BaseActivity() {
                 binding.lottieAnim.playAnimation()
             }
             RecordStatus.IDENTITY_FINISH -> {
-                binding.lottieAnim.cancelAnimation()
+                viewModel.status.postValue(RecordStatus.NO_BEGIN)
+                binding.lottieAnim.clearAnimation()
             }
             else -> {}
         }

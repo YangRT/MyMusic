@@ -36,5 +36,6 @@
     <string name="tip_begin_record">点击开始录音</string>
     <string name="tip_recording">录音完成，点击开始识别</string>
     <string name="tip_identify">识别中,请耐心等待...</string>
-
+    <string name="btn_identify_retry">重新识别</string>
+    <string name="btn_to_search">前往搜索</string>
 </resources>

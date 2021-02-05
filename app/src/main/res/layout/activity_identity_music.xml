@@ -41,17 +41,6 @@
             app:lottie_loop="true"
             app:lottie_repeatMode="restart" />
 
-        <TextView
-            android:id="@+id/tv_record_tips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tip_begin_record"
-            android:layout_marginBottom="18dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/btn_control"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <Button
             android:id="@+id/btn_control"
             android:layout_width="200dp"
