@@ -19,12 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <service
-            android:name=".search.record.RecordService"
-            android:enabled="true"
-            android:exported="true"></service>
 
-        <activity android:name=".search.ui.IdentityMusicActivity" />
+        <activity android:name=".search.identity.IdentityMusicActivity" />
         <activity android:name=".search.ui.SearchResultActivity" />
         <activity android:name=".radio.ui.CategoryListActivity" />
         <activity android:name=".radio.ui.RadioPersonActivity" />

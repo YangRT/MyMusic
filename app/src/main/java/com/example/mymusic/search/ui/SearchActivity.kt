@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -19,6 +18,7 @@ import com.example.mymusic.R
 import com.example.mymusic.customview.search.BCallBack
 import com.example.mymusic.customview.search.SCallBack
 import com.example.mymusic.databinding.ActivitySearchBinding
+import com.example.mymusic.search.identity.IdentityMusicActivity
 import com.example.mymusic.search.model.HotWord
 import com.example.mymusic.search.ui.adapter.HotWordAdapter
 import com.example.mymusic.search.ui.adapter.SearchWordAdapter

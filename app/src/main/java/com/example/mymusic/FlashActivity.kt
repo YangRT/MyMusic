@@ -8,7 +8,6 @@ import android.os.Handler
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.mymusic.base.BaseActivity
-import com.example.mymusic.search.ui.IdentityMusicActivity
 
 class FlashActivity : BaseActivity() {
 
