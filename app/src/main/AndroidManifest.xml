@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".play.PlayMusicActivity"></activity>
         <activity android:name=".search.identity.IdentityMusicActivity" />
         <activity android:name=".search.ui.SearchResultActivity" />
         <activity android:name=".radio.ui.CategoryListActivity" />
@@ -52,7 +52,7 @@
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".search.ui.SearchActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -13,7 +13,7 @@ class DownloadEvent(var url: String)
 class RestartEvent
 
 // 下一首
-class NextSongEvent(var songInfo: SongInfo)
+class NextSongEvent
 
 // 上一首
 class PreSongEvent
@@ -42,6 +42,9 @@ class SeekToEvent(var position: Long)
 
 // 播放进度 总时长
 class PlayingEvent(var duration: Long, var current: Long)
+
+// 初始化
+class BeginPlayEvent(var songInfo: SongInfo)
 
 
 

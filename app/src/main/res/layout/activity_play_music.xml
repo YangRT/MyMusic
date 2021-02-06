@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/play_background"
+        tools:context=".play.PlayMusicActivity">
+
+        <com.example.mymusic.customview.progressbar.PlayingProcessBar
+            android:id="@+id/play_process_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toTopOf="@id/image_current" />
+
+        <ImageView
+            android:id="@+id/image_previous"
+            android:layout_marginEnd="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/pre_music"
+            app:layout_constraintBottom_toBottomOf="@id/image_current"
+            app:layout_constraintEnd_toStartOf="@id/image_current" />
+
+        <ImageView
+            android:id="@+id/image_current"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/pause_music"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:layout_marginStart="50dp"
+            android:id="@+id/image_next"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/next_music"
+            app:layout_constraintBottom_toBottomOf="@id/image_current"
+            app:layout_constraintStart_toEndOf="@id/image_current" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

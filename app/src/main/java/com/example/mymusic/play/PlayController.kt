@@ -65,9 +65,8 @@ object PlayController {
     }
 
     @Subscribe
-    fun addToNextPlay(event: NextSongEvent) {
+    fun addToNextPlay(event: NextPlayEvent) {
         StarrySky.with().addSongInfo(0, event.songInfo)
     }
-
 
 }

@@ -18,7 +18,7 @@ import com.example.mymusic.R
 class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr:Int = 0):
     View(context,attributeSet,defStyleAttr) {
 
-    private var canModify : Boolean = true
+    private var canModify : Boolean = false
     private var isInit: Boolean = false
     private var mListener: ProcessChangeListener? = null
 
