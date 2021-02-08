@@ -26,12 +26,14 @@ class CheckMusicInterceptor: AsyncInterceptor() {
                 val result = PlayApiImpl.getCheckMusicResponse(it.songId.toLong())
                 success = result.success
                 message = result.message
-            }
-            if (!success) {
-                EventBus.getDefault().post(CanNotPlayEvent(message))
-                callback.onInterrupt(null)
-            } else {
-                callback.onContinue(it)
+                if (!success) {
+                    message?.let {
+                        EventBus.getDefault().post(CanNotPlayEvent(message))
+                    }
+                    callback.onInterrupt(null)
+                } else {
+                    callback.onContinue(it)
+                }
             }
         }
     }

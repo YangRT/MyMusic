@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface GetCheckMusicService {
 
-    @GET("/song/url")
+    @GET("/check/music")
     fun getCheckMusicResponse(@Query("id")id: Long): Call<CheckMusicResponse>
 
 }

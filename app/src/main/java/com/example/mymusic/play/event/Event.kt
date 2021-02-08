@@ -1,7 +1,6 @@
 package com.example.mymusic.play.event
 
 import com.lzx.starrysky.SongInfo
-import java.text.FieldPosition
 
 // 暂停
 class PauseEvent

@@ -8,7 +8,7 @@ import com.lzx.starrysky.SongInfo
 class MineMusicViewModel: ViewModel(), LifecycleObserver {
 
     fun getRecordList(): ArrayList<SongInfo> {
-        val list = ArrayList(PlayedSongDatabase.instance.playedSongDao().queryAll())
+        val list = PlayedSongDatabase.instance.playedSongDao().queryAll().asReversed()
         val result = ArrayList<SongInfo>()
         for (item in list) {
             val info = SongInfo()
