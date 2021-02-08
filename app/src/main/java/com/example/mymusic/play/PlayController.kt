@@ -1,9 +1,12 @@
 package com.example.mymusic.play
 
-import com.example.mymusic.play.db.PlayedSongDatabase
 import com.example.mymusic.play.event.*
+import com.example.mymusic.play.interceptor.CheckMusicInterceptor
+import com.example.mymusic.play.interceptor.GetPlayUrlInterceptor
+import com.example.mymusic.play.interceptor.SavePlayInfoInterceptor
 import com.lzx.starrysky.OnPlayProgressListener
 import com.lzx.starrysky.OnPlayerEventListener
+import com.lzx.starrysky.SongInfo
 import com.lzx.starrysky.StarrySky
 import com.lzx.starrysky.manager.PlaybackStage
 import org.greenrobot.eventbus.EventBus
@@ -25,8 +28,6 @@ object PlayController {
                 EventBus.getDefault().post(PlayingEvent(duration, currPos))
             }
         })
-        // 利用插件添加播放记录
-        StarrySky.addInterceptor(SavePlayInfoInterceptor())
     }
 
     @Subscribe
@@ -67,6 +68,10 @@ object PlayController {
     @Subscribe
     fun addToNextPlay(event: NextPlayEvent) {
         StarrySky.with().addSongInfo(0, event.songInfo)
+    }
+
+    fun playNow(songInfo: SongInfo) {
+        StarrySky.with().playMusicByInfo(songInfo)
     }
 
 }

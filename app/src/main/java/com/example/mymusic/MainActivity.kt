@@ -3,6 +3,7 @@ package com.example.mymusic
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -11,7 +12,10 @@ import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivityMainBinding
 import com.example.mymusic.find.ui.FindFragment
 import com.example.mymusic.mine.MineFragment
+import com.example.mymusic.play.event.CanNotPlayEvent
 import com.example.mymusic.search.ui.SearchActivity
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 
 class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
@@ -34,6 +38,7 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.viewModel = viewModel
         initView()
+        EventBus.getDefault().register(this)
     }
 
     override fun onChanged(t: Int?) {
@@ -92,6 +97,16 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
                 transaction.show(to).commit()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe
+    fun canNotPlayMusic(event: CanNotPlayEvent) {
+        Toast.makeText(this, event.msg, Toast.LENGTH_SHORT).show()
     }
 
 }

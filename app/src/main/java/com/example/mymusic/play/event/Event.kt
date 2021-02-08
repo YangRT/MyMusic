@@ -46,6 +46,9 @@ class PlayingEvent(var duration: Long, var current: Long)
 // 初始化
 class BeginPlayEvent(var songInfo: SongInfo)
 
+// 没有版权
+class CanNotPlayEvent(var msg: String)
+
 
 
 

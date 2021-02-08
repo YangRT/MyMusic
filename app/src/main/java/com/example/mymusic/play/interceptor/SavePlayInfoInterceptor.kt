@@ -1,4 +1,4 @@
-package com.example.mymusic.play
+package com.example.mymusic.play.interceptor
 
 import com.example.mymusic.play.db.PlayedSongDatabase
 import com.example.mymusic.play.db.PlayedSongInfo
@@ -13,7 +13,15 @@ class SavePlayInfoInterceptor : SyncInterceptor {
 
     override fun process(songInfo: SongInfo?): SongInfo? {
         songInfo?.let {
-            val info = PlayedSongInfo(it.songId, it.songName, it.artist, it.duration, it.songCover)
+            if (it.songUrl.isEmpty()) {
+                it.songUrl = "empty"
+                return it
+            }
+            val info = if (it.songUrl.startsWith("http")) {
+                PlayedSongInfo(it.songId, it.songName, it.artist, it.duration, it.songCover, false, it.songUrl)
+            } else {
+                PlayedSongInfo(it.songId, it.songName, it.artist, it.duration, it.songCover, true, it.songUrl)
+            }
             val dao = PlayedSongDatabase.instance.playedSongDao()
             dao.insert(info)
         }

@@ -33,12 +33,14 @@ import com.example.mymusic.find.ui.songlist.SongListAdapter
 import com.example.mymusic.find.ui.songlist.SongListViewModel
 import com.example.mymusic.base.BaseItemAdapter
 import com.example.mymusic.base.BaseItemModel
+import com.example.mymusic.play.PlayController
 import com.example.mymusic.radio.ui.ProgramDetailActivity
 import com.example.mymusic.radio.ui.RadioActivity
 import com.example.mymusic.rank.ui.AllRankActivity
 import com.example.mymusic.singer.ui.list.SingerListActivity
 import com.example.mymusic.songlist.ui.DetailActivity
 import com.example.mymusic.songlist.ui.category.CategoryActivity
+import com.lzx.starrysky.SongInfo
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.IndicatorSlideMode
@@ -240,6 +242,15 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
         })
         (newMusicListRecyclerView.adapter as NewMusicAdapter).setOnItemClickListener { adapter, view, position ->
             // 播放
+            val song = newMusicList[position]
+            val songInfo = SongInfo()
+            songInfo.songId = song.song.id.toString()
+            songInfo.songName = song.song.name
+            songInfo.songCover = song.picUrl
+            if (song.song.artists.isNotEmpty()) {
+                songInfo.artist = song.song.artists[0].name
+            }
+            PlayController.playNow(songInfo)
         }
     }
 
