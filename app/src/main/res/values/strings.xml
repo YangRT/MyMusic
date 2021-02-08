@@ -38,4 +38,6 @@
     <string name="tip_identify">识别中,请耐心等待...</string>
     <string name="btn_identify_retry">重新识别</string>
     <string name="btn_to_search">前往搜索</string>
+    <string name="refresh_success">刷新成功！</string>
+    <string name="record_empty">暂无播放记录</string>
 </resources>

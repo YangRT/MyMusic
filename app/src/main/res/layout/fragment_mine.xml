@@ -103,6 +103,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/play_record"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,7 +1,4 @@
 package com.example.mymusic.play.interceptor
-
-import android.widget.Toast
-import com.example.mymusic.MyApplication
 import com.example.mymusic.play.event.CanNotPlayEvent
 import com.example.mymusic.play.net.PlayApiImpl
 import com.lzx.starrysky.SongInfo
