@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".mine.PlayRecordActivity">
+        tools:context=".mine.MineSongActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_play_record"

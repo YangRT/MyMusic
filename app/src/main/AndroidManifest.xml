@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mine.PlayRecordActivity"></activity>
+        <activity android:name=".mine.MineSongActivity"></activity>
         <activity android:name=".play.PlayMusicActivity" />
         <activity android:name=".search.identity.IdentityMusicActivity" />
         <activity android:name=".search.ui.SearchResultActivity" />

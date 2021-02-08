@@ -16,6 +16,7 @@
             android:layout_height="60dp"/>
 
         <LinearLayout
+            android:id="@+id/local_music"
             android:layout_marginTop="40dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +31,7 @@
                 android:layout_height="30dp"/>
             <TextView
                 android:layout_weight="4"
-                android:text="本地音乐"
+                android:text="@string/local_music"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
@@ -118,7 +119,7 @@
                 android:layout_height="30dp"/>
             <TextView
                 android:layout_weight="4"
-                android:text="最近播放"
+                android:text="@string/play_record"
                 android:textColor="@color/black"
                 android:gravity="center_vertical"
                 android:textSize="16sp"

@@ -8,8 +8,14 @@ import com.example.mymusic.databinding.FragmentMineBinding
 class MineFragment(): MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
 
     override fun initView() {
+        binding.localMusic.setOnClickListener {
+            val intent = Intent(this.context, MineSongActivity::class.java)
+            intent.putExtra("type", 1)
+            startActivity(intent)
+        }
         binding.playRecord.setOnClickListener {
-            val intent = Intent(this.context, PlayRecordActivity::class.java)
+            val intent = Intent(this.context, MineSongActivity::class.java)
+            intent.putExtra("type", 0)
             startActivity(intent)
         }
     }
