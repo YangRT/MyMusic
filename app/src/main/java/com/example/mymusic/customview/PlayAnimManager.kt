@@ -5,13 +5,14 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.*
+import android.widget.ImageView
 import android.widget.LinearLayout
 
 
-class PlayAnimManager {
+object PlayAnimManager {
 
     var mListener: AnimListener? = null
-    private var time: Long = 800
+    private var time: Long = 1500
     private var animLayout: ViewGroup? = null
 
     private fun createAnimLayout(mainActivity: Activity): ViewGroup? {
@@ -51,19 +52,22 @@ class PlayAnimManager {
     }
 
     fun setAnim(
-        mainActivity: Activity?,
-        v: View,
-        start_location: IntArray,
-        end_location: IntArray
+        activity: Activity,
+        startLocation: IntArray
     ) {
         animLayout = null
-        animLayout = createAnimLayout(mainActivity!!)
-        animLayout?.addView(v) // 把动画小球添加到动画层
-        val view = addViewToAnimLayout(animLayout!!, v, start_location)
+        val imageView = ImageView(activity.baseContext)
+        imageView.setImageResource(com.example.mymusic.R.drawable.music_note)
+        animLayout = createAnimLayout(activity)
+        animLayout?.addView(imageView) // 把动画小球添加到动画层
+        val view = addViewToAnimLayout(animLayout!!, imageView, startLocation)
 
+        val endLocation = IntArray(2)
+        endLocation[0] = activity.window.decorView.width / 2
+        endLocation[1] = activity.window.decorView.height
         //终点位置
-        val endX = end_location[0] - start_location[0] + 20
-        val endY = end_location[1] - start_location[1] // 动画位移的y坐标
+        val endX = endLocation[0] - startLocation[0] + 20
+        val endY = endLocation[1] - startLocation[1] // 动画位移的y坐标
         val translateAnimationX = TranslateAnimation(0f, endX.toFloat(), 0f, 0f)
         translateAnimationX.interpolator = LinearInterpolator()
         translateAnimationX.repeatCount = 0 // 动画重复执行的次数
@@ -81,7 +85,7 @@ class PlayAnimManager {
         // 动画监听事件
         set.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {
-                v.visibility = View.VISIBLE
+                imageView.visibility = View.VISIBLE
                 mListener?.setAnimBegin(this@PlayAnimManager)
             }
 
@@ -89,9 +93,10 @@ class PlayAnimManager {
 
             // 动画的结束调用的方法
             override fun onAnimationEnd(animation: Animation) {
-                v.visibility = View.GONE
+                imageView.visibility = View.GONE
                 mListener?.setAnimEnd(this@PlayAnimManager)
                 animLayout?.removeAllViews()
+                (activity.window.decorView as ViewGroup).removeView(animLayout)
             }
         })
     }

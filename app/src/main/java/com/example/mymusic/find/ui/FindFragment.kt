@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -33,6 +34,7 @@ import com.example.mymusic.find.ui.songlist.SongListAdapter
 import com.example.mymusic.find.ui.songlist.SongListViewModel
 import com.example.mymusic.base.BaseItemAdapter
 import com.example.mymusic.base.BaseItemModel
+import com.example.mymusic.customview.PlayAnimManager
 import com.example.mymusic.play.PlayController
 import com.example.mymusic.radio.ui.ProgramDetailActivity
 import com.example.mymusic.radio.ui.RadioActivity
@@ -250,6 +252,10 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
             if (song.song.artists.isNotEmpty()) {
                 songInfo.artist = song.song.artists[0].name
             }
+            val start = IntArray(2)
+            view.getLocationInWindow(start)
+            start[0] += view.width/2
+            PlayAnimManager.setAnim(activity!!, start)
             PlayController.playNow(songInfo)
         }
     }

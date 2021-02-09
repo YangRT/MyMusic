@@ -2,6 +2,8 @@ package com.example.mymusic
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymusic.base.BaseActivity
+import com.example.mymusic.customview.PlayBottomWindow
 import com.example.mymusic.databinding.ActivityMainBinding
 import com.example.mymusic.find.ui.FindFragment
 import com.example.mymusic.mine.MineFragment
@@ -40,6 +43,12 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
         binding.viewModel = viewModel
         initView()
         EventBus.getDefault().register(this)
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed( {
+            val builder = PlayBottomWindow.ConfirmPopupWindowBuilder(this)
+            val window = PlayBottomWindow(this, builder)
+            window.show()
+        }, 1000)
     }
 
     override fun onChanged(t: Int?) {

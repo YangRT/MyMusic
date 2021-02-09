@@ -3,7 +3,6 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/mine_background"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -132,12 +131,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </LinearLayout>
-
-        <com.example.mymusic.customview.progressbar.PlayingProcessBar
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
 
     </LinearLayout>
 
