@@ -7,6 +7,7 @@ import com.example.mymusic.play.interceptor.CheckMusicInterceptor
 import com.example.mymusic.play.interceptor.GetPlayUrlInterceptor
 import com.example.mymusic.play.interceptor.SavePlayInfoInterceptor
 import com.lzx.starrysky.StarrySky
+import com.lzx.starrysky.notification.INotification
 
 class MyApplication:Application() {
 
@@ -15,6 +16,8 @@ class MyApplication:Application() {
         Log.e("MyApplication","onCreate")
         context = applicationContext
         StarrySky.init(this)
+            .setNotificationSwitch(true)
+            .setNotificationType(INotification.SYSTEM_NOTIFICATION)
             .addInterceptor(CheckMusicInterceptor())
             .addInterceptor(GetPlayUrlInterceptor())
             .addInterceptor(SavePlayInfoInterceptor())
