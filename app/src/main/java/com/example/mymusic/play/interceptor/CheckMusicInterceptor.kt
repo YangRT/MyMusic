@@ -7,6 +7,7 @@ import com.lzx.starrysky.intercept.InterceptorCallback
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
+import java.lang.Exception
 
 class CheckMusicInterceptor: AsyncInterceptor() {
 
@@ -23,16 +24,22 @@ class CheckMusicInterceptor: AsyncInterceptor() {
             var success = false
             var message = "无法播放"
             GlobalScope.launch {
-                val result = PlayApiImpl.getCheckMusicResponse(it.songId.toLong())
-                success = result.success
-                message = result.message
-                if (!success) {
-                    message?.let {
-                        EventBus.getDefault().post(CanNotPlayEvent(message))
+                try {
+                    val result = PlayApiImpl.getCheckMusicResponse(it.songId.toLong())
+                    success = result.success
+                    message = result.message
+                    if (!success) {
+                        message.let {
+                            EventBus.getDefault().post(CanNotPlayEvent(message))
+                        }
+                        callback.onContinue(songInfo)
+                    } else {
+                        callback.onContinue(it)
                     }
-                    callback.onInterrupt(null)
-                } else {
-                    callback.onContinue(it)
+                }catch (e: Exception) {
+                    e.printStackTrace()
+                    EventBus.getDefault().post(CanNotPlayEvent("网络错误"))
+                    callback.onContinue(songInfo)
                 }
             }
         }

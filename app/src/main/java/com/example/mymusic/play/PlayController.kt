@@ -27,7 +27,12 @@ object PlayController {
                     }
                     PlaybackStage.ERROR -> {
                         stage.errorMsg?.let {
-                            EventBus.getDefault().post(CanNotPlayEvent(it))
+                            if (it.startsWith("ExoPlayer error")) {
+                                EventBus.getDefault().post(CanNotPlayEvent("网络不给力"))
+                            } else {
+                                EventBus.getDefault().post(CanNotPlayEvent(it))
+                            }
+
                         }
                         if (stage.errorMsg == null) {
                             EventBus.getDefault().post(CanNotPlayEvent("未知错误"))
