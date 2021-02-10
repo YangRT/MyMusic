@@ -5,11 +5,17 @@ import com.lzx.starrysky.SongInfo
 // 暂停
 class PauseEvent
 
+class PauseFinishEvent
+
 // 下载
 class DownloadEvent(var url: String)
 
+class DownloadFinishEvent(val path: String)
+
 // 继续播放
 class RestartEvent
+
+class RestartFinishEvent
 
 // 下一首
 class NextSongEvent
@@ -20,12 +26,16 @@ class PreSongEvent
 // 添加到下一首播放
 class NextPlayEvent(var songInfo: SongInfo)
 
+class NextPlayFinishEvent
+
 // 改变播放顺序
 // REPEAT_MODE_NONE = 100     //顺序播放
 // REPEAT_MODE_ONE = 200      //单曲播放
 // REPEAT_MODE_SHUFFLE = 300  //随机播放
 // REPEAT_MODE_REVERSE = 400  //倒序播放
 class ChangePlayOrderEvent(var order: Int)
+
+class ChangePlayOrderFinishEvent(var order: Int)
 
 // 添加到播放历史
 class AddToHistoryEvent(var info: SongInfo)
@@ -45,7 +55,7 @@ class PlayingEvent(var duration: Long, var current: Long)
 // 初始化
 class BeginPlayEvent(var songInfo: SongInfo)
 
-// 没有版权
+// 播放出错 或者 没有版权
 class CanNotPlayEvent(var msg: String)
 
 

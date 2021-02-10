@@ -15,7 +15,7 @@ import com.example.mymusic.customview.PlayBottomWindow
 import com.example.mymusic.databinding.ActivityMainBinding
 import com.example.mymusic.find.ui.FindFragment
 import com.example.mymusic.mine.MineFragment
-import com.example.mymusic.play.event.CanNotPlayEvent
+import com.example.mymusic.play.event.*
 import com.example.mymusic.search.ui.SearchActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -33,6 +33,7 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
     private val findFragment = FindFragment()
     private val mineFragment = MineFragment()
     private lateinit var from :Fragment
+    private lateinit var bottomWindow: PlayBottomWindow
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +47,8 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed( {
             val builder = PlayBottomWindow.ConfirmPopupWindowBuilder(this)
-            val window = PlayBottomWindow(this, builder)
-            window.show()
+            bottomWindow = PlayBottomWindow(this, builder)
+            bottomWindow.show()
         }, 1000)
     }
 
@@ -117,6 +118,21 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun canNotPlayMusic(event: CanNotPlayEvent) {
         Toast.makeText(this, event.msg, Toast.LENGTH_SHORT).show()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun pauseFinish(event: PauseFinishEvent) {
+        bottomWindow.pause()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun reStartFinish(event: RestartFinishEvent) {
+        bottomWindow.restart()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun switchSong(event: BeginPlayEvent) {
+        bottomWindow.switchSong(event.songInfo)
     }
 
 }

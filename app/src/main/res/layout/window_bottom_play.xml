@@ -10,7 +10,8 @@
         android:id="@+id/bottom_bar_image"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.circle"
         android:padding="6dp"
-        android:src="@drawable/test"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
         android:layout_width="55dp"
@@ -26,7 +27,6 @@
         android:ellipsize="end"
         android:textSize="12sp"
         android:layout_toEndOf="@id/bottom_bar_image"
-        android:text="一起走过的日子一起走过的日子一起走过的日子"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -39,7 +39,6 @@
         android:ellipsize="end"
         android:layout_toEndOf="@id/bottom_bar_image"
         android:layout_below="@id/bottom_bar_name"
-        android:text="刘德华"
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -49,7 +48,7 @@
         android:layout_centerInParent="true"
         android:layout_marginEnd="20dp"
         android:layout_toStartOf="@id/bottom_bar_menu"
-        android:src="@drawable/play_music"
+        android:src="@drawable/play_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"/>
 
@@ -58,7 +57,7 @@
         android:layout_centerInParent="true"
         android:layout_marginEnd="20dp"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/menu"
+        android:src="@drawable/list"
         android:layout_width="24dp"
         android:layout_height="24dp"/>
 </RelativeLayout>

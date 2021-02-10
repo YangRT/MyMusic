@@ -15,11 +15,48 @@ import org.greenrobot.eventbus.Subscribe
 // 音乐播放控制
 object PlayController {
 
+    private var isPause = false
+
     init {
         EventBus.getDefault().register(this)
         StarrySky.with().addPlayerEventListener(object : OnPlayerEventListener{
             override fun onPlaybackStageChange(stage: PlaybackStage) {
+                when(stage.stage) {
+                    PlaybackStage.IDEA -> {
 
+                    }
+                    PlaybackStage.ERROR -> {
+                        stage.errorMsg?.let {
+                            EventBus.getDefault().post(CanNotPlayEvent(it))
+                        }
+                        if (stage.errorMsg == null) {
+                            EventBus.getDefault().post(CanNotPlayEvent("未知错误"))
+                        }
+                    }
+                    PlaybackStage.PAUSE -> {
+                        EventBus.getDefault().post(PauseFinishEvent())
+                        isPause = true
+                    }
+                    PlaybackStage.SWITCH -> {
+                        isPause = false
+                        stage.songInfo?.let {
+                            EventBus.getDefault().postSticky(BeginPlayEvent(it))
+                        }
+                    }
+                    PlaybackStage.BUFFERING -> {
+                        EventBus.getDefault().post(CanNotPlayEvent("正在加载..."))
+                    }
+                    PlaybackStage.PLAYING -> {
+                        if (isPause) {
+                            isPause = false
+                            EventBus.getDefault().post(RestartFinishEvent())
+                        } else {
+                            stage.songInfo?.let {
+                                EventBus.getDefault().postSticky(BeginPlayEvent(it))
+                            }
+                        }
+                    }
+                }
             }
 
         }, "control")

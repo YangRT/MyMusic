@@ -1,17 +1,24 @@
 package com.example.mymusic.customview
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
-import androidx.core.widget.PopupWindowCompat
+import com.bumptech.glide.Glide
 import com.example.mymusic.R
+import com.example.mymusic.play.event.PauseEvent
+import com.example.mymusic.play.event.RestartEvent
+import com.lzx.starrysky.SongInfo
+import kotlinx.android.synthetic.main.window_bottom_play.view.*
+import org.greenrobot.eventbus.EventBus
 
-class PlayBottomWindow(context: Context, builder: ConfirmPopupWindowBuilder? = null) : PopupWindow() {
+class PlayBottomWindow(var context: Context, builder: ConfirmPopupWindowBuilder? = null) : PopupWindow() {
 
+    private var controlImage: ImageView
+    private var isPause = false
+    private var isPlaying = false
 
     init {
         val inflater = LayoutInflater.from(context)
@@ -20,6 +27,16 @@ class PlayBottomWindow(context: Context, builder: ConfirmPopupWindowBuilder? = n
         this.height = LinearLayout.LayoutParams.WRAP_CONTENT
         this.isOutsideTouchable = false //是否可以
         this.isClippingEnabled = false //背景透明化可以铺满全屏
+        controlImage = this.contentView.findViewById(R.id.bottom_bar_image)
+        this.contentView.bottom_bar_btn.setOnClickListener {
+            if (isPlaying) {
+                if (isPause) {
+                    EventBus.getDefault().post(RestartEvent())
+                } else {
+                    EventBus.getDefault().post(PauseEvent())
+                }
+            }
+        }
 //        //设置取消的点击事件
 //        this.contentView.tv_confirm_cancel.setOnClickListener {
 //            //先隐藏弹窗
@@ -34,6 +51,30 @@ class PlayBottomWindow(context: Context, builder: ConfirmPopupWindowBuilder? = n
 //            dismiss()
 //            builder?.mConfirmListener?.invoke()
 //        }
+    }
+
+    fun pause() {
+        isPause = true
+        this.contentView.bottom_bar_btn.setImageResource(R.drawable.pause_icon)
+    }
+
+    fun restart() {
+        isPause = false
+        this.contentView.bottom_bar_btn.setImageResource(R.drawable.play_icon)
+    }
+
+    fun setIsPlay(isPlay: Boolean) {
+        isPlaying = isPlay
+    }
+
+    fun switchSong(songInfo: SongInfo) {
+        this.contentView.bottom_bar_author.text = songInfo.artist
+        this.contentView.bottom_bar_name.text = songInfo.songName
+        if (songInfo.songCover.isNotEmpty()){
+            Glide.with(context).load(songInfo.songCover).into(this.controlImage)
+        }
+        isPause = false
+        isPlaying = true
     }
 
 
