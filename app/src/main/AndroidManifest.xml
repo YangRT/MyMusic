@@ -20,7 +20,12 @@
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
         <activity android:name=".mine.MineSongActivity"></activity>
-        <activity android:name=".play.PlayMusicActivity" />
+        <activity
+            android:name=".play.PlayMusicActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.yang.mymusic">
+
+        </activity>
         <activity android:name=".search.identity.IdentityMusicActivity" />
         <activity android:name=".search.ui.SearchResultActivity" />
         <activity android:name=".radio.ui.CategoryListActivity" />

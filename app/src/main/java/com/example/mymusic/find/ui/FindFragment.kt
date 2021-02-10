@@ -249,6 +249,7 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
             songInfo.songId = song.song.id.toString()
             songInfo.songName = song.song.name
             songInfo.songCover = song.picUrl
+            songInfo.duration = song.song.duration
             if (song.song.artists.isNotEmpty()) {
                 songInfo.artist = song.song.artists[0].name
             }

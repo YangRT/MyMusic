@@ -68,11 +68,12 @@ class PlayBottomWindow(var context: Context, builder: ConfirmPopupWindowBuilder?
     }
 
     fun switchSong(songInfo: SongInfo) {
-        this.contentView.bottom_bar_author.text = songInfo.artist
+        this.contentView.bottom_bar_author.text = songInfo.artist + " 时长：${songInfo.duration/1000} 秒"
         this.contentView.bottom_bar_name.text = songInfo.songName
         if (songInfo.songCover.isNotEmpty()){
             Glide.with(context).load(songInfo.songCover).into(this.controlImage)
         }
+        this.contentView.bottom_bar_btn.setImageResource(R.drawable.play_icon)
         isPause = false
         isPlaying = true
     }

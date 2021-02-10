@@ -24,6 +24,7 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this).get(PlayMusicViewModel::class.java)
         initView()
+        EventBus.getDefault().register(this)
     }
 
     private fun initView() {
@@ -70,6 +71,11 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
     @Subscribe
     fun getPlayProcess(event: PlayingEvent) {
         val second = event.current / 1000
@@ -82,4 +88,21 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
         binding.playProcessBar.initProcessBar(duration)
         binding.playProcessBar.setCanModify(true)
     }
+
+    @Subscribe
+    fun pause(event: PauseFinishEvent) {
+
+    }
+
+    @Subscribe
+    fun reStart(event: RestartFinishEvent) {
+
+    }
+
+    @Subscribe
+    fun switchSong(event: BeginPlayEvent) {
+
+    }
+
+
 }
