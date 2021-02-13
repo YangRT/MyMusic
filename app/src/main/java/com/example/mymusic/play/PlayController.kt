@@ -67,7 +67,7 @@ object PlayController {
         }, "control")
         StarrySky.with().setOnPlayProgressListener(object: OnPlayProgressListener{
             override fun onPlayProgress(currPos: Long, duration: Long) {
-                EventBus.getDefault().post(PlayingEvent(duration, currPos))
+                EventBus.getDefault().postSticky(PlayingEvent(duration, currPos))
             }
         })
     }
@@ -114,6 +114,10 @@ object PlayController {
 
     fun playNow(songInfo: SongInfo) {
         StarrySky.with().playMusicByInfo(songInfo)
+    }
+
+    fun isPause(): Boolean {
+        return isPause
     }
 
 }

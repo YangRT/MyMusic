@@ -15,10 +15,14 @@ import com.example.mymusic.R
 
 
 //  音乐播放进度条
-class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet: AttributeSet? = null, defStyleAttr:Int = 0):
-    View(context,attributeSet,defStyleAttr) {
+class PlayingProcessBar @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) :
+    View(context, attributeSet, defStyleAttr) {
 
-    private var canModify : Boolean = false
+    private var canModify: Boolean = false
     private var isInit: Boolean = false
     private var mListener: ProcessChangeListener? = null
 
@@ -54,9 +58,14 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
         val typeArray = context.obtainStyledAttributes(attributeSet, R.styleable.PlayingProcessBar)
         textColor = typeArray.getColor(R.styleable.PlayingProcessBar_textColor, Color.WHITE)
         textSize = typeArray.getDimensionPixelSize(R.styleable.PlayingProcessBar_textSize, 40)
-        processBackgroundColor = typeArray.getColor(R.styleable.PlayingProcessBar_backgroundColor, Color.parseColor("#3A86F0"))
-        processPlayingColor = typeArray.getColor(R.styleable.PlayingProcessBar_processBarColor, Color.WHITE)
-        processBarWidth = typeArray.getDimensionPixelSize(R.styleable.PlayingProcessBar_processBarWidth, 4)
+        processBackgroundColor = typeArray.getColor(
+            R.styleable.PlayingProcessBar_backgroundColor,
+            Color.parseColor("#3A86F0")
+        )
+        processPlayingColor =
+            typeArray.getColor(R.styleable.PlayingProcessBar_processBarColor, Color.WHITE)
+        processBarWidth =
+            typeArray.getDimensionPixelSize(R.styleable.PlayingProcessBar_processBarWidth, 4)
         typeArray.recycle()
 
         textPaint = Paint()
@@ -76,10 +85,10 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
         totalProcessText = secondToTime(totalSeconds)
         currentProcessText = secondToTime(currentSecond)
 
-        textPaint.getTextBounds(totalProcessText,0, totalProcessText.length, textBound)
+        textPaint.getTextBounds(totalProcessText, 0, totalProcessText.length, textBound)
         //计算baseline所需
-        val fontMetrics=textPaint.fontMetrics
-        distance= (fontMetrics.bottom - fontMetrics.top)/2 - fontMetrics.bottom
+        val fontMetrics = textPaint.fontMetrics
+        distance = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom
 
     }
 
@@ -96,26 +105,48 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
         super.onDraw(canvas)
         canvas?.let {
             // 画文字
-            textPaint.getTextBounds(totalProcessText,0, totalProcessText.length, textBound)
+            textPaint.getTextBounds(totalProcessText, 0, totalProcessText.length, textBound)
             textWidth = textBound.width()
-            val baseline= drawY + distance
+            val baseline = drawY + distance
             canvas.drawText(currentProcessText, dp2px(4).toFloat(), baseline, textPaint)
             val processLength = viewWidth - 2 * textWidth - dp2px(24).toFloat()
             if (processLength < 0) {
                 return
             }
-            canvas.drawText(totalProcessText, dp2px(20).toFloat() + processLength + textWidth, baseline, textPaint)
+            canvas.drawText(
+                totalProcessText,
+                dp2px(20).toFloat() + processLength + textWidth,
+                baseline,
+                textPaint
+            )
 
             // 画进度条
-            canvas.drawLine(textWidth + dp2px(12).toFloat(), drawY.toFloat(),textWidth + dp2px(12).toFloat() + processLength, drawY.toFloat(), processBarBackgroundPaint)
+            canvas.drawLine(
+                textWidth + dp2px(12).toFloat(),
+                drawY.toFloat(),
+                textWidth + dp2px(12).toFloat() + processLength,
+                drawY.toFloat(),
+                processBarBackgroundPaint
+            )
             var currentLength = 0F
             if (totalSeconds != 0) {
                 currentLength = currentSecond.toFloat() / totalSeconds * processLength
-                canvas.drawLine(textWidth + dp2px(12).toFloat(), drawY.toFloat(),textWidth + dp2px(12).toFloat() + currentLength, drawY.toFloat(), processBarPaint)
+                canvas.drawLine(
+                    textWidth + dp2px(12).toFloat(),
+                    drawY.toFloat(),
+                    textWidth + dp2px(12).toFloat() + currentLength,
+                    drawY.toFloat(),
+                    processBarPaint
+                )
             }
             // 画icon
             playingIcon?.let {
-                it.setBounds(textWidth + dp2px(12) + currentLength.toInt() - it.intrinsicWidth/2, drawY - it.intrinsicHeight/2,textWidth + dp2px(12) + currentLength.toInt()+it.intrinsicWidth/2, drawY + it.intrinsicHeight/2)
+                it.setBounds(
+                    textWidth + dp2px(12) + currentLength.toInt() - it.intrinsicWidth / 2,
+                    drawY - it.intrinsicHeight / 2,
+                    textWidth + dp2px(12) + currentLength.toInt() + it.intrinsicWidth / 2,
+                    drawY + it.intrinsicHeight / 2
+                )
                 it.draw(canvas)
             }
         }
@@ -127,14 +158,20 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
         }
         event?.let {
             // 文字区域不响应
-            if (event.action == MotionEvent.ACTION_DOWN && (event.x < textWidth + dp2px(10) || event.x > viewWidth - textWidth - dp2px(10))) {
+            if (event.action == MotionEvent.ACTION_DOWN && (event.x < textWidth + dp2px(10) || event.x > viewWidth - textWidth - dp2px(
+                    10
+                ))
+            ) {
                 return false
             }
             // 进度条上下方不响应
-            if (event.action == MotionEvent.ACTION_DOWN && (event.y < drawY - dp2px(8) || event.y > drawY + dp2px(8))) {
+            if (event.action == MotionEvent.ACTION_DOWN && (event.y < drawY - dp2px(8) || event.y > drawY + dp2px(
+                    8
+                ))
+            ) {
                 return false
             }
-            when(event.action) {
+            when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     xToSecond(event.x)
                 }
@@ -170,29 +207,27 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
     }
 
 
-
     public fun setCanModify(type: Boolean) {
         canModify = type
     }
 
     public fun initProcessBar(second: Int) {
-        if (!isInit) {
-            totalSeconds = second
-            totalProcessText = secondToTime(second)
-            isInit = true
-            invalidate()
-        }
+        totalSeconds = second
+        currentSecond = 0
+        totalProcessText = secondToTime(second)
+        isInit = true
+        invalidate()
     }
 
     // 坐标计算当前second
     private fun xToSecond(touchX: Float) {
         val currentLength = touchX - textWidth - dp2px(12)
         val totalLength = viewWidth - 2 * textWidth - dp2px(24)
-        currentSecond = (currentLength/totalLength * totalSeconds).toInt()
-        if (currentSecond > totalSeconds){
+        currentSecond = (currentLength / totalLength * totalSeconds).toInt()
+        if (currentSecond > totalSeconds) {
             currentSecond = totalSeconds
         }
-        if (currentSecond < 0){
+        if (currentSecond < 0) {
             currentSecond = 0
         }
         currentProcessText = secondToTime(currentSecond)
@@ -209,7 +244,7 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
         val minute = temp / 60
         temp -= 60 * minute
         val sb = StringBuilder()
-        if (hour != 0){
+        if (hour != 0) {
             if (hour < 10) {
                 sb.append(0)
             }
@@ -221,13 +256,13 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
                 sb.append(0)
             }
             sb.append(minute)
-        }else {
+        } else {
             sb.append("00")
         }
         sb.append(":")
         if (temp == 0) {
             sb.append("00")
-        }else {
+        } else {
             if (temp < 10) {
                 sb.append(0)
             }
@@ -243,7 +278,7 @@ class PlayingProcessBar@JvmOverloads constructor(context: Context, attributeSet:
     }
 
 
-    public interface ProcessChangeListener{
+    public interface ProcessChangeListener {
         fun change(second: Int)
     }
 }

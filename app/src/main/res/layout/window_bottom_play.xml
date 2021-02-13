@@ -11,7 +11,7 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearance.circle"
         android:padding="6dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo"
+        android:src="@drawable/default_bottom_window"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
         android:layout_width="55dp"

@@ -8,6 +8,55 @@
         android:layout_height="match_parent"
         tools:context=".play.PlayMusicActivity">
 
+        <ImageView
+            android:id="@+id/background"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_marginTop="20dp"
+            android:id="@+id/toolbar_play_music"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@android:color/transparent"
+            android:elevation="16dp"
+            android:translationZ="10dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="首页测试长度"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <ImageView
+            android:id="@+id/image_center"
+            app:layout_constraintTop_toTopOf="@id/image_needle"
+            android:layout_marginTop="116dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/image_needle"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_play_music"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="75dp"
+            android:src="@drawable/ic_needle"
+            android:layout_width="150dp"
+            android:layout_height="180dp"/>
+
         <com.example.mymusic.customview.progressbar.PlayingProcessBar
             android:id="@+id/play_process_bar"
             android:layout_width="match_parent"
@@ -16,9 +65,9 @@
 
         <ImageView
             android:id="@+id/image_previous"
-            android:layout_marginEnd="50dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginEnd="50dp"
             android:src="@drawable/skip_previous"
             app:layout_constraintBottom_toBottomOf="@id/image_current"
             app:layout_constraintEnd_toStartOf="@id/image_current" />
@@ -27,17 +76,17 @@
             android:id="@+id/image_current"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/play_icon"
             android:layout_marginBottom="15dp"
+            android:src="@drawable/play_icon"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:layout_marginStart="50dp"
             android:id="@+id/image_next"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="50dp"
             android:src="@drawable/skip_next"
             app:layout_constraintBottom_toBottomOf="@id/image_current"
             app:layout_constraintStart_toEndOf="@id/image_current" />

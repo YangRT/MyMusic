@@ -1,6 +1,7 @@
 package com.example.mymusic.customview
 
 import android.content.Context
+import android.content.Intent
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -8,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.bumptech.glide.Glide
 import com.example.mymusic.R
+import com.example.mymusic.play.PlayMusicActivity
 import com.example.mymusic.play.event.PauseEvent
 import com.example.mymusic.play.event.RestartEvent
 import com.lzx.starrysky.SongInfo
@@ -37,13 +39,10 @@ class PlayBottomWindow(var context: Context, builder: ConfirmPopupWindowBuilder?
                 }
             }
         }
-//        //设置取消的点击事件
-//        this.contentView.tv_confirm_cancel.setOnClickListener {
-//            //先隐藏弹窗
-//            dismiss()
-//            //调用接口的具体实现
-//            builder?.mCancelListener?.invoke()
-//        }
+        this.contentView.setOnClickListener {
+            val intent = Intent(context, PlayMusicActivity::class.java)
+            context.startActivity(intent)
+        }
 //
 //        //设置确认的点击事件
 //        this.contentView.tv_confirm_ensure.setOnClickListener {
@@ -72,6 +71,8 @@ class PlayBottomWindow(var context: Context, builder: ConfirmPopupWindowBuilder?
         this.contentView.bottom_bar_name.text = songInfo.songName
         if (songInfo.songCover.isNotEmpty()){
             Glide.with(context).load(songInfo.songCover).into(this.controlImage)
+        } else {
+            this.controlImage.setImageResource(R.drawable.default_bottom_window)
         }
         this.contentView.bottom_bar_btn.setImageResource(R.drawable.play_icon)
         isPause = false
