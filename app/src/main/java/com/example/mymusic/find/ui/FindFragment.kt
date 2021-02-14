@@ -5,10 +5,7 @@ import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -258,6 +255,28 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
             start[0] += view.width/2
             PlayAnimManager.setAnim(activity!!, start)
             PlayController.playNow(songInfo)
+        }
+
+        val btnPlayAll = newMusicListView.findViewById<Button>(R.id.btn_play_all)
+        btnPlayAll.setOnClickListener {
+            // 播放
+            val songs = ArrayList<SongInfo>()
+            for (newSong in newMusicList) {
+                val songInfo = SongInfo()
+                songInfo.songId = newSong.song.id.toString()
+                songInfo.songName = newSong.song.name
+                songInfo.songCover = newSong.picUrl
+                songInfo.duration = newSong.song.duration
+                if (newSong.song.artists.isNotEmpty()) {
+                    songInfo.artist = newSong.song.artists[0].name
+                }
+                songs.add(songInfo)
+            }
+            val start = IntArray(2)
+            it.getLocationInWindow(start)
+            start[0] += it.width/2
+            PlayAnimManager.setAnim(activity!!, start)
+            PlayController.playAll(songs)
         }
     }
 

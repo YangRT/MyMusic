@@ -19,9 +19,9 @@ object PlayController {
 
     init {
         EventBus.getDefault().register(this)
-        StarrySky.with().addPlayerEventListener(object : OnPlayerEventListener{
+        StarrySky.with().addPlayerEventListener(object : OnPlayerEventListener {
             override fun onPlaybackStageChange(stage: PlaybackStage) {
-                when(stage.stage) {
+                when (stage.stage) {
                     PlaybackStage.IDEA -> {
 
                     }
@@ -65,7 +65,7 @@ object PlayController {
             }
 
         }, "control")
-        StarrySky.with().setOnPlayProgressListener(object: OnPlayProgressListener{
+        StarrySky.with().setOnPlayProgressListener(object : OnPlayProgressListener {
             override fun onPlayProgress(currPos: Long, duration: Long) {
                 EventBus.getDefault().postSticky(PlayingEvent(duration, currPos))
             }
@@ -74,11 +74,19 @@ object PlayController {
 
     @Subscribe
     fun nextSong(event: NextSongEvent) {
+        if (!StarrySky.with().isSkipToNextEnabled()) {
+            EventBus.getDefault().post(CanNotPlayEvent("没有下一首!"))
+            return
+        }
         StarrySky.with().skipToNext()
     }
 
     @Subscribe
     fun previousSong(event: PreSongEvent) {
+        if (!StarrySky.with().isSkipToPreviousEnabled()) {
+            EventBus.getDefault().post(CanNotPlayEvent("没有上一首！"))
+            return
+        }
         StarrySky.with().skipToPrevious()
     }
 
@@ -113,7 +121,27 @@ object PlayController {
     }
 
     fun playNow(songInfo: SongInfo) {
-        StarrySky.with().playMusicByInfo(songInfo)
+        val index  = StarrySky.with().getNowPlayingIndex()
+        if (index == -1) {
+            StarrySky.with().playMusicByInfo(songInfo)
+        } else {
+            StarrySky.with().addSongInfo(index + 1, songInfo)
+            StarrySky.with().playMusicByInfo(songInfo)
+        }
+    }
+
+    fun playAll(songs: MutableList<SongInfo>) {
+        if (songs.isEmpty()) return
+        var index  = StarrySky.with().getNowPlayingIndex()
+        if (index == -1) {
+            StarrySky.with().playMusic(songs, 0)
+        } else {
+            for (song in songs) {
+                StarrySky.with().addSongInfo( index + 1, song)
+                index++
+            }
+            StarrySky.with().playMusicByInfo(songs[0])
+        }
     }
 
     fun isPause(): Boolean {

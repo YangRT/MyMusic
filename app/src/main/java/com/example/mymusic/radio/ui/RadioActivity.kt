@@ -4,8 +4,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,7 +16,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
+import com.example.mymusic.customview.PlayBottomWindow
 import com.example.mymusic.databinding.ActivityRadioBinding
+import com.example.mymusic.play.event.BeginPlayEvent
+import com.example.mymusic.play.event.CanNotPlayEvent
+import com.example.mymusic.play.event.PauseFinishEvent
+import com.example.mymusic.play.event.RestartFinishEvent
 import com.example.mymusic.radio.model.RadioBanner
 import com.example.mymusic.radio.model.RadioCategory
 import com.example.mymusic.radio.model.Rank
@@ -28,6 +36,9 @@ import com.zhpan.bannerview.constants.IndicatorGravity
 import com.zhpan.bannerview.constants.IndicatorSlideMode
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.bannerview.transform.AccordionTransformer
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class RadioActivity : BaseActivity() {
 
@@ -36,6 +47,7 @@ class RadioActivity : BaseActivity() {
     private lateinit var bannerViewModel: RadioBannerViewModel
     private lateinit var bannerViewPager: BannerViewPager<RadioBanner, RadioBannerAdapter>
     private val rankList = ArrayList<Rank>()
+    private lateinit var bottomWindow: PlayBottomWindow
 
 
     private val list = ArrayList<RadioCategory>()
@@ -60,6 +72,14 @@ class RadioActivity : BaseActivity() {
         })
         categoryViewModel.getCacheData()
         bannerViewModel.getCacheData()
+
+        EventBus.getDefault().register(this)
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed( {
+            val builder = PlayBottomWindow.ConfirmPopupWindowBuilder(this)
+            bottomWindow = PlayBottomWindow(this, builder)
+            bottomWindow.show()
+        }, 1000)
     }
 
     private fun initView() {
@@ -130,5 +150,26 @@ class RadioActivity : BaseActivity() {
     private fun initRank() {
         rankList.add(Rank("节目榜", R.drawable.radio_rank_background))
         rankList.add(Rank("主播榜", R.drawable.radio_rank_background_two))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun pauseFinish(event: PauseFinishEvent) {
+        bottomWindow.pause()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun reStartFinish(event: RestartFinishEvent) {
+        bottomWindow.restart()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun switchSong(event: BeginPlayEvent) {
+        bottomWindow.switchSong(event.songInfo)
     }
 }

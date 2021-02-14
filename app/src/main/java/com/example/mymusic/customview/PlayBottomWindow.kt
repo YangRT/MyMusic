@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.bumptech.glide.Glide
 import com.example.mymusic.R
+import com.example.mymusic.play.PlayController
 import com.example.mymusic.play.PlayMusicActivity
 import com.example.mymusic.play.event.PauseEvent
 import com.example.mymusic.play.event.RestartEvent
@@ -74,8 +75,12 @@ class PlayBottomWindow(var context: Context, builder: ConfirmPopupWindowBuilder?
         } else {
             this.controlImage.setImageResource(R.drawable.default_bottom_window)
         }
-        this.contentView.bottom_bar_btn.setImageResource(R.drawable.play_icon)
-        isPause = false
+        isPause = PlayController.isPause()
+        if (isPause) {
+            this.contentView.bottom_bar_btn.setImageResource(R.drawable.pause_icon)
+        } else {
+            this.contentView.bottom_bar_btn.setImageResource(R.drawable.play_icon)
+        }
         isPlaying = true
     }
 

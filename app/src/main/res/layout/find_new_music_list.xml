@@ -20,6 +20,7 @@
             android:layout_height="match_parent"/>
 
         <TextView
+            android:id="@+id/btn_play_all"
             android:text="@string/play_all"
             android:background="@drawable/more_background"
             android:padding="4dp"

@@ -8,35 +8,24 @@ import androidx.lifecycle.viewModelScope
 import com.example.mymusic.MyApplication
 import com.example.mymusic.network.ServiceCreator
 import com.example.mymusic.network.await
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+class RegisterViewModel: ViewModel(), LifecycleObserver {
 
-/**
- * @program: MyMusic
- *
- * @description: 登录viewmodel
- *
- * @author: YangRT
- *
- * @create: 2020-11-20 00:54
- **/
+    private val registerService = ServiceCreator.create(RegisterService::class.java)
 
-class LoginViewModel: ViewModel(), LifecycleObserver {
+    val registerStatus = MutableLiveData<Boolean>()
 
-    private val loginService = ServiceCreator.create(LoginService::class.java)
 
-    private val loginStatus = MutableLiveData<Boolean>()
-
-    fun login(phone: String, password: String) {
+    fun login(phone: String, password: String, captcha: String, nickname: String) {
         launch(
             {
-                val result = loginService.login(phone, password).await()
+                val result = registerService.register(phone, password, captcha, nickname).await()
                 if (result.code == 200) {
-                    loginStatus.postValue(true)
-                    Toast.makeText(MyApplication.context,"登录成功！", Toast.LENGTH_SHORT).show()
+                    registerStatus.postValue(true)
+                    Toast.makeText(MyApplication.context,"注册成功！", Toast.LENGTH_SHORT).show()
                 } else {
-                    loginStatus.postValue(false)
+                    registerStatus.postValue(false)
                     Toast.makeText(MyApplication.context,result.msg, Toast.LENGTH_SHORT).show()
 
                 }
@@ -44,6 +33,15 @@ class LoginViewModel: ViewModel(), LifecycleObserver {
                 Toast.makeText(MyApplication.context,"网络错误！", Toast.LENGTH_SHORT).show()
             }
         )
+    }
+
+    fun getCaptcha(phone: String) {
+        launch({
+            val result = registerService.getCaptcha(phone).await()
+            Toast.makeText(MyApplication.context,result.message, Toast.LENGTH_SHORT).show()
+        }, {
+            Toast.makeText(MyApplication.context,"网络错误！", Toast.LENGTH_SHORT).show()
+        })
     }
 
 
