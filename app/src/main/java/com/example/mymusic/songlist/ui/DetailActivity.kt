@@ -4,6 +4,8 @@ import android.content.Intent
 import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -18,12 +20,16 @@ import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.base.model.Playlist
 import com.example.mymusic.base.model.Track
+import com.example.mymusic.customview.PlayAnimManager
 import com.example.mymusic.databinding.ActivityDetailBinding
+import com.example.mymusic.play.PlayController
+import com.example.mymusic.play.PlayMusicActivity
 
 import com.example.mymusic.rank.ui.adapter.RankDetailAdapter
 import com.example.mymusic.search.ui.SearchActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.lzx.starrysky.SongInfo
 
 class DetailActivity : BaseActivity() {
 
@@ -89,6 +95,31 @@ class DetailActivity : BaseActivity() {
                 Math.abs(verticalOffset * 1f / binding.detailAppLayout.totalScrollRange)
         })
 
+        adapter.setOnItemClickListener { adapter, view, position ->
+            val songInfo = SongInfo()
+            songInfo.songName = dataList[position].name
+            songInfo.songId = dataList[position].id.toString()
+            if (dataList[position].ar.isNotEmpty()) {
+                songInfo.artist = dataList[position].ar[0].name
+            } else {
+                songInfo.artist = "未知"
+            }
+            songInfo.duration = dataList[position].dt
+            if (!dataList[position].al.picUrl.isNullOrEmpty()) {
+                songInfo.songCover = dataList[position].al.picUrl
+            }
+            PlayController.playNow(songInfo)
+
+            val start = IntArray(2)
+            view.getLocationInWindow(start)
+            start[0] += view.width/2
+            PlayAnimManager.setAnim(this, start)
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                val intent = Intent(this, PlayMusicActivity::class.java)
+                startActivity(intent)
+            }, 1500)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -16,13 +18,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
+import com.example.mymusic.customview.PlayAnimManager
 import com.example.mymusic.databinding.ActivityProgramDetailBinding
+import com.example.mymusic.play.PlayController
+import com.example.mymusic.play.PlayMusicActivity
 import com.example.mymusic.radio.model.Program
 import com.example.mymusic.radio.ui.adapter.ProgramDetailAdapter
 import com.example.mymusic.radio.ui.viewmodel.ProgramDetailViewModel
 import com.example.mymusic.search.ui.SearchActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.lzx.starrysky.SongInfo
 
 class ProgramDetailActivity : BaseActivity() {
 
@@ -88,6 +94,30 @@ class ProgramDetailActivity : BaseActivity() {
             binding.detailToolbar.alpha =
                 Math.abs(verticalOffset * 1f / binding.detailAppLayout.totalScrollRange)
         })
+
+        adapter.setOnItemClickListener { adapter, view, position ->
+            val songInfo = SongInfo()
+            songInfo.songName = dataList[position].mainSong.name
+            songInfo.songCover = dataList[position].coverUrl
+            songInfo.songId = dataList[position].mainSong.id.toString()
+            songInfo.duration = dataList[position].mainSong.duration.toLong()
+            if (dataList[position].mainSong.artists.isNotEmpty()) {
+                songInfo.artist = dataList[position].mainSong.artists[0].name
+            } else {
+                songInfo.artist = "未知"
+            }
+            PlayController.playNow(songInfo)
+
+            val start = IntArray(2)
+            view.getLocationInWindow(start)
+            start[0] += view.width/2
+            PlayAnimManager.setAnim(this, start)
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                val intent = Intent(this, PlayMusicActivity::class.java)
+                startActivity(intent)
+            }, 1500)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

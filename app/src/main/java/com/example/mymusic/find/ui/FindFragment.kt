@@ -257,7 +257,7 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
             PlayController.playNow(songInfo)
         }
 
-        val btnPlayAll = newMusicListView.findViewById<Button>(R.id.btn_play_all)
+        val btnPlayAll = newMusicListView.findViewById<TextView>(R.id.btn_play_all)
         btnPlayAll.setOnClickListener {
             // 播放
             val songs = ArrayList<SongInfo>()

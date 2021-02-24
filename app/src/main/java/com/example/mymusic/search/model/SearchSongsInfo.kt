@@ -18,4 +18,4 @@ data class SearchSongsInfo(val code: Int, val needLogin: Boolean, val result: Re
 
 data class Result(val songCount: Int, val songs: List<SearchSong>)
 
-data class SearchSong(val name: String, val id: Long, val ar: List<Ar>, val al: Al)
+data class SearchSong(val name: String, val id: Long, val ar: List<Ar>, val al: Al, val dt: Long)
