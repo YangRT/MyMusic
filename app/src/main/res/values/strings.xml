@@ -42,4 +42,5 @@
 
     <string name="local_music">本地音乐</string>
     <string name="play_record">最近播放</string>
+    <string name="download_music">下载歌曲</string>
 </resources>

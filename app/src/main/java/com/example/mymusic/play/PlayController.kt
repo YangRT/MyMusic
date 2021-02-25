@@ -1,9 +1,14 @@
 package com.example.mymusic.play
 
+import android.os.Environment
+import com.example.mymusic.play.db.DownloadSongInfo
+import com.example.mymusic.play.db.PlayedSongDatabase
 import com.example.mymusic.play.event.*
 import com.example.mymusic.play.interceptor.CheckMusicInterceptor
 import com.example.mymusic.play.interceptor.GetPlayUrlInterceptor
+import com.example.mymusic.play.interceptor.SaveDownloadSongInfoInterceptor
 import com.example.mymusic.play.interceptor.SavePlayInfoInterceptor
+import com.example.mymusic.utils.DownLoadUtil
 import com.lzx.starrysky.OnPlayProgressListener
 import com.lzx.starrysky.OnPlayerEventListener
 import com.lzx.starrysky.SongInfo
@@ -11,12 +16,35 @@ import com.lzx.starrysky.StarrySky
 import com.lzx.starrysky.manager.PlaybackStage
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import java.io.File
 
 // 音乐播放控制
 object PlayController {
 
     private var isPause = false
+    private var totalProcess = -1
 
+    private val callBack = object : DownLoadUtil.DownCallBack{
+        override fun success(file: File) {
+            EventBus.getDefault().post(CanNotPlayEvent("下载成功"))
+        }
+
+        override fun fail(str: String) {
+            EventBus.getDefault().post(CanNotPlayEvent("下载失败：$str"))
+
+        }
+
+        override fun progress(position: Long) {
+            val current = (position/1000).toInt()
+            EventBus.getDefault().post(CanNotPlayEvent("下载中：$current / $totalProcess"))
+
+        }
+
+        override fun total(total: Long) {
+            totalProcess = (total/1000).toInt()
+        }
+
+    }
     init {
         EventBus.getDefault().register(this)
         StarrySky.with().addPlayerEventListener(object : OnPlayerEventListener {
@@ -118,6 +146,30 @@ object PlayController {
     @Subscribe
     fun addToNextPlay(event: NextPlayEvent) {
         StarrySky.with().addSongInfo(0, event.songInfo)
+    }
+
+    @Subscribe
+    fun downloadMusic(event: DownloadEvent) {
+        val info = StarrySky.with().getNowPlayingSongInfo()
+        info?.let {
+            val url = Environment.getExternalStorageDirectory().absolutePath + "/myMusic/"+ info.songName + ".mp3"
+            val list = PlayedSongDatabase.instance.downloadSongDao().query(it.songId)
+            if (list.isNotEmpty() || File(url).exists()) {
+                EventBus.getDefault().post(CanNotPlayEvent("歌曲已经下载!"))
+                val downloadSongInfo = DownloadSongInfo(info.songId, info.songName, info.artist, info.duration, info.songCover, false, url)
+                val dao = PlayedSongDatabase.instance.downloadSongDao()
+                dao.insert(downloadSongInfo)
+                DownLoadUtil.getInstance().refreshMedia(url)
+            } else {
+                val infoInterceptor = SaveDownloadSongInfoInterceptor(it, url)
+                DownLoadUtil.getInstance().setInterceptor(infoInterceptor)
+                DownLoadUtil.getInstance().initUrl(info.songUrl, null)
+                DownLoadUtil.getInstance().setFileName(info.songName + ".mp3")
+                DownLoadUtil.getInstance().setFilePath(Environment.getExternalStorageDirectory().absolutePath + "/myMusic/")
+                DownLoadUtil.getInstance().setDownCallBack(callBack)
+                DownLoadUtil.getInstance().down()
+            }
+        }
     }
 
     fun playNow(songInfo: SongInfo) {

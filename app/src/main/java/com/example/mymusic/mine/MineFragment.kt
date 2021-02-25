@@ -18,6 +18,11 @@ class MineFragment(): MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
             intent.putExtra("type", 0)
             startActivity(intent)
         }
+        binding.downloadMusic.setOnClickListener {
+            val intent = Intent(this.context, MineSongActivity::class.java)
+            intent.putExtra("type",2)
+            startActivity(intent)
+        }
     }
 
     override fun getLayoutId(): Int {

@@ -45,6 +45,8 @@ class MineSongActivity : BaseActivity() {
             binding.toolbarTitle.setText(R.string.play_record)
         } else if (type == 1) {
             binding.toolbarTitle.setText(R.string.local_music)
+        } else if (type == 2) {
+            binding.toolbarTitle.setText(R.string.download_music)
         }
         list = getData()
         adapter = MineMusicAdapter(list)
@@ -75,6 +77,8 @@ class MineSongActivity : BaseActivity() {
             return viewModel.getRecordList()
         } else if (type == 1) {
             return ArrayList(StarrySky.with().querySongInfoInLocal(this))
+        } else if (type == 2) {
+            return viewModel.getDownloadList()
         }
         return ArrayList()
     }

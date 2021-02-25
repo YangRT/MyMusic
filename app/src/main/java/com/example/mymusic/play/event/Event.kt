@@ -8,7 +8,7 @@ class PauseEvent
 class PauseFinishEvent
 
 // 下载
-class DownloadEvent(var url: String)
+class DownloadEvent
 
 class DownloadFinishEvent(val path: String)
 

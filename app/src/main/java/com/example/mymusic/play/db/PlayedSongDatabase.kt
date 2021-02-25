@@ -5,10 +5,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.mymusic.MyApplication
 
-@Database(entities = [PlayedSongInfo::class],version = 1)
+@Database(entities = [PlayedSongInfo::class, DownloadSongInfo::class],version = 1)
 abstract class PlayedSongDatabase: RoomDatabase() {
 
     abstract fun playedSongDao(): PlayedSongDao
+    abstract fun downloadSongDao(): DownloadSongDao
 
     companion object{
         val instance = Single.sin

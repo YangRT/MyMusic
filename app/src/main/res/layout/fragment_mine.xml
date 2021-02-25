@@ -45,6 +45,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/download_music"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +54,7 @@
             <ImageView
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:src="@drawable/download"
+                android:src="@drawable/download_icon"
                 android:scaleType="centerInside"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>

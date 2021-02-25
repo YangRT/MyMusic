@@ -1,8 +1,11 @@
 package com.example.mymusic.utils
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.example.mymusic.MyApplication
 import okhttp3.*
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -327,6 +330,12 @@ class DownLoadUtil private constructor()  {
         fun fail(str: String)
         fun progress(position: Long)
         fun total(total: Long)
+    }
+
+    public fun refreshMedia(filePath: String){
+        val localUri = Uri.fromFile(File(filePath))
+        val localIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,localUri)
+        MyApplication.context.sendBroadcast(localIntent)
     }
 
 }
