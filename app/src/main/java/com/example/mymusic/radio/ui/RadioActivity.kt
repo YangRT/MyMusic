@@ -72,13 +72,12 @@ class RadioActivity : BaseActivity() {
         })
         categoryViewModel.getCacheData()
         bannerViewModel.getCacheData()
-
-        EventBus.getDefault().register(this)
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed( {
             val builder = PlayBottomWindow.ConfirmPopupWindowBuilder(this)
             bottomWindow = PlayBottomWindow(this, builder)
             bottomWindow.show()
+            EventBus.getDefault().register(this)
         }, 1000)
     }
 

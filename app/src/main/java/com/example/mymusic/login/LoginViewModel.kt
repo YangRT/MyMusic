@@ -26,7 +26,7 @@ class LoginViewModel: ViewModel(), LifecycleObserver {
 
     private val loginService = ServiceCreator.create(LoginService::class.java)
 
-    private val loginStatus = MutableLiveData<Boolean>()
+    val loginStatus = MutableLiveData<Boolean>()
 
     fun login(phone: String, password: String) {
         launch(

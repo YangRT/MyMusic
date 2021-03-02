@@ -19,6 +19,7 @@
     <string name="empty_view_text">暂无数据，下拉刷新</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
+    <string name="reset_password">修改密码</string>
     <string name="forget_password">忘记密码?</string>
     <string name="go_to_register">点击注册</string>
     <string name="hint_phone_num">输入手机号</string>
@@ -43,4 +44,5 @@
     <string name="local_music">本地音乐</string>
     <string name="play_record">最近播放</string>
     <string name="download_music">下载歌曲</string>
+    <string name="goto_login">前往登录></string>
 </resources>

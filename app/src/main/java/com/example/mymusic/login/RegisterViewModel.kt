@@ -17,7 +17,7 @@ class RegisterViewModel: ViewModel(), LifecycleObserver {
     val registerStatus = MutableLiveData<Boolean>()
 
 
-    fun login(phone: String, password: String, captcha: String, nickname: String) {
+    fun register(phone: String, password: String, captcha: String, nickname: String) {
         launch(
             {
                 val result = registerService.register(phone, password, captcha, nickname).await()
