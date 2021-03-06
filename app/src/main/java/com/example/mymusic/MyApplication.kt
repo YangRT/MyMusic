@@ -6,6 +6,7 @@ import android.util.Log
 import com.example.mymusic.play.interceptor.CheckMusicInterceptor
 import com.example.mymusic.play.interceptor.GetPlayUrlInterceptor
 import com.example.mymusic.play.interceptor.SavePlayInfoInterceptor
+import com.iflytek.cloud.*
 import com.lzx.starrysky.StarrySky
 import com.lzx.starrysky.notification.INotification
 
@@ -22,6 +23,7 @@ class MyApplication:Application() {
             .addInterceptor(GetPlayUrlInterceptor())
             .addInterceptor(SavePlayInfoInterceptor())
             .apply()
+        SpeechUtility.createUtility(context, SpeechConstant.APPID +"="+R.string.app_id)
     }
     companion object {
         lateinit var context: Context

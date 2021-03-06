@@ -45,4 +45,6 @@
     <string name="play_record">最近播放</string>
     <string name="download_music">下载歌曲</string>
     <string name="goto_login">前往登录></string>
+
+    <string name="app_id">6006aa1f</string>
 </resources>
