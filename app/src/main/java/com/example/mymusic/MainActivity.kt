@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.mymusic.audio.AudioActivity
 import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.customview.PlayBottomWindow
 import com.example.mymusic.databinding.ActivityMainBinding
@@ -61,7 +62,8 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
         var fragment:Fragment? = null
         when(v?.id){
             R.id.main_menu -> {
-
+                val intent = Intent(this,AudioActivity::class.java)
+                startActivity(intent)
             }
             R.id.main_search -> {
                 val intent = Intent(this,SearchActivity::class.java)

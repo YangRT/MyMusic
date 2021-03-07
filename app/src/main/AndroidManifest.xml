@@ -20,14 +20,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mine.MineSongActivity"></activity>
+        <activity android:name=".audio.AudioActivity"></activity>
+        <activity android:name=".mine.MineSongActivity" />
         <activity
             android:name=".play.PlayMusicActivity"
             android:launchMode="singleTask"
             android:taskAffinity="com.yang.mymusic"
-            android:theme="@style/AppTheme.Image">
-
-        </activity>
+            android:theme="@style/AppTheme.Image"></activity>
         <activity android:name=".search.identity.IdentityMusicActivity" />
         <activity android:name=".search.ui.SearchResultActivity" />
         <activity android:name=".radio.ui.CategoryListActivity" />
