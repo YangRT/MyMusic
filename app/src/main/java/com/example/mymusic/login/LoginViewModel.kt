@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mymusic.MyApplication
 import com.example.mymusic.network.ServiceCreator
 import com.example.mymusic.network.await
+import com.example.mymusic.utils.saveData
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel: ViewModel(), LifecycleObserver {
 
-    private val loginService = ServiceCreator.create(LoginService::class.java)
+    private val loginService = ServiceCreator.createLogin(LoginService::class.java)
 
     val loginStatus = MutableLiveData<Boolean>()
 
@@ -33,6 +34,7 @@ class LoginViewModel: ViewModel(), LifecycleObserver {
             {
                 val result = loginService.login(phone, password).await()
                 if (result.code == 200) {
+                    saveData("user", phone)
                     loginStatus.postValue(true)
                     Toast.makeText(MyApplication.context,"登录成功！", Toast.LENGTH_SHORT).show()
                 } else {

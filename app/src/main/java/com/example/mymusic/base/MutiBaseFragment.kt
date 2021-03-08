@@ -17,6 +17,7 @@ abstract class MutiBaseFragment<VM:ViewModel,T: ViewDataBinding>: Fragment(), Ob
 
     protected lateinit var binding:T
     protected lateinit var  statusHelper: StatusLayout.StatusHelper
+    protected var viewModel: VM? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -1,13 +1,24 @@
 package com.example.mymusic.mine
 
 import android.content.Intent
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.mymusic.R
 import com.example.mymusic.base.MutiBaseFragment
 import com.example.mymusic.databinding.FragmentMineBinding
+import com.example.mymusic.login.LoginActivity
+import com.example.mymusic.login.LoginViewModel
+import com.example.mymusic.utils.getSaveData
 
-class MineFragment(): MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
+class MineFragment() : MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
+
 
     override fun initView() {
+        viewModel().loginStatus.observe(this, Observer {
+            binding.isLogin = it
+            binding.executePendingBindings()
+        })
+        viewModel().getLoginStatus()
         binding.localMusic.setOnClickListener {
             val intent = Intent(this.context, MineSongActivity::class.java)
             intent.putExtra("type", 1)
@@ -20,7 +31,11 @@ class MineFragment(): MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
         }
         binding.downloadMusic.setOnClickListener {
             val intent = Intent(this.context, MineSongActivity::class.java)
-            intent.putExtra("type",2)
+            intent.putExtra("type", 2)
+            startActivity(intent)
+        }
+        binding.loginTip.setOnClickListener {
+            val intent = Intent(this.context, LoginActivity::class.java)
             startActivity(intent)
         }
     }
@@ -30,7 +45,10 @@ class MineFragment(): MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
     }
 
     override fun viewModel(): MineViewModel {
-        return MineViewModel()
+        if (viewModel == null) {
+            viewModel = ViewModelProvider(this).get(MineViewModel::class.java)
+        }
+        return viewModel as MineViewModel
     }
 
     override fun refreshCancel() {
