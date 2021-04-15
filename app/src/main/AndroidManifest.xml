@@ -20,7 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".audio.AudioActivity"></activity>
         <activity android:name=".mine.MineSongActivity" />
         <activity
             android:name=".play.PlayMusicActivity"

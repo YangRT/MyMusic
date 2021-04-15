@@ -23,7 +23,6 @@ class MyApplication:Application() {
             .addInterceptor(GetPlayUrlInterceptor())
             .addInterceptor(SavePlayInfoInterceptor())
             .apply()
-        SpeechUtility.createUtility(context, SpeechConstant.APPID +"="+R.string.app_id)
     }
     companion object {
         lateinit var context: Context
