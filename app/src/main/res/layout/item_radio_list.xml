@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_border_radio_list"
     android:layout_width="match_parent"
-    android:layout_height="180dp">
+    android:layout_margin="8dp"
+    android:layout_height="200dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/radio_category_list_image"
@@ -10,23 +13,21 @@
         android:layout_height="150dp"
         android:scaleType="centerCrop"
         android:src="@drawable/test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.shape" />
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.radio" />
 
     <TextView
         android:id="@+id/tv_radio_list_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
         android:text="@string/empty_view_text"
-        android:textColor="@color/colorMain"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/radio_category_list_image"
-        app:layout_constraintEnd_toEndOf="@id/radio_category_list_image" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/radio_category_list_image" />
 
     <TextView
         android:id="@+id/tv_radio_list_category"
@@ -48,11 +49,12 @@
         android:maxWidth="90dp"
         android:maxLines="1"
         android:ellipsize="end"
+        android:text="@string/app_name"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
-        android:textColor="@color/colorMain"
+        android:textColor="@color/text_color"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/radio_category_list_image"
+        app:layout_constraintBottom_toTopOf="@id/tv_radio_list_count"
         app:layout_constraintStart_toStartOf="@id/radio_category_list_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

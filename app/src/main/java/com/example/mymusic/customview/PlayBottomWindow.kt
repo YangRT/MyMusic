@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.mymusic.R
 import com.example.mymusic.play.PlayController
@@ -41,8 +42,12 @@ class PlayBottomWindow(var context: Context, builder: ConfirmPopupWindowBuilder?
             }
         }
         this.contentView.setOnClickListener {
-            val intent = Intent(context, PlayMusicActivity::class.java)
-            context.startActivity(intent)
+            if(isPlaying || isPause) {
+                val intent = Intent(context, PlayMusicActivity::class.java)
+                context.startActivity(intent)
+            } else {
+                Toast.makeText(context, "暂无歌曲正在播放", Toast.LENGTH_SHORT).show()
+            }
         }
 //
 //        //设置确认的点击事件

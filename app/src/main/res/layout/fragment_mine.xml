@@ -94,7 +94,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:scaleType="centerInside"
-                android:src="@drawable/download_icon" />
+                android:src="@drawable/download" />
 
             <TextView
                 android:layout_width="wrap_content"
