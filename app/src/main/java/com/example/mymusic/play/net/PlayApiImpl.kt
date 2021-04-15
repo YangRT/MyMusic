@@ -11,11 +11,17 @@ object PlayApiImpl {
 
     private val getCheckMusicService = ServiceCreator.create(GetCheckMusicService::class.java)
 
+    private val getLyricService = ServiceCreator.create(GetLyricsService::class.java)
+
     suspend fun getPlayUrlResponse(id: Long) = withContext(Dispatchers.IO) {
         getPlayUrlService.getPlayUrl(id).await()
     }
 
     suspend fun getCheckMusicResponse(id: Long) = withContext(Dispatchers.IO) {
         getCheckMusicService.getCheckMusicResponse(id).await()
+    }
+
+    suspend fun getMusicLyricResponse(id: Long) = withContext(Dispatchers.IO) {
+        getLyricService.getPlayUrl(id).await()
     }
 }

@@ -18,4 +18,12 @@
         <attr name="processBarColor" format="color" />
         <attr name="processBarWidth" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="LyricsView">
+        <attr name="lrcMode" format="enum">
+            <enum name="KARAOKE" value="1"/>
+        </attr>
+        <attr name="hignLineColor" format="color|reference"/>
+        <attr name="lrcColor" format="color|reference"/>
+    </declare-styleable>
 </resources>
