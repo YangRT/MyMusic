@@ -44,7 +44,7 @@
                 android:layout_marginEnd="20dp"
                 android:text="@string/goto_login"
                 android:visibility="@{isLogin ? View.INVISIBLE : View.VISIBLE}"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </FrameLayout>
 
         <LinearLayout

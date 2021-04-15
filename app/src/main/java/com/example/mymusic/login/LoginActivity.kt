@@ -24,6 +24,8 @@ class LoginActivity : BaseActivity() {
         viewModel.loginStatus.observe(this, Observer {
             if (it) {
                 val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
             }
