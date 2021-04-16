@@ -40,6 +40,7 @@ class LyricsView@JvmOverloads constructor(
     val KARAOKE = 1
 
     init {
+        // 获取自定义属性
         val ta: TypedArray = context.obtainStyledAttributes(attributeSet, R.styleable.LyricsView)
         highLineColor =
             ta.getColor(R.styleable.LyricsView_hignLineColor, resources.getColor(R.color.colorMain))
@@ -47,6 +48,7 @@ class LyricsView@JvmOverloads constructor(
         )
         mode = ta.getInt(R.styleable.LyricsView_lrcMode, mode)
         ta.recycle()
+        // 初始化
         gPaint = Paint()
         gPaint.isAntiAlias = true
         gPaint.color = lrcColor
