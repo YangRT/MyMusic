@@ -16,6 +16,7 @@ class LyricsData {
     private var lyrics: String = ""
     private var start: Long = -1L
     private var end: Long = -1L
+    private var extraHeight = 0
 
 
     fun setLyrics(data: String) {
@@ -30,6 +31,10 @@ class LyricsData {
         end = time
     }
 
+    fun setExtraHeight(count: Int) {
+        extraHeight = count
+    }
+
     fun getLyrics(): String {
         return lyrics
     }
@@ -42,6 +47,8 @@ class LyricsData {
         return end
     }
 
-
+    fun getExtraHeight(): Int {
+        return extraHeight
+    }
 
 }

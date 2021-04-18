@@ -82,7 +82,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.lzx:StarrySkyX:2.5.4'
     implementation 'org.greenrobot:eventbus:3.2.0'
-
+    implementation 'me.wcy:lrcview:2.2'
     implementation "androidx.room:room-runtime:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
 

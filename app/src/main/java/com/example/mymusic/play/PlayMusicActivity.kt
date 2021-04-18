@@ -18,6 +18,8 @@ import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +32,7 @@ import com.example.mymusic.customview.progressbar.PlayingProcessBar
 import com.example.mymusic.databinding.ActivityPlayMusicBinding
 import com.example.mymusic.play.event.*
 import com.example.mymusic.utils.BlurUtil
+import me.wcy.lrcview.LrcView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -68,7 +71,19 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
         binding.imageCurrent.setOnClickListener(this)
         binding.imageNext.setOnClickListener(this)
         binding.imagePrevious.setOnClickListener(this)
-
+        binding.background.setOnClickListener(this)
+        binding.playMusicLyrics.setLabel("暂无歌词")
+        binding.playMusicLyrics.setNormalColor(Color.parseColor("#BFFFFFFF"))
+        binding.playMusicLyrics.setCurrentColor(Color.WHITE)
+        binding.playMusicLyrics.setDraggable(true
+        ) { _, time ->
+            val seekToEvent = SeekToEvent(time)
+            EventBus.getDefault().post(seekToEvent)
+            true
+        }
+        binding.playMusicLyrics.setOnTapListener { _, _, _ ->
+            switchUI()
+        }
         binding.playProcessBar.setProcessChangeListener(object: PlayingProcessBar.ProcessChangeListener{
             override fun change(second: Int) {
                 // 快进 快退
@@ -98,6 +113,13 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
                 needleAnimator.start()
             }
         })
+        viewModel.lyric.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                binding.playMusicLyrics.loadLrc(it)
+            } else {
+                binding.playMusicLyrics.loadLrc("")
+            }
+        })
     }
 
     override fun onClick(v: View?) {
@@ -118,6 +140,9 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
                 R.id.image_next -> {
                     EventBus.getDefault().post(NextSongEvent())
                 }
+                R.id.background -> {
+                    switchUI()
+                }
             }
         }
     }
@@ -131,6 +156,7 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
     fun getPlayProcess(event: PlayingEvent) {
         val second = event.current / 1000
         binding.playProcessBar.changeProcess(second.toInt())
+        binding.playMusicLyrics.updateTime(event.current)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -144,6 +170,9 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
             viewModel.isPlaying.postValue(true)
         }
         binding.toolbarTitle.text = event.songInfo.songName
+        if (event.songInfo.songId.isNotEmpty()) {
+            viewModel.getMusicLyrics(event.songInfo.songId.toLong())
+        }
         if (event.songInfo.songCover.isNotEmpty()) {
             Glide.with(this).asBitmap().load(event.songInfo.songCover).into(object : CustomViewTarget<ImageView, Bitmap>(binding.imageCenter) {
                 override fun onLoadFailed(errorDrawable: Drawable?) {
@@ -215,6 +244,16 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
             android.R.id.home -> { finish() }
         }
         return true
+    }
+
+    private fun switchUI() {
+        if (binding.playMusicAlbum.isVisible && !binding.playMusicLyrics.isVisible) {
+            binding.playMusicAlbum.visibility = View.INVISIBLE
+            binding.playMusicLyrics.visibility = View.VISIBLE
+        } else if (!binding.playMusicAlbum.isVisible && binding.playMusicLyrics.isVisible){
+            binding.playMusicAlbum.visibility = View.VISIBLE
+            binding.playMusicLyrics.visibility = View.INVISIBLE
+        }
     }
 
 }
