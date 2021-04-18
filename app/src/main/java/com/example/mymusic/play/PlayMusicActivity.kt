@@ -9,6 +9,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -154,6 +155,7 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun getPlayProcess(event: PlayingEvent) {
+        Log.e("PlayMusic", "getPlayProcess: ${event.current}")
         val second = event.current / 1000
         binding.playProcessBar.changeProcess(second.toInt())
         binding.playMusicLyrics.updateTime(event.current)

@@ -1,6 +1,7 @@
 package com.example.mymusic.play
 
 import android.os.Environment
+import android.util.Log
 import com.example.mymusic.play.db.DownloadSongInfo
 import com.example.mymusic.play.db.PlayedSongDatabase
 import com.example.mymusic.play.event.*
@@ -45,8 +46,11 @@ object PlayController {
         }
 
     }
-    init {
-        EventBus.getDefault().register(this)
+
+    fun init() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
         StarrySky.with().addPlayerEventListener(object : OnPlayerEventListener {
             override fun onPlaybackStageChange(stage: PlaybackStage) {
                 when (stage.stage) {
@@ -95,6 +99,7 @@ object PlayController {
         }, "control")
         StarrySky.with().setOnPlayProgressListener(object : OnPlayProgressListener {
             override fun onPlayProgress(currPos: Long, duration: Long) {
+                Log.e("PlayMusic", "currPos: $currPos  duration: $duration")
                 EventBus.getDefault().postSticky(PlayingEvent(duration, currPos))
             }
         })

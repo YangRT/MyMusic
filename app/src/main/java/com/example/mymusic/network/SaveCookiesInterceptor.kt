@@ -18,6 +18,7 @@ class SaveCookiesInterceptor : Interceptor {
             val cookies = response.headers("Set-Cookie")
             val cookie = encodeCookie(cookies)
             saveCookies(request.url.toString(),request.url.host,cookie)
+            Log.e("SaveInterceptor", "${request.url.host}")
         }
         return response
     }
@@ -49,6 +50,7 @@ class SaveCookiesInterceptor : Interceptor {
     }
 
     fun saveCookies(url:String?,domain:String?,cookies:String){
+        Log.e("MineFragmentSave", cookies)
         val sp = MyApplication.context.getSharedPreferences(COOKIE_PRF, Context.MODE_PRIVATE)
         val edit = sp.edit()
         if(!TextUtils.isEmpty(url)){

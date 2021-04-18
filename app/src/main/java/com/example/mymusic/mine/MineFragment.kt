@@ -1,6 +1,7 @@
 package com.example.mymusic.mine
 
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mymusic.R
@@ -16,6 +17,7 @@ class MineFragment() : MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
     override fun initView() {
         viewModel().loginStatus.observe(this, Observer {
             binding.isLogin = it
+            Log.e("MineFragment","isLogin: $it")
             binding.executePendingBindings()
         })
         viewModel().getLoginStatus()

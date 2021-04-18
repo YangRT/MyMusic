@@ -1,5 +1,6 @@
 package com.example.mymusic.mine
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,7 +38,8 @@ class MineViewModel : ViewModel(){
         launch(
             {
                 val result = mineService.getStatus().await()
-                if (result.code == 200 ) {
+                Log.e("MineFragment", "${result.code}")
+                if (result.code == 200) {
                     loginStatus.postValue(true)
                     Toast.makeText(MyApplication.context,result.msg, Toast.LENGTH_SHORT).show()
                 } else {

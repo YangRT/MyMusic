@@ -15,6 +15,7 @@ import com.example.mymusic.customview.PlayBottomWindow
 import com.example.mymusic.databinding.ActivityMainBinding
 import com.example.mymusic.find.ui.FindFragment
 import com.example.mymusic.mine.MineFragment
+import com.example.mymusic.play.PlayController
 import com.example.mymusic.play.event.*
 import com.example.mymusic.search.ui.SearchActivity
 import org.greenrobot.eventbus.EventBus
@@ -50,6 +51,7 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
             bottomWindow = PlayBottomWindow(this, builder)
             bottomWindow.show()
         }, 1000)
+        PlayController.init()
     }
 
     override fun onChanged(t: Int?) {
