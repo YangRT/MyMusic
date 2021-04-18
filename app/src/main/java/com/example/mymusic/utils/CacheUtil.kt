@@ -1,6 +1,7 @@
 package com.example.mymusic.utils
 
 import android.content.Context
+import android.text.TextUtils
 import com.example.mymusic.MyApplication
 import com.google.gson.Gson
 import java.lang.reflect.Type
@@ -54,4 +55,21 @@ fun  <T> getDataFromJson(key:String,type:Type):T?{
 fun <T> toJson(data: T):String{
     val json = Gson().toJson(data)
     return json
+}
+
+fun getCookie(domain:String?):String? {
+    val sp = MyApplication.context.getSharedPreferences("cookies_prefs", Context.MODE_PRIVATE)
+    if(!TextUtils.isEmpty(domain) && sp.contains(domain) && !TextUtils.isEmpty(sp.getString(domain,""))){
+        return sp.getString(domain,"")
+    }
+    return null
+}
+
+fun saveCookies(domain: String, cookies:String){
+    val sp = MyApplication.context.getSharedPreferences("cookies_prefs", Context.MODE_PRIVATE)
+    val edit = sp.edit()
+    if(!TextUtils.isEmpty(domain)){
+        edit.putString(domain, cookies)
+    }
+    edit.apply()
 }

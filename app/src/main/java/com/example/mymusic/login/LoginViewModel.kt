@@ -8,6 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.mymusic.MyApplication
 import com.example.mymusic.network.ServiceCreator
 import com.example.mymusic.network.await
+import com.example.mymusic.utils.Constants
+import com.example.mymusic.utils.getCookie
+import com.example.mymusic.utils.saveCookies
 import com.example.mymusic.utils.saveData
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -34,9 +37,13 @@ class LoginViewModel: ViewModel(), LifecycleObserver {
             {
                 val result = loginService.login(phone, password).await()
                 if (result.code == 200) {
-                    saveData("user", phone)
-                    loginStatus.postValue(true)
-                    Toast.makeText(MyApplication.context,"登录成功！", Toast.LENGTH_SHORT).show()
+                    val cookie = getCookie(Constants.TEMP_DOMAIN)
+                    cookie?.let {
+                        saveCookies(Constants.DOMAIN, cookie)
+                        saveData("user", phone)
+                        loginStatus.postValue(true)
+                        Toast.makeText(MyApplication.context,"登录成功！", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     loginStatus.postValue(false)
                     Toast.makeText(MyApplication.context,result.msg, Toast.LENGTH_SHORT).show()

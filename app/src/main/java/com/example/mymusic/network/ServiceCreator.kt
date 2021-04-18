@@ -9,7 +9,7 @@ object ServiceCreator {
     private val BASE_URL = "http://${BaseUrl.baseUrl}:3000"
 
     private val httpClient = OkHttpClient.Builder()
-    private val loginClient = OkHttpClient.Builder().addInterceptor(SaveCookiesInterceptor()).addInterceptor(AddCookiesInterceptor())
+    private val loginClient = OkHttpClient.Builder().addInterceptor(SaveCookiesInterceptor())
 
     private val builder = Retrofit.Builder()
         .baseUrl(BASE_URL)

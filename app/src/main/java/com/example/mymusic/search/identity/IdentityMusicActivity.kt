@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.media.MediaRecorder
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -61,7 +62,8 @@ class IdentityMusicActivity : BaseActivity() {
         })
         viewModel.result.observe(this, Observer {
             val result = JSONObject(it)
-            if (!result.isNull("code") && result.getString("code") == "0") {
+            Log.e("Identity", it)
+            if (!result.isNull("code") && (result.getString("code") == "0") || result.getString("code") == "10402"){
                 val array = result.getJSONArray("data")
                 if (array.length() > 0) {
                     val song = array.getJSONObject(0).getString("song")

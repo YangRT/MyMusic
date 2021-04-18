@@ -1,9 +1,15 @@
 package com.example.mymusic.mine
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.mymusic.R
 import com.example.mymusic.base.MutiBaseFragment
 import com.example.mymusic.databinding.FragmentMineBinding
@@ -19,6 +25,25 @@ class MineFragment() : MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
             binding.isLogin = it
             Log.e("MineFragment","isLogin: $it")
             binding.executePendingBindings()
+        })
+        viewModel().accountInformation.observe(this, Observer {
+            if (it.profile != null) {
+                Glide.with(context!!).load(it.profile.avatarUrl).into(binding.userAvatar)
+                Glide.with(activity?.baseContext!!)
+                        .asBitmap()
+                        .load(it.profile.backgroundUrl)
+                        .into(object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                binding.user.background = BitmapDrawable(resource)
+                            }
+
+                        })
+                binding.userName.text = it.profile.nickname
+            } else {
+                binding.userAvatar.setImageResource(R.drawable.logo)
+                binding.user.setBackgroundResource(R.drawable.test)
+                binding.userName.text = "用户名"
+            }
         })
         viewModel().getLoginStatus()
         binding.localMusic.setOnClickListener {
