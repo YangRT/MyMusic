@@ -1,4 +1,4 @@
-package com.example.mymusic.mine
+package com.example.mymusic.mine.viewmodel
 
 import android.util.Log
 import android.widget.Toast
@@ -6,7 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymusic.MyApplication
-import com.example.mymusic.network.BaseUrl
+import com.example.mymusic.mine.MineService
+import com.example.mymusic.mine.StatusData
 import com.example.mymusic.network.ServiceCreator
 import com.example.mymusic.network.await
 import com.example.mymusic.utils.Constants
@@ -31,6 +32,7 @@ class MineViewModel : ViewModel(){
                     if (result.data.account != null) {
                         loginStatus.postValue(true)
                         accountInformation.postValue(result.data)
+                        saveData(result.data.account.userId.toString(), Constants.USER_ID)
                         Toast.makeText(MyApplication.context,"", Toast.LENGTH_SHORT).show()
                     } else {
                         loginStatus.postValue(false)

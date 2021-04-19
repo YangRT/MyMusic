@@ -1,9 +1,13 @@
 package com.example.mymusic
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.PersistableBundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -14,10 +18,15 @@ import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.customview.PlayBottomWindow
 import com.example.mymusic.databinding.ActivityMainBinding
 import com.example.mymusic.find.ui.FindFragment
-import com.example.mymusic.mine.MineFragment
+import com.example.mymusic.mine.ui.MineFragment
 import com.example.mymusic.play.PlayController
 import com.example.mymusic.play.event.*
 import com.example.mymusic.search.ui.SearchActivity
+import com.example.mymusic.utils.Constants
+import com.example.mymusic.utils.getCookie
+import com.example.mymusic.utils.removeCookies
+import com.example.mymusic.utils.saveCookies
+import okhttp3.Cookie
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -63,6 +72,27 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
         var fragment:Fragment? = null
         when(v?.id){
             R.id.main_menu -> {
+                val cookie = getCookie(Constants.DOMAIN)
+                if (cookie == null && TextUtils.isEmpty(cookie)) {
+                    return
+                }
+                val alertDialog: AlertDialog = AlertDialog.Builder(this@MainActivity).create()
+                alertDialog.setIcon(com.example.mymusic.R.drawable.logo)
+                alertDialog.setTitle("退出登录")
+                alertDialog.setMessage("确定退出登录？")
+
+                alertDialog.setButton(
+                    DialogInterface.BUTTON_NEGATIVE,
+                    "否"
+                ) { _, _ ->
+                }
+                alertDialog.setButton(
+                    DialogInterface.BUTTON_POSITIVE,
+                    "是"
+                ) { _, _ ->
+                    exitLogin()
+                }
+                alertDialog.show()
             }
             R.id.main_search -> {
                 val intent = Intent(this,SearchActivity::class.java)
@@ -111,6 +141,11 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        EventBus.getDefault().post(ExitEvent())
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
@@ -134,6 +169,11 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun switchSong(event: BeginPlayEvent) {
         bottomWindow.switchSong(event.songInfo)
+    }
+
+    private fun exitLogin() {
+        removeCookies(Constants.DOMAIN)
+        EventBus.getDefault().post(RefreshLoginStatusEvent())
     }
 
 }

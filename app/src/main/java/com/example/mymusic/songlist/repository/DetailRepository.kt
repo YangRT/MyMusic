@@ -10,7 +10,8 @@ import java.lang.reflect.Type
 class DetailRepository(val id: Long): BaseMvvmRepository<List<Playlist>>(false, "SongListDetail $id", null) {
 
     override suspend fun load(): BaseResult<List<Playlist>> {
-        val detailInfo = SongListApiImpl.getDetailInfo(id)
+        val time = System.currentTimeMillis()
+        val detailInfo = SongListApiImpl.getDetailInfo(id, time)
         val result: BaseResult<List<Playlist>> = BaseResult()
         if(detailInfo.code == 200){
             val resultList = ArrayList<Playlist>()

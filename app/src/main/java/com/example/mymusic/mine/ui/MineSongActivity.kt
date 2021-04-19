@@ -1,12 +1,14 @@
-package com.example.mymusic.mine
+package com.example.mymusic.mine.ui
 
+import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -16,9 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymusic.R
 import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.databinding.ActivityMineSongBinding
+import com.example.mymusic.mine.viewmodel.MineMusicViewModel
 import com.example.mymusic.play.PlayController
+import com.example.mymusic.play.PlayMusicActivity
 import com.lzx.starrysky.SongInfo
-import com.lzx.starrysky.StarrySky
 
 
 class MineSongActivity : BaseActivity() {
@@ -68,6 +71,11 @@ class MineSongActivity : BaseActivity() {
         adapter.setOnItemClickListener { adapter, view, position ->
             val info = list[position]
             PlayController.playNow(info)
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                val intent = Intent(this, PlayMusicActivity::class.java)
+                startActivity(intent)
+            }, 1500)
         }
     }
 

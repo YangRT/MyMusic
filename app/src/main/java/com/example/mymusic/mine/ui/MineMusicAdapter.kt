@@ -1,9 +1,8 @@
-package com.example.mymusic.mine
+package com.example.mymusic.mine.ui
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.mymusic.R
-import com.example.mymusic.play.db.PlayedSongInfo
 import com.lzx.starrysky.SongInfo
 
 class MineMusicAdapter(data: MutableList<SongInfo>) :

@@ -1,6 +1,5 @@
 package com.example.mymusic.songlist.model
 
-import android.os.Parcelable.Creator
 
 
 /**
@@ -15,4 +14,6 @@ import android.os.Parcelable.Creator
 
 data class CategoryListInfo(val code: Int, val total: Int, val more: Boolean, val cat: String, val playlists: List<CategoryList>)
 
-data class CategoryList(val name: String, val id: Long, val coverImgUrl: String, val description: String, val playCount: Int)
+data class CategoryList(val name: String, val id: Long, val coverImgUrl: String, val description: String, val playCount: Int, val creator: Creator)
+
+data class Creator(val nickname: String, val signature: String)

@@ -58,6 +58,10 @@ class BeginPlayEvent(var songInfo: SongInfo)
 // 播放出错 或者 没有版权
 class CanNotPlayEvent(var msg: String)
 
+class ExitEvent()
+
+class RefreshLoginStatusEvent()
+
 
 
 

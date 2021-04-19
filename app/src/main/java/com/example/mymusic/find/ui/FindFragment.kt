@@ -2,6 +2,8 @@ package com.example.mymusic.find.ui
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -112,12 +114,22 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
         adapter.addHeaderView(bottomView)
 
         bannerViewModel.getCacheData()
-        songListViewModel.getCacheData()
-        newMusicViewModel.getCacheData()
-        hotRadioViewModel.getCacheData()
+        changePageStatus()
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            songListViewModel.getCacheData()
+            changePageStatus()
+        }, 500)
+        handler.postDelayed({
+            newMusicViewModel.getCacheData()
+            changePageStatus()
+        }, 1000)
+        handler.postDelayed({
+            hotRadioViewModel.getCacheData()
+            changePageStatus()
+        }, 1500)
 
         bannerViewModel.status.observe(viewLifecycleOwner,this)
-        changePageStatus()
     }
 
     override fun getLayoutId(): Int {
@@ -309,10 +321,10 @@ class FindFragment : MutiBaseFragment<FindViewModel, FragmentListBinding>(), Vie
     }
 
     private fun changePageStatus() {
-        if (bannerList.size == 0 && bannerList.size == 0 && newMusicList.size == 0 && hotRadioList.size == 0) {
-            statusHelper.showEmpty()
-        }else {
-            statusHelper.showSuccess()
-        }
+//        if (bannerList.size == 0 && bannerList.size == 0 && newMusicList.size == 0 && hotRadioList.size == 0) {
+//            statusHelper.showEmpty()
+//        }else {
+//            statusHelper.showSuccess()
+//        }
     }
 }

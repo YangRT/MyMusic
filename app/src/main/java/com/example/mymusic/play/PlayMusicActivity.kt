@@ -233,6 +233,12 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
         viewModel.isPlaying.postValue(true)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun exit(event: ExitEvent) {
+        Log.e("PlayMusic", "exit")
+        finish()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.play_music_menu,menu)
         return true

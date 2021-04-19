@@ -20,11 +20,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mine.MineSongActivity" />
+        <meta-data android:name="com.example.mymusic.MyAppGlideModule"
+            android:value="AppGlideModule"/>
+        <activity android:name=".mine.ui.CollectPlayListActivity"></activity>
+        <activity android:name=".mine.ui.MineSongActivity" />
         <activity
             android:name=".play.PlayMusicActivity"
             android:launchMode="singleTask"
-            android:taskAffinity="com.yang.mymusic"
             android:theme="@style/AppTheme.Image" />
         <activity android:name=".search.identity.IdentityMusicActivity" />
         <activity android:name=".search.ui.SearchResultActivity" />

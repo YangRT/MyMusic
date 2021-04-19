@@ -13,6 +13,6 @@ class NewMusicAdapter(data: MutableList<NewMusicData>) :
     override fun convert(holder: BaseViewHolder, item: NewMusicData) {
         holder.setText(R.id.new_music_name, item.song.name)
         holder.setText(R.id.new_music_author, item.song.artists[0].name)
-        Glide.with(context).load(item.picUrl).into(holder.itemView.findViewById(R.id.new_music_pic))
+        Glide.with(context).load(item.picUrl).dontAnimate().into(holder.itemView.findViewById(R.id.new_music_pic))
     }
 }

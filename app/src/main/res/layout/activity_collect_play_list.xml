@@ -6,10 +6,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".mine.ui.MineSongActivity">
+        tools:context=".mine.ui.CollectPlayListActivity">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_play_record"
+            android:id="@+id/toolbar_collect_play_list"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@android:color/transparent"
@@ -29,12 +29,12 @@
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/plat_record_refresh_layout"
+            android:id="@+id/collect_play_list_refresh_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/play_record_recycler_view"
+                android:id="@+id/collect_play_list_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

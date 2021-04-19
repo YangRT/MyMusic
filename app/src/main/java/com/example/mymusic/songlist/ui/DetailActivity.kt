@@ -54,9 +54,22 @@ class DetailActivity : BaseActivity() {
         initView()
         viewModel.data.observe(this, Observer {
             if (it.size > 0) {
+                val subscribed = it[0].subscribed
+                if (subscribed != null) {
+                    if (subscribed) {
+                        viewModel.collectStatus.postValue(true)
+                    } else {
+                        viewModel.collectStatus.postValue(false)
+                    }
+                } else {
+                    viewModel.collectStatus.postValue(false)
+                }
                 adapter.setList(it[0].tracks)
                 Glide.with(this).load(it[0].coverImgUrl).placeholder(R.drawable.pic_loading).into(binding.root.findViewById(R.id.detail_image))
             }
+        })
+        viewModel.collectStatus.observe(this, Observer {
+            invalidateOptionsMenu()
         })
         viewModel.getCacheData()
     }
@@ -123,15 +136,28 @@ class DetailActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.singer_list_menu,menu)
+        menuInflater.inflate(R.menu.play_list_detail_menu,menu)
         return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (viewModel.collectStatus.value == true) {
+            menu?.findItem(R.id.play_list_collect)?.isVisible = false
+            menu?.findItem(R.id.play_list_collected)?.isVisible = true
+        } else {
+            menu?.findItem(R.id.play_list_collect)?.isVisible = true
+            menu?.findItem(R.id.play_list_collected)?.isVisible = false
+        }
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.singer_list_search -> {
-                val intent = Intent(this, SearchActivity::class.java)
-                startActivity(intent)
+            R.id.play_list_collect -> {
+                viewModel.aboutCollect(1)
+            }
+            R.id.play_list_collected -> {
+                viewModel.aboutCollect(2)
             }
             android.R.id.home -> { finish() }
         }

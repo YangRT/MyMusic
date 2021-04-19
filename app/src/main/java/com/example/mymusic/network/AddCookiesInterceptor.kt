@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.TextUtils
 import android.util.Log
 import com.example.mymusic.MyApplication
+import com.example.mymusic.utils.Constants
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -14,8 +15,8 @@ class AddCookiesInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val builder = request.newBuilder()
-        val cookie = getCookie(request.url.toString(),request.url.host)
-        if(!TextUtils.isEmpty(cookie)){
+        val cookie = com.example.mymusic.utils.getCookie(Constants.DOMAIN)
+        if(cookie != null && !TextUtils.isEmpty(cookie) && request.url.toString().contains("/playlist/detail")){
             Log.e("MineFragmentAdd", cookie)
             builder.addHeader("Cookie",cookie!!)
         }

@@ -73,3 +73,8 @@ fun saveCookies(domain: String, cookies:String){
     }
     edit.apply()
 }
+
+fun removeCookies(domain: String) {
+    val sp = MyApplication.context.getSharedPreferences("cookies_prefs", Context.MODE_PRIVATE)
+    sp.edit().remove(domain).apply()
+}

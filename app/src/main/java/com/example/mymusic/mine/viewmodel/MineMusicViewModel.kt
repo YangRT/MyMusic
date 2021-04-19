@@ -1,4 +1,4 @@
-package com.example.mymusic.mine
+package com.example.mymusic.mine.viewmodel
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel

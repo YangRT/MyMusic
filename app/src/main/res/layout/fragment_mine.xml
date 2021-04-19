@@ -15,7 +15,6 @@
 
         <FrameLayout
             android:id="@+id/user"
-            android:background="@drawable/radio_rank_background"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:orientation="horizontal">
@@ -116,6 +115,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/collect_play_list"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
