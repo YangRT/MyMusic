@@ -1,7 +1,7 @@
 package com.example.mymusic.network
 
 object BaseUrl {
-
-    var baseUrl : String? = "192.168.252.178"
+    //  后台项目：  NeteaseCloudMusicApi
+    var baseUrl : String? = "192.168.202.40"
 
 }
