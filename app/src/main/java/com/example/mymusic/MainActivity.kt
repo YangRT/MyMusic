@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.PersistableBundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -53,7 +54,6 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.viewModel = viewModel
         initView()
-        EventBus.getDefault().register(this)
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed( {
             val builder = PlayBottomWindow.ConfirmPopupWindowBuilder(this)
@@ -63,8 +63,11 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
         PlayController.init()
     }
 
-    override fun onChanged(t: Int?) {
-
+    override fun onResume() {
+        super.onResume()
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
     }
 
     //
@@ -166,14 +169,25 @@ class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
         bottomWindow.restart()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun switchSong(event: BeginPlayEvent) {
-        bottomWindow.switchSong(event.songInfo)
+        if (!this::bottomWindow.isInitialized) {
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed( {
+                bottomWindow.switchSong(event.songInfo)
+            }, 1000)
+        } else {
+            bottomWindow.switchSong(event.songInfo)
+        }
     }
 
     private fun exitLogin() {
         removeCookies(Constants.DOMAIN)
         EventBus.getDefault().post(RefreshLoginStatusEvent())
+    }
+
+    override fun onChanged(t: Int?) {
+        TODO("Not yet implemented")
     }
 
 }

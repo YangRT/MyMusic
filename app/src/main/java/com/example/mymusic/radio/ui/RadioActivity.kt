@@ -19,7 +19,6 @@ import com.example.mymusic.base.BaseActivity
 import com.example.mymusic.customview.PlayBottomWindow
 import com.example.mymusic.databinding.ActivityRadioBinding
 import com.example.mymusic.play.event.BeginPlayEvent
-import com.example.mymusic.play.event.CanNotPlayEvent
 import com.example.mymusic.play.event.PauseFinishEvent
 import com.example.mymusic.play.event.RestartFinishEvent
 import com.example.mymusic.radio.model.RadioBanner

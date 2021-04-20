@@ -187,6 +187,7 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     val bitmap = BlurUtil.doBlur(resource, 10, 5)
                     binding.background.setImageBitmap(bitmap)
+                    binding.imageNeedle.visibility = View.VISIBLE
                     val rotateBitmap = BlurUtil.mergeThumbnailBitmap(resource, 700, 700)
                     binding.imageCenter.setImageBitmap(rotateBitmap)
                     animator = ObjectAnimator.ofFloat(binding.imageCenter, "rotation", 0f, 360.0f)
@@ -206,6 +207,7 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
             val default: Bitmap = BitmapFactory.decodeResource(baseContext.resources, R.drawable.default_play)
             val bitmap = BlurUtil.doBlur(default, 22, 15)
             binding.background.setImageBitmap(bitmap)
+            binding.imageNeedle.visibility = View.VISIBLE
             val rotateBitmap = BlurUtil.mergeThumbnailBitmap(default, 700, 700)
             binding.imageCenter.setImageBitmap(rotateBitmap)
             animator = ObjectAnimator.ofFloat(binding.imageCenter, "rotation", 0f, 360.0f)

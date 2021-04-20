@@ -38,6 +38,12 @@ class MineFragment() : MutiBaseFragment<MineViewModel, FragmentMineBinding>() {
                 binding.userName.text = "用户名"
             }
         })
+        viewModel().loginStatus.observe(this, Observer {
+            if (!it) {
+                binding.userAvatar.setImageResource(R.drawable.logo)
+                binding.userName.text = "用户名"
+            }
+        })
         viewModel().getLoginStatus()
         binding.localMusic.setOnClickListener {
             val intent = Intent(this.context, MineSongActivity::class.java)
