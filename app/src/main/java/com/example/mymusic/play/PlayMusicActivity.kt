@@ -74,8 +74,8 @@ class PlayMusicActivity : BaseActivity(), View.OnClickListener {
         binding.imagePrevious.setOnClickListener(this)
         binding.background.setOnClickListener(this)
         binding.playMusicLyrics.setLabel("暂无歌词")
-        binding.playMusicLyrics.setNormalColor(Color.parseColor("#BFFFFFFF"))
-        binding.playMusicLyrics.setCurrentColor(Color.WHITE)
+        binding.playMusicLyrics.setNormalColor(Color.parseColor("#A6000000"))
+        binding.playMusicLyrics.setCurrentColor(Color.parseColor("#3A86F0"))
         binding.playMusicLyrics.setDraggable(true
         ) { _, time ->
             val seekToEvent = SeekToEvent(time)

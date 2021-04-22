@@ -32,7 +32,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-
+// 首页
 class MainActivity : BaseActivity(),Observer<Int>, View.OnClickListener {
 
     private val TAG = "HomeActivity"

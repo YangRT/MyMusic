@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.mymusic.base.BaseActivity
 
+// 启动页
 class FlashActivity : BaseActivity() {
 
     val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.WAKE_LOCK, Manifest.permission.READ_EXTERNAL_STORAGE)
